@@ -7,7 +7,7 @@ Welcome to the project! This is a competitive programming and DSA learning platf
 ## 🌐 Project Info
 
 **Live Demo**: [NEXTFAANG Platform](https://resonant-salamander-5aec71.netlify.app/)
-
+https://nextfang-cp-legend-hub-21.lovable.app/
 ---
 
 <section>
