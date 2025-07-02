@@ -9,7 +9,157 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      api_cache: {
+        Row: {
+          cache_key: string
+          created_at: string
+          data: Json
+          expires_at: string
+          id: string
+        }
+        Insert: {
+          cache_key: string
+          created_at?: string
+          data: Json
+          expires_at: string
+          id?: string
+        }
+        Update: {
+          cache_key?: string
+          created_at?: string
+          data?: Json
+          expires_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      matches: {
+        Row: {
+          created_at: string
+          ended_at: string | null
+          id: string
+          player1_id: string
+          player2_id: string
+          problem_difficulty: string
+          problem_id: string
+          problem_title: string
+          started_at: string
+          status: string
+          winner_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          player1_id: string
+          player2_id: string
+          problem_difficulty: string
+          problem_id: string
+          problem_title: string
+          started_at?: string
+          status?: string
+          winner_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          player1_id?: string
+          player2_id?: string
+          problem_difficulty?: string
+          problem_id?: string
+          problem_title?: string
+          started_at?: string
+          status?: string
+          winner_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_player1_id_fkey"
+            columns: ["player1_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "matches_player2_id_fkey"
+            columns: ["player2_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "matches_winner_id_fkey"
+            columns: ["winner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          country: string | null
+          created_at: string
+          id: string
+          losses: number
+          rating: number
+          total_matches: number
+          updated_at: string
+          user_id: string
+          username: string
+          wins: number
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          losses?: number
+          rating?: number
+          total_matches?: number
+          updated_at?: string
+          user_id: string
+          username: string
+          wins?: number
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          losses?: number
+          rating?: number
+          total_matches?: number
+          updated_at?: string
+          user_id?: string
+          username?: string
+          wins?: number
+        }
+        Relationships: []
+      }
+      visitor_logs: {
+        Row: {
+          country: string | null
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          visited_at: string
+        }
+        Insert: {
+          country?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Update: {
+          country?: string | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

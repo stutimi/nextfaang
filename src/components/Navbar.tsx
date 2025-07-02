@@ -2,17 +2,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, Users, Zap, ChevronDown } from "lucide-react";
+import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, profile, signOut } = useAuth();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId);
@@ -54,15 +57,15 @@ export const Navbar = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                NEXTFANG
+                Coding Arena
               </h1>
-              <p className="text-xs text-muted-foreground">Building India's First LGM</p>
+              <p className="text-xs text-muted-foreground">1v1 Programming Duels</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
+            {!user && navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={item.action}
@@ -72,39 +75,79 @@ export const Navbar = () => {
               </button>
             ))}
             
-            {/* Tools Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                  Tools
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {toolsItems.map((tool) => (
-                  <DropdownMenuItem key={tool.label} asChild>
-                    <Link to={tool.href} className="cursor-pointer">
-                      {tool.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {!user && (
+              /* Tools Dropdown */
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="flex items-center gap-1">
+                    Tools
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {toolsItems.map((tool) => (
+                    <DropdownMenuItem key={tool.label} asChild>
+                      <Link to={tool.href} className="cursor-pointer">
+                        {tool.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
-          {/* User Counter & CTA */}
+          {/* Auth Section */}
           <div className="hidden md:flex items-center gap-4">
-            <Badge variant="secondary" className="gap-1 pulse-glow">
-              <Users className="h-3 w-3" />
-              2,547 Users
-            </Badge>
-            <Button 
-              size="sm" 
-              className="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-accent transition-all duration-300 transform hover:scale-105"
-              onClick={() => scrollToSection('#community')}
-            >
-              Join Community
-            </Button>
+            {user ? (
+              <>
+                {profile && (
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="gap-1">
+                      <Trophy className="h-3 w-3" />
+                      {profile.rating}
+                    </Badge>
+                    <Badge variant="outline" className="gap-1">
+                      {profile.wins}W / {profile.losses}L
+                    </Badge>
+                  </div>
+                )}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      {profile?.username || user.email?.split('@')[0]}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem disabled>
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={signOut} className="cursor-pointer text-red-600">
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            ) : (
+              <>
+                <Badge variant="secondary" className="gap-1 pulse-glow">
+                  <Users className="h-3 w-3" />
+                  2,547 Users
+                </Badge>
+                <Link to="/auth">
+                  <Button 
+                    size="sm" 
+                    className="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-accent transition-all duration-300 transform hover:scale-105"
+                  >
+                    Sign In / Join
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

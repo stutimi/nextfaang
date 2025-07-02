@@ -6,7 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Sword, Trophy, Clock, User, Code, Play, RefreshCw } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { Sword, Trophy, Clock, User, Code, Play, RefreshCw, Users, Target } from "lucide-react";
 
 interface Problem {
   id: string;
@@ -18,11 +20,17 @@ interface Problem {
   tags: string[];
 }
 
-interface UserStats {
-  rating: number;
-  wins: number;
-  losses: number;
-  totalMatches: number;
+interface Match {
+  id: string;
+  player1_id: string;
+  player2_id: string;
+  problem_id: string;
+  problem_title: string;
+  problem_difficulty: string;
+  winner_id: string | null;
+  status: 'ongoing' | 'completed' | 'abandoned';
+  started_at: string;
+  ended_at: string | null;
 }
 
 const PROBLEMS_BANK: Problem[] = [
@@ -73,23 +81,35 @@ const LANGUAGES = [
 ];
 
 export const CodingArena = () => {
-  const [userStats, setUserStats] = useState<UserStats>({ rating: 1200, wins: 0, losses: 0, totalMatches: 0 });
+  const { user, profile, refreshProfile } = useAuth();
   const [currentProblem, setCurrentProblem] = useState<Problem | null>(null);
-  const [opponentName, setOpponentName] = useState("");
+  const [currentMatch, setCurrentMatch] = useState<Match | null>(null);
+  const [opponentProfile, setOpponentProfile] = useState<any>(null);
   const [code, setCode] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<number>(71);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [matchResult, setMatchResult] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes
   const [isMatchActive, setIsMatchActive] = useState(false);
+  const [totalUsers, setTotalUsers] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
-    // Load user stats from localStorage
-    const savedStats = localStorage.getItem('codingArenaStats');
-    if (savedStats) {
-      setUserStats(JSON.parse(savedStats));
-    }
+    // Fetch total user count
+    const fetchUserStats = async () => {
+      try {
+        const { count } = await supabase
+          .from('profiles')
+          .select('*', { count: 'exact', head: true });
+        
+        setTotalUsers(count || 0);
+      } catch (error) {
+        console.error('Error fetching user stats:', error);
+      }
+    };
+
+    fetchUserStats();
   }, []);
 
   useEffect(() => {
@@ -109,27 +129,65 @@ export const CodingArena = () => {
     return names[Math.floor(Math.random() * names.length)];
   };
 
-  const startMatch = () => {
-    const problem = PROBLEMS_BANK[Math.floor(Math.random() * PROBLEMS_BANK.length)];
-    const opponent = generateOpponent();
+  const findMatch = async () => {
+    if (!user || !profile) return;
     
-    setCurrentProblem(problem);
-    setOpponentName(opponent);
-    setCode("");
-    setMatchResult(null);
-    setTimeLeft(900);
-    setIsMatchActive(true);
-    
-    toast({
-      title: "Match Started!",
-      description: `You're facing ${opponent}. Good luck!`,
-    });
+    setIsSearching(true);
+    try {
+      // For now, simulate finding a match with a bot
+      setTimeout(async () => {
+        const problem = PROBLEMS_BANK[Math.floor(Math.random() * PROBLEMS_BANK.length)];
+        const botOpponent = {
+          username: generateOpponent(),
+          rating: profile.rating + Math.floor(Math.random() * 200) - 100, // Similar rating
+          country: 'Bot Land'
+        };
+        
+        // Create match in database
+        const { data: matchData, error } = await supabase
+          .from('matches')
+          .insert({
+            player1_id: user.id,
+            player2_id: user.id, // For demo, using same user as bot
+            problem_id: problem.id,
+            problem_title: problem.title,
+            problem_difficulty: problem.difficulty,
+            status: 'ongoing'
+          })
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        setCurrentMatch(matchData as Match);
+        setCurrentProblem(problem);
+        setOpponentProfile(botOpponent);
+        setCode("");
+        setMatchResult(null);
+        setTimeLeft(900);
+        setIsMatchActive(true);
+        setIsSearching(false);
+        
+        toast({
+          title: "Match Found!",
+          description: `You're facing ${botOpponent.username} (${botOpponent.rating}). Good luck!`,
+        });
+      }, 2000); // 2 second search time
+    } catch (error: any) {
+      console.error('Error creating match:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create match. Please try again.",
+        variant: "destructive",
+      });
+      setIsSearching(false);
+    }
   };
 
-  const handleTimeUp = () => {
+  const handleTimeUp = async () => {
     setIsMatchActive(false);
     setMatchResult("Time's up! You lost this match.");
-    updateStats(false);
+    await updateMatchResult(false);
   };
 
   const submitCode = async () => {
@@ -162,13 +220,13 @@ export const CodingArena = () => {
       if (isCorrect) {
         const wonByTime = userTime < opponentTime;
         setMatchResult(wonByTime ? 
-          `Accepted! You won against ${opponentName} by ${Math.floor(opponentTime - userTime)}s!` :
-          `Accepted! But ${opponentName} was faster by ${Math.floor(userTime - opponentTime)}s.`
+          `Accepted! You won against ${opponentProfile?.username} by ${Math.floor(opponentTime - userTime)}s!` :
+          `Accepted! But ${opponentProfile?.username} was faster by ${Math.floor(userTime - opponentTime)}s.`
         );
-        updateStats(wonByTime);
+        await updateMatchResult(wonByTime);
       } else {
-        setMatchResult(`Wrong Answer! ${opponentName} solved it correctly and won.`);
-        updateStats(false);
+        setMatchResult(`Wrong Answer! ${opponentProfile?.username} solved it correctly and won.`);
+        await updateMatchResult(false);
       }
       
       setIsMatchActive(false);
@@ -183,31 +241,66 @@ export const CodingArena = () => {
       // Fallback to demo result
       const isCorrect = Math.random() > 0.3;
       setMatchResult(isCorrect ? "Accepted! You won this match!" : "Wrong Answer! You lost this match.");
-      updateStats(isCorrect);
+      await updateMatchResult(isCorrect);
       setIsMatchActive(false);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const updateStats = (won: boolean) => {
-    const newStats = {
-      ...userStats,
-      wins: won ? userStats.wins + 1 : userStats.wins,
-      losses: won ? userStats.losses : userStats.losses + 1,
-      totalMatches: userStats.totalMatches + 1,
-      rating: calculateNewRating(userStats.rating, won)
-    };
-    
-    setUserStats(newStats);
-    localStorage.setItem('codingArenaStats', JSON.stringify(newStats));
+  const updateMatchResult = async (won: boolean) => {
+    if (!currentMatch || !user || !profile) return;
+
+    try {
+      // Update match status
+      const { error: matchError } = await supabase
+        .from('matches')
+        .update({
+          status: 'completed',
+          winner_id: won ? user.id : null, // null means opponent won
+          ended_at: new Date().toISOString()
+        })
+        .eq('id', currentMatch.id);
+
+      if (matchError) throw matchError;
+
+      // Calculate new rating
+      const newRating = calculateNewRating(profile.rating, won);
+      const newWins = won ? profile.wins + 1 : profile.wins;
+      const newLosses = won ? profile.losses : profile.losses + 1;
+
+      // Update user profile
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({
+          rating: newRating,
+          wins: newWins,
+          losses: newLosses,
+          total_matches: profile.total_matches + 1
+        })
+        .eq('user_id', user.id);
+
+      if (profileError) throw profileError;
+
+      // Refresh profile data
+      await refreshProfile();
+
+    } catch (error) {
+      console.error('Error updating match result:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update match result.",
+        variant: "destructive",
+      });
+    }
   };
 
   const calculateNewRating = (currentRating: number, won: boolean) => {
     const K = 32; // ELO K-factor
-    const expectedScore = 0.5; // Assuming equal opponents
+    const expectedScore = 0.5; // Assuming equal opponents for bots
     const actualScore = won ? 1 : 0;
-    return Math.round(currentRating + K * (actualScore - expectedScore));
+    const change = K * (actualScore - expectedScore);
+    return Math.max(800, Math.round(currentRating + change)); // Minimum rating of 800
   };
 
   const formatTime = (seconds: number) => {
@@ -228,30 +321,38 @@ export const CodingArena = () => {
   return (
     <div className="space-y-6">
       {/* Stats Header */}
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-5 gap-4">
         <Card>
           <CardContent className="p-4 text-center">
             <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold">{userStats.rating}</div>
+            <div className="text-2xl font-bold">{profile?.rating || 1200}</div>
             <div className="text-sm text-muted-foreground">Rating</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-green-600">{userStats.wins}</div>
+            <Target className="h-8 w-8 text-green-500 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-green-600">{profile?.wins || 0}</div>
             <div className="text-sm text-muted-foreground">Wins</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-red-600">{userStats.losses}</div>
+            <div className="text-2xl font-bold text-red-600">{profile?.losses || 0}</div>
             <div className="text-sm text-muted-foreground">Losses</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold">{userStats.totalMatches}</div>
+            <div className="text-2xl font-bold">{profile?.total_matches || 0}</div>
             <div className="text-sm text-muted-foreground">Total Matches</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-blue-600">{totalUsers}</div>
+            <div className="text-sm text-muted-foreground">Total Players</div>
           </CardContent>
         </Card>
       </div>
@@ -270,9 +371,23 @@ export const CodingArena = () => {
         <CardContent>
           {!isMatchActive && !currentProblem && (
             <div className="text-center py-8">
-              <Button onClick={startMatch} size="lg" className="gap-2">
-                <Play className="h-4 w-4" />
-                Start Match
+              <Button 
+                onClick={findMatch} 
+                size="lg" 
+                className="gap-2"
+                disabled={isSearching}
+              >
+                {isSearching ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 animate-spin" />
+                    Finding Opponent...
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-4 w-4" />
+                    Find Match
+                  </>
+                )}
               </Button>
             </div>
           )}
@@ -289,7 +404,9 @@ export const CodingArena = () => {
                   <span className="text-muted-foreground">VS</span>
                   <div className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    <span className="font-medium">{opponentName}</span>
+                    <span className="font-medium">
+                      {opponentProfile?.username} ({opponentProfile?.rating})
+                    </span>
                   </div>
                 </div>
                 {isMatchActive && (
@@ -370,7 +487,7 @@ export const CodingArena = () => {
                   </Button>
                   
                   {!isMatchActive && currentProblem && (
-                    <Button onClick={startMatch} variant="outline" className="gap-2">
+                    <Button onClick={findMatch} variant="outline" className="gap-2" disabled={isSearching}>
                       <Play className="h-4 w-4" />
                       New Match
                     </Button>
