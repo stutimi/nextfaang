@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { SignupRequired } from "@/components/SignupRequired";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
@@ -9,8 +10,8 @@ import { DSASection } from "@/components/DSASection";
 import { CPSection } from "@/components/CPSection";
 import { SystemDesignSection } from "@/components/SystemDesignSection";
 import { SmartToolsSection } from "@/components/SmartToolsSection";
-import { HackathonSection } from "@/components/HackathonSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
+import { CommunitySection } from "@/components/CommunitySection";
 import { EnhancedChatbot } from "@/components/EnhancedChatbot";
 import { FloatingAIMentor } from "@/components/FloatingAIMentor";
 import { EnhancedAIMentor } from "@/components/EnhancedAIMentor";
@@ -21,8 +22,17 @@ import { CodingArena } from "@/components/CodingArena";
 const Index = () => {
   const [showChatbot, setShowChatbot] = useState(false);
   const [showAIMentor, setShowAIMentor] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+
+  // Check if user has already signed up
+  useEffect(() => {
+    const signupData = localStorage.getItem('user_signup');
+    if (signupData) {
+      setHasSignedUp(true);
+    }
+  }, []);
 
   // Track visitor if not authenticated
   useEffect(() => {
@@ -55,6 +65,11 @@ const Index = () => {
     );
   }
 
+  // Show signup form if user hasn't signed up and isn't authenticated
+  if (!hasSignedUp && !user) {
+    return <SignupRequired onSignupComplete={() => setHasSignedUp(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
       <Navbar />
@@ -85,11 +100,11 @@ const Index = () => {
           {/* Smart Tools Section */}
           <SmartToolsSection />
           
-          {/* Hackathon Section */}
-          <HackathonSection />
-          
           {/* Open Source Section */}
           <OpenSourceSection />
+          
+          {/* Community Section */}
+          <CommunitySection />
           
           {/* Future Scope Section */}
           <FutureScope />

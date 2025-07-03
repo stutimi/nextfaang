@@ -1,8 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Code, GitBranch, Brain, Search, Zap, ArrowRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import { MultiPlatformAnalyzer } from "./MultiPlatformAnalyzer";
 
 export const SmartToolsSection = () => {
   const tools = [
@@ -169,6 +171,39 @@ export const SmartToolsSection = () => {
             </Card>
           ))}
         </div>
+
+        {/* Interactive Tools Demo */}
+        <Card className="mb-12">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart className="h-6 w-6 text-violet-500" />
+              Try Our Tools Live
+            </CardTitle>
+            <CardDescription>
+              Experience our powerful analysis tools directly in your browser
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="analyzer" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="analyzer">Performance Analyzer</TabsTrigger>
+                <TabsTrigger value="coming-soon">More Tools Coming</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="analyzer" className="mt-6">
+                <MultiPlatformAnalyzer />
+              </TabsContent>
+              
+              <TabsContent value="coming-soon" className="mt-6">
+                <div className="text-center py-12">
+                  <Zap className="h-12 w-12 text-violet-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">More Interactive Tools Coming Soon!</h3>
+                  <p className="text-muted-foreground">We're working on bringing more tools directly to the browser</p>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
 
         {/* Call to Action */}
         <div className="text-center">

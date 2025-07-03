@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Sword, Trophy, Clock, User, Code, Play, RefreshCw, Users, Target } from "lucide-react";
+import codingArenaBg from '@/assets/coding-arena-bg.png';
 
 interface Problem {
   id: string;
@@ -319,7 +320,16 @@ export const CodingArena = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div 
+      className="space-y-6 min-h-screen p-6 relative"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${codingArenaBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="relative z-10">
       {/* Stats Header */}
       <div className="grid md:grid-cols-5 gap-4">
         <Card>
@@ -505,6 +515,7 @@ export const CodingArena = () => {
           )}
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
