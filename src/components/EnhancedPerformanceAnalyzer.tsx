@@ -48,15 +48,27 @@ export const EnhancedPerformanceAnalyzer = () => {
 
     setIsLoading(true);
     try {
-      // Fetch user submissions from Codeforces API
+      // First, verify user exists
+      const userResponse = await fetch(`https://codeforces.com/api/user.info?handles=${handle}`);
+      const userData = await userResponse.json();
+
+      if (userData.status !== "OK") {
+        throw new Error(userData.comment || "User not found. Please check the handle.");
+      }
+
+      // Then fetch user submissions
       const response = await fetch(`https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1000`);
       const data = await response.json();
 
       if (data.status !== "OK") {
-        throw new Error(data.comment || "Failed to fetch user data");
+        throw new Error(data.comment || "Failed to fetch user submissions");
       }
 
       const submissions: Submission[] = data.result;
+      if (submissions.length === 0) {
+        throw new Error("No submissions found for this user");
+      }
+
       const analysis = processSubmissions(submissions, handle);
       setAnalysisResult(analysis);
 
@@ -67,8 +79,8 @@ export const EnhancedPerformanceAnalyzer = () => {
     } catch (error) {
       console.error("Analysis error:", error);
       toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to analyze performance",
+        title: "Analysis Failed",
+        description: error instanceof Error ? error.message : "Failed to analyze performance. Please check the handle and try again.",
         variant: "destructive",
       });
     } finally {

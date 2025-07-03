@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,8 +31,8 @@ export const Navbar = () => {
     { label: "Features", href: "#features", action: () => scrollToSection('#features') },
     { label: "Demo", href: "#demo", action: () => scrollToSection('#demo') },
     { label: "Roadmap", href: "#roadmap", action: () => scrollToSection('#roadmap') },
-    { label: "Community", href: "#community", action: () => scrollToSection('#community') },
-    { label: "Contact", href: "#contact", action: () => scrollToSection('#contact') }
+    { label: "Contact", href: "#contact", action: () => scrollToSection('#contact') },
+    { label: "Community", href: "#community", action: () => scrollToSection('#community') }
   ];
 
   const toolsItems = [
@@ -99,6 +100,7 @@ export const Navbar = () => {
 
           {/* Auth Section */}
           <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
             {user ? (
               <>
                 {profile && (
@@ -134,10 +136,6 @@ export const Navbar = () => {
               </>
             ) : (
               <>
-                <Badge variant="secondary" className="gap-1 pulse-glow">
-                  <Users className="h-3 w-3" />
-                  2,547 Users
-                </Badge>
                 <Link to="/auth">
                   <Button 
                     size="sm" 
@@ -191,10 +189,9 @@ export const Navbar = () => {
               </div>
               
               <div className="pt-4 border-t border-primary/20">
-                <Badge variant="secondary" className="gap-1 mb-3">
-                  <Users className="h-3 w-3" />
-                  2,547 Users
-                </Badge>
+                <div className="mb-3">
+                  <ThemeToggle />
+                </div>
                 <Button 
                   className="w-full bg-gradient-to-r from-primary to-secondary"
                   onClick={() => scrollToSection('#community')}

@@ -163,9 +163,9 @@ export const HeroSection = () => {
           {/* Enhanced Quick Stats & Proof */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20 animate-fade-in" style={{animationDelay: '1.2s'}}>
             <div className="card-3d glass-morphism p-10 rounded-3xl white-glow hover:scale-115 transition-all duration-500 border-2 border-blue-400/30">
-              <div className="text-5xl font-bold text-primary mb-4 white-text-shadow animate-pulse">2,547+</div>
-              <div className="text-muted-foreground text-lg">Active Students</div>
-              <div className="text-4xl mt-2 animate-bounce">👨‍💻</div>
+              <div className="text-5xl font-bold text-primary mb-4 white-text-shadow animate-pulse">1M+</div>
+              <div className="text-muted-foreground text-lg">Problems Solved</div>
+              <div className="text-4xl mt-2 animate-bounce">💻</div>
             </div>
             <div className="card-3d glass-morphism p-10 rounded-3xl white-glow hover:scale-115 transition-all duration-500 border-2 border-green-400/30">
               <div className="text-5xl font-bold text-green-400 mb-4 white-text-shadow animate-pulse">150+</div>
@@ -179,52 +179,6 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Dev Details Section */}
-          <div className="glass-morphism border-4 border-primary/40 rounded-3xl p-12 max-w-6xl mx-auto card-3d pulse-glow-white white-glow animate-fade-in hover:scale-105 transition-all duration-700" style={{animationDelay: '1.4s'}}>
-            <div className="flex items-center justify-center gap-6 mb-8">
-              <Zap className="h-12 w-12 text-primary floating-3d white-glow animate-pulse" />
-              <h3 className="text-4xl font-bold text-gradient white-text-shadow animate-scale-in">
-                🚧 Ongoing Development
-              </h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-8">
-              <div className="text-left">
-                <h4 className="font-bold text-2xl mb-6 text-primary white-text-shadow">Tech Stack</h4>
-                <div className="space-y-3 text-muted-foreground text-lg">
-                  <div className="hover:scale-105 transition-transform duration-300">• React + TypeScript</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Tailwind CSS + Shadcn UI</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Vite + React Router</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Tanstack Query</div>
-                </div>
-              </div>
-              
-              <div className="text-left">
-                <h4 className="font-bold text-2xl mb-6 text-secondary white-text-shadow">Future Plans</h4>
-                <div className="space-y-3 text-muted-foreground text-lg">
-                  <div className="hover:scale-105 transition-transform duration-300">• Advanced AI Mentor</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Resume Builder Pro</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Live CP Battles</div>
-                  <div className="hover:scale-105 transition-transform duration-300">• Company-wise Prep</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-6 justify-center">
-              <Button variant="outline" size="lg" className="gap-3 border-primary/50 hover:bg-primary/30 white-glow hover:scale-110 transition-all duration-500 text-lg px-8 py-4">
-                <Github className="h-6 w-6" />
-                ✅ GitHub Repo
-              </Button>
-              <Button variant="outline" size="lg" className="gap-3 border-secondary/50 hover:bg-secondary/30 white-glow hover:scale-110 transition-all duration-500 text-lg px-8 py-4">
-                <FileText className="h-6 w-6" />
-                ✅ Pitch Deck
-              </Button>
-              <Button variant="outline" size="lg" className="gap-3 border-accent/50 hover:bg-accent/30 white-glow hover:scale-110 transition-all duration-500 text-lg px-8 py-4">
-                <Target className="h-6 w-6" />
-                ✅ Working Prototype
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </section>

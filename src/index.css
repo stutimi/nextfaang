@@ -6,50 +6,49 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3%; /* Ultra dark background */
-    --foreground: 210 20% 98%;
+    /* Light mode */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 220 20% 8%;
-    --card-foreground: 210 20% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 220 20% 8%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 210 100% 70%; /* Bright electric blue */
-    --primary-foreground: 0 0% 100%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 200 90% 65%; /* Light blue - updated from darker blue */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 220 15% 12%;
-    --muted-foreground: 215 16% 65%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 200 100% 85%; /* Light blue accent - changed from golden */
-    --accent-foreground: 0 0% 5%;
-
-    --silver: 0 0% 75%; /* Silver color */
-    --silver-foreground: 0 0% 10%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 220 25% 18%;
-    --input: 220 25% 18%;
-    --ring: 210 100% 70%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 210 100% 50%;
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 3%;
-    --sidebar-foreground: 210 20% 95%;
-    --sidebar-primary: 210 100% 70%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 15% 12%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 220 25% 18%;
-    --sidebar-ring: 210 100% 70%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222.2 84% 4.9%;
+    --sidebar-primary: 210 100% 50%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222.2 84% 4.9%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 210 100% 50%;
   }
 
   .dark {
+    /* Dark mode */
     --background: 0 0% 3%;
     --foreground: 210 20% 98%;
 
@@ -70,9 +69,6 @@
 
     --accent: 200 100% 85%;
     --accent-foreground: 0 0% 5%;
-
-    --silver: 0 0% 75%;
-    --silver-foreground: 0 0% 10%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 20% 98%;

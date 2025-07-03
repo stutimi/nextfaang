@@ -8,6 +8,9 @@ import { StatsSection } from "@/components/StatsSection";
 import { DSASection } from "@/components/DSASection";
 import { CPSection } from "@/components/CPSection";
 import { SystemDesignSection } from "@/components/SystemDesignSection";
+import { SmartToolsSection } from "@/components/SmartToolsSection";
+import { HackathonSection } from "@/components/HackathonSection";
+import { OpenSourceSection } from "@/components/OpenSourceSection";
 import { EnhancedChatbot } from "@/components/EnhancedChatbot";
 import { FloatingAIMentor } from "@/components/FloatingAIMentor";
 import { EnhancedAIMentor } from "@/components/EnhancedAIMentor";
@@ -78,6 +81,15 @@ const Index = () => {
           <DSASection />
           <CPSection />
           <SystemDesignSection />
+          
+          {/* Smart Tools Section */}
+          <SmartToolsSection />
+          
+          {/* Hackathon Section */}
+          <HackathonSection />
+          
+          {/* Open Source Section */}
+          <OpenSourceSection />
           
           {/* Future Scope Section */}
           <FutureScope />
