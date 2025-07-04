@@ -587,6 +587,41 @@
   animation: floating3d 8s ease-in-out infinite;
 }
 
+.particle-system {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: particle-float 6s linear infinite;
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) translateX(10px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) translateX(-10px) scale(1);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+}
+
 /* Enhanced hover effects */
 .hover\:scale-115:hover {
   transform: scale(1.15);
@@ -651,12 +686,156 @@
   /* Enhanced utility classes */
 @layer utilities {
   .rainbow-text {
-    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    background: linear-gradient(45deg, 
+      hsl(var(--primary)), 
+      hsl(var(--secondary)), 
+      hsl(var(--accent)), 
+      hsl(var(--primary)), 
+      hsl(var(--secondary)));
     background-size: 400% 400%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: rainbow-flow 3s ease-in-out infinite;
+    animation: rainbow-flow 4s ease-in-out infinite;
+  }
+
+  .sparkle-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sparkle-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsl(var(--primary) / 0.4) 2px, transparent 2px),
+      radial-gradient(circle at 70% 80%, hsl(var(--secondary) / 0.3) 1px, transparent 1px),
+      radial-gradient(circle at 40% 60%, hsl(var(--accent) / 0.4) 3px, transparent 3px),
+      radial-gradient(circle at 90% 20%, hsl(var(--primary) / 0.2) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 80px 80px, 200px 200px;
+    animation: sparkle-dance 8s linear infinite;
+    pointer-events: none;
+  }
+
+  .floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .floating-element {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: float-around 15s linear infinite;
+  }
+
+  .floating-element:nth-child(1) {
+    width: 8px;
+    height: 8px;
+    background: hsl(var(--primary));
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .floating-element:nth-child(2) {
+    width: 12px;
+    height: 12px;
+    background: hsl(var(--secondary));
+    top: 60%;
+    left: 80%;
+    animation-delay: 2s;
+  }
+
+  .floating-element:nth-child(3) {
+    width: 6px;
+    height: 6px;
+    background: hsl(var(--accent));
+    top: 40%;
+    left: 70%;
+    animation-delay: 4s;
+  }
+
+  .magical-glow {
+    position: relative;
+    background: linear-gradient(135deg, 
+      hsl(var(--primary) / 0.1), 
+      hsl(var(--secondary) / 0.1), 
+      hsl(var(--accent) / 0.1));
+    border: 1px solid hsl(var(--primary) / 0.2);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .magical-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, 
+      hsl(var(--primary)), 
+      hsl(var(--secondary)), 
+      hsl(var(--accent)), 
+      hsl(var(--primary)));
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: magical-border 3s ease-in-out infinite;
+  }
+
+  .magical-glow:hover::before {
+    opacity: 1;
+  }
+
+  .sparkle-trail {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sparkle-trail::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -100px;
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--primary) / 0.6), 
+      hsl(var(--secondary) / 0.8), 
+      hsl(var(--accent) / 0.6), 
+      transparent);
+    filter: blur(1px);
+    animation: sparkle-trail-move 2s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .sparkle-trail:hover::after {
+    opacity: 1;
+  }
+
+  .cyber-grid {
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    position: relative;
+  }
+
+  .cyber-grid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, hsl(var(--secondary) / 0.1) 0%, transparent 50%);
+    animation: grid-pulse 4s ease-in-out infinite;
   }
 
   .rainbow-border {
@@ -773,6 +952,49 @@
 @keyframes rainbow-flow {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+@keyframes sparkle-dance {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10px, -10px) rotate(90deg); }
+  50% { transform: translate(-5px, 5px) rotate(180deg); }
+  75% { transform: translate(-10px, -5px) rotate(270deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes float-around {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  25% { transform: translate(30px, -20px) scale(1.2); opacity: 1; }
+  50% { transform: translate(-20px, 30px) scale(0.8); opacity: 0.6; }
+  75% { transform: translate(40px, 10px) scale(1.1); opacity: 0.9; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+@keyframes magical-border {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes sparkle-trail-move {
+  0% { 
+    left: -200px; 
+    opacity: 0; 
+    transform: scaleX(0);
+  }
+  50% { 
+    opacity: 1; 
+    transform: scaleX(1);
+  }
+  100% { 
+    left: 100%; 
+    opacity: 0; 
+    transform: scaleX(0);
+  }
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
 @keyframes formGlow {
