@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { SignupRequired } from "@/components/SignupRequired";
 import { CelebrationEffect } from "@/components/CelebrationEffect";
 import { Navbar } from "@/components/Navbar";
@@ -69,38 +70,90 @@ const Index = () => {
     );
   }
 
-  // Show signup form if user hasn't signed up and isn't authenticated
-  if (!hasSignedUp && !user) {
+  // Show signup modal after user has browsed (only if not authenticated)
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [hasTrackedVisitor, setHasTrackedVisitor] = useState(false);
+
+  // Track visitor after 3 seconds if not authenticated
+  useEffect(() => {
+    if (!loading && !user && !hasTrackedVisitor) {
+      const timer = setTimeout(async () => {
+        try {
+          // Track visitor entry
+          await supabase.from('visitor_logs').insert({
+            ip_address: null,
+            user_agent: navigator.userAgent,
+            country: null
+          });
+          setHasTrackedVisitor(true);
+          
+          // Show signup modal after 5 seconds if not signed up
+          setTimeout(() => {
+            if (!hasSignedUp && !user) {
+              setShowSignupModal(true);
+            }
+          }, 5000);
+        } catch (error) {
+          console.error('Failed to track visitor:', error);
+        }
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [user, loading, hasTrackedVisitor, hasSignedUp]);
+
+  const SparkleBackground = () => {
+    const [sparkles, setSparkles] = useState<Array<{id: number, x: number, y: number}>>([]);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setSparkles(prev => {
+          const newSparkles = Array.from({length: 8}, (_, i) => ({
+            id: Date.now() + i,
+            x: Math.random() * 100,
+            y: Math.random() * 100
+          }));
+          return [...prev.slice(-20), ...newSparkles];
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }, []);
+
     return (
-      <>
-        <SignupRequired onSignupComplete={() => {
-          setHasSignedUp(true);
-          setShowCelebration(true);
-        }} />
-        <CelebrationEffect 
-          show={showCelebration} 
-          onComplete={() => setShowCelebration(false)} 
-        />
-      </>
+      <div className="sparkle-bg">
+        {sparkles.map(sparkle => (
+          <div
+            key={sparkle.id}
+            className="sparkle"
+            style={{
+              left: `${sparkle.x}%`,
+              top: `${sparkle.y}%`,
+              animationDelay: `${Math.random() * 3}s`
+            }}
+          />
+        ))}
+      </div>
     );
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 relative">
+      <SparkleBackground />
       <Navbar />
       
       {user ? (
         // Authenticated user - show the arena
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="mb-8 text-center">
-            <h1 className="text-4xl font-bold mb-2">Welcome back, {user.email?.split('@')[0]}!</h1>
+            <h1 className="text-4xl font-bold mb-2 rainbow-text">Welcome back, {user.email?.split('@')[0]}!</h1>
             <p className="text-muted-foreground">Ready for your next coding duel?</p>
           </div>
           <CodingArena />
         </div>
       ) : (
         // Public landing page
-        <>
+        <div className="relative z-10">
           {/* Hero Section */}
           <HeroSection />
           
@@ -138,7 +191,20 @@ const Index = () => {
           <div id="contact">
             <ContactSection />
           </div>
-        </>
+        </div>
+      )}
+
+      {/* Signup Modal */}
+      {showSignupModal && !user && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-lg">
+          <div className="relative">
+            <SignupRequired onSignupComplete={() => {
+              setShowSignupModal(false);
+              setHasSignedUp(true);
+              setShowCelebration(true);
+            }} />
+          </div>
+        </div>
       )}
       
       {/* Enhanced Chatbot */}
@@ -165,12 +231,18 @@ const Index = () => {
       {!user && !showVoiceTour && (
         <button
           onClick={() => setShowVoiceTour(true)}
-          className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
+          className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 pulse-glow card-3d"
           title="Start Voice Tour"
         >
           🎤 Tour
         </button>
       )}
+
+      {/* Celebration Effect */}
+      <CelebrationEffect 
+        show={showCelebration} 
+        onComplete={() => setShowCelebration(false)} 
+      />
     </div>
   );
 };
