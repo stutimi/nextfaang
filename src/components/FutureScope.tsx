@@ -16,9 +16,6 @@ import {
   Star,
   TrendingUp
 } from "lucide-react";
-import aiFuture1 from '@/assets/ai-future-1.jpg';
-import aiFuture2 from '@/assets/ai-future-2.jpg';
-import aiFuture3 from '@/assets/ai-future-3.jpg';
 
 export const FutureScope = () => {
   const futureFeatures = [
@@ -100,119 +97,34 @@ export const FutureScope = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{
-      background: `
-        linear-gradient(220deg, hsl(220 100% 8%) 0%, hsl(220 100% 3%) 100%),
-        radial-gradient(circle at 20% 20%, hsla(220 100% 60% / 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, hsla(260 100% 75% / 0.15) 0%, transparent 50%)
-      `
-    }}>
-      {/* Sparkle Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({length: 50}).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full animate-floating-3d"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-        {Array.from({length: 20}).map((_, i) => (
-          <Sparkles
-            key={`sparkle-${i}`}
-            className="absolute w-4 h-4 text-blue-400 animate-ping"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        {/* Enhanced Hero Section */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div className="container mx-auto px-4 py-16">
+        {/* Hero Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary via-secondary to-accent text-white px-8 py-4 rounded-full mb-8 card-3d pulse-glow">
-            <Sparkles className="h-6 w-6 animate-pulse" />
-            <span className="font-bold text-lg">NEXTFANG Future Scope</span>
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full mb-6">
+            <Sparkles className="h-5 w-5" />
+            <span className="font-semibold">NEXTFAANG Future Scope</span>
           </div>
-          <h1 className="text-6xl font-bold rainbow-text mb-8 card-3d">
-            AI-Powered Future Tools
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+            Smart Tools for Smart Students
           </h1>
-          <p className="text-xl text-foreground/80 max-w-4xl mx-auto mb-12 leading-relaxed">
-            Step into the future of competitive programming with our revolutionary AI-powered tools, 
-            immersive learning environments, and cutting-edge technology that transforms how you code.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            Revolutionizing competitive programming and technical education with cutting-edge AI, 
+            collaborative learning, and industry-focused training programs.
           </p>
-          <div className="flex items-center justify-center gap-6 flex-wrap">
-            <Badge className="bg-primary/20 text-primary text-base px-6 py-3 card-3d border border-primary/30">
-              <Star className="h-5 w-5 mr-2" />
+          <div className="flex items-center justify-center gap-4">
+            <Badge className="bg-green-100 text-green-800 text-sm px-4 py-2">
+              <Star className="h-4 w-4 mr-1" />
               Student-Focused
             </Badge>
-            <Badge className="bg-secondary/20 text-secondary text-base px-6 py-3 card-3d border border-secondary/30">
-              <Brain className="h-5 w-5 mr-2" />
+            <Badge className="bg-blue-100 text-blue-800 text-sm px-4 py-2">
+              <Brain className="h-4 w-4 mr-1" />
               AI-Powered
             </Badge>
-            <Badge className="bg-accent/20 text-accent text-base px-6 py-3 card-3d border border-accent/30">
-              <Trophy className="h-5 w-5 mr-2" />
+            <Badge className="bg-purple-100 text-purple-800 text-sm px-4 py-2">
+              <Trophy className="h-4 w-4 mr-1" />
               Industry-Ready
             </Badge>
-          </div>
-        </div>
-
-        {/* AI Showcase Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center mb-12 rainbow-text">
-            AI-Powered Future Vision
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8 mb-12">
-            <Card className="card-3d bg-card/80 backdrop-blur-xl border-2 border-primary/30 overflow-hidden">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={aiFuture1} 
-                  alt="AI Brain Networks" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-bold text-lg">Neural Networks</h3>
-                  <p className="text-sm opacity-90">Advanced AI Brain Processing</p>
-                </div>
-              </div>
-            </Card>
-            <Card className="card-3d bg-card/80 backdrop-blur-xl border-2 border-secondary/30 overflow-hidden">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={aiFuture2} 
-                  alt="Quantum Computing" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-bold text-lg">Quantum Computing</h3>
-                  <p className="text-sm opacity-90">Next-Gen Processing Power</p>
-                </div>
-              </div>
-            </Card>
-            <Card className="card-3d bg-card/80 backdrop-blur-xl border-2 border-accent/30 overflow-hidden">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={aiFuture3} 
-                  alt="VR Coding" 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-bold text-lg">VR Coding</h3>
-                  <p className="text-sm opacity-90">Immersive Development</p>
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
 

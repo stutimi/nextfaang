@@ -132,23 +132,19 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
         />
       ))}
 
-      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/30 card-3d backdrop-blur-xl bg-card/80 form-animate-glow overflow-hidden relative">
-        {/* 3D Animation Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 animate-pulse" />
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent animate-pulse" />
-        
-        <CardHeader className="text-center space-y-6 relative z-10">
+      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/20 card-3d backdrop-blur-xl bg-background/90 dark:bg-background/10 form-animate-glow">
+        <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <div className="p-6 bg-gradient-to-br from-primary via-secondary to-accent rounded-2xl pulse-glow relative overflow-hidden card-3d">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-pulse"></div>
-              <Rocket className="h-12 w-12 text-white relative z-10 animate-bounce" />
+            <div className="p-4 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl pulse-glow relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+              <Rocket className="h-10 w-10 text-white relative z-10" />
             </div>
           </div>
-          <div className="space-y-4">
-            <CardTitle className="text-4xl font-bold rainbow-text card-3d">
+          <div>
+            <CardTitle className="text-3xl font-bold text-gradient animate-pulse">
               Welcome to NextFang
             </CardTitle>
-            <CardDescription className="text-xl text-foreground/90 leading-relaxed">
+            <CardDescription className="text-lg mt-2 text-white/80">
               🚀 Elite Platform for Competitive Programming Mastery
             </CardDescription>
           </div>
