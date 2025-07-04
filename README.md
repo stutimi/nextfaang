@@ -163,19 +163,7 @@ DSA Mastery
 <a href="https://ibb.co/mF1TZd7M"><img src="https://i.ibb.co/LhbRjBf2/Screenshot-2025-06-14-110252.png" alt="Screenshot-2025-06-14-110252" border="0"></a>
 
 
-## 📁 Folder Structure
 
-/nextfang
-├── index.html # Root HTML
-├── public/ # Static assets
-├── src/
-│ ├── App.tsx # Main App component
-│ ├── pages/ # Pages (Home, Blogs, Roadmap, etc.)
-│ ├── components/ # Reusable UI components
-│ ├── assets/ # Images and logos
-│ ├── styles/ # Tailwind & custom CSS
-│ └── main.tsx # App entry point
-└── package.json # Project metadata
 
 yaml
 Copy
