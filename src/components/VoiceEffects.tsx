@@ -59,15 +59,15 @@ export const VoiceEffects = ({ enabled = true, onToggle }: VoiceEffectsProps) =>
 
   // Pre-defined voice messages for different scenarios
   const voiceMessages = {
-    matchStart: "Your challenge has begun. Code with honor, warrior.",
-    matchWin: "Victory is yours! You have proven your worth.",
-    matchLose: "You were defeated this time. But legends rise from defeat.",
-    botThinking: "AI opponent is analyzing the battlefield...",
+    matchStart: "Match started. Begin coding, warrior.",
+    matchWin: "You win! Victory is yours.",
+    matchLose: "You lose! Better luck next time.",
+    botThinking: "AI is thinking... Analyzing the problem.",
     problemSolved: "Excellent solution! Moving to the next challenge.",
-    buttonHover: "Select to engage.",
+    buttonHover: "Click to engage.",
     duelRequest: "A challenger approaches. Will you accept?",
     timeWarning: "Time grows short. Code swiftly.",
-    welcome: "Welcome to the NextFang Competitive Programming Arena. Where code warriors duel.",
+    welcome: "Welcome to the NextFang Competitive Programming Arena.",
     tournamentStart: "The tournament begins. May the best mind prevail.",
     error: "System anomaly detected. Recalibrating...",
     success: "Operation successful. Proceeding to next phase.",
@@ -149,15 +149,15 @@ export const useVoiceEffects = () => {
 };
 
 const voiceMessages = {
-  matchStart: "Your challenge has begun. Code with honor, warrior.",
-  matchWin: "Victory is yours! You have proven your worth.",
-  matchLose: "You were defeated this time. But legends rise from defeat.",
-  botThinking: "AI opponent is analyzing the battlefield...",
+  matchStart: "Match started. Begin coding, warrior.",
+  matchWin: "You win! Victory is yours.",
+  matchLose: "You lose! Better luck next time.",
+  botThinking: "AI is thinking... Analyzing the problem.",
   problemSolved: "Excellent solution! Moving to the next challenge.",
-  buttonHover: "Select to engage.",
+  buttonHover: "Click to engage.",
   duelRequest: "A challenger approaches. Will you accept?",
   timeWarning: "Time grows short. Code swiftly.",
-  welcome: "Welcome to the NextFang Competitive Programming Arena. Where code warriors duel.",
+  welcome: "Welcome to the NextFang Competitive Programming Arena.",
   tournamentStart: "The tournament begins. May the best mind prevail.",
   error: "System anomaly detected. Recalibrating...",
   success: "Operation successful. Proceeding to next phase.",
