@@ -1,1 +1,24 @@
 project_id = "ksesqwvwppigjpmpjutx"
+
+[auth]
+site_url = "https://ksesqwvwppigjpmpjutx.supabase.co"
+additional_redirect_urls = ["https://localhost:3000"]
+
+[db]
+port = 5432
+
+[api]
+enabled = true
+port = 54321
+
+[functions]
+verify_jwt = true
+
+[functions.validate-codeforces-user]
+verify_jwt = false
+
+[functions.room-management]
+verify_jwt = false
+
+[functions.random-cp-questions]
+verify_jwt = false
