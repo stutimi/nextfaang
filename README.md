@@ -12,6 +12,8 @@ https://nextfang-cp-legend-hub-21.lovable.app/
 https://nextfang-cp-legend-hub-21.lovable.app/
 ---
 
+https://nextfang-cp-legend-hub-21.lovable.app/
+
 <section>
   <h2>🌐 Key Features</h2>
   <ul>
