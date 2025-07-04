@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Code, GitBranch, Brain, Search, Zap, ArrowRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
-import { MultiPlatformAnalyzer } from "./MultiPlatformAnalyzer";
+
 
 export const SmartToolsSection = () => {
   const tools = [
@@ -184,24 +184,11 @@ export const SmartToolsSection = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="analyzer" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="analyzer">Performance Analyzer</TabsTrigger>
-                <TabsTrigger value="coming-soon">More Tools Coming</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="analyzer" className="mt-6">
-                <MultiPlatformAnalyzer />
-              </TabsContent>
-              
-              <TabsContent value="coming-soon" className="mt-6">
-                <div className="text-center py-12">
-                  <Zap className="h-12 w-12 text-violet-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">More Interactive Tools Coming Soon!</h3>
-                  <p className="text-muted-foreground">We're working on bringing more tools directly to the browser</p>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <div className="text-center py-12">
+              <Zap className="h-12 w-12 text-violet-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Interactive Tools Demo</h3>
+              <p className="text-muted-foreground">Visit our dedicated pages to try these powerful tools</p>
+            </div>
           </CardContent>
         </Card>
 

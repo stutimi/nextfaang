@@ -59,18 +59,25 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
 
     setIsLoading(true);
     try {
-      // Log visitor data
+      // Store signup data in backend
+      await supabase.from('user_signups').insert({
+        username: formData.username,
+        email: formData.email,
+        country: formData.country
+      });
+
+      // Also log visitor data
       await supabase.from('visitor_logs').insert({
         ip_address: null,
         user_agent: navigator.userAgent,
         country: formData.country
       });
 
-      // Store signup data in localStorage for now
+      // Store signup data in localStorage
       localStorage.setItem('user_signup', JSON.stringify(formData));
       
       toast({
-        title: "Welcome to Coding Arena!",
+        title: "Welcome to NextFang!",
         description: "You can now explore the platform"
       });
       
@@ -125,7 +132,7 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
         />
       ))}
 
-      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/20 card-3d backdrop-blur-xl bg-background/10">
+      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/20 card-3d backdrop-blur-xl bg-background/90 dark:bg-background/10 form-animate-glow">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
             <div className="p-4 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl pulse-glow relative overflow-hidden">
@@ -175,8 +182,8 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+            <div className="space-y-2 form-input-animate">
+              <Label htmlFor="username" className="text-foreground">Username</Label>
               <Input
                 id="username"
                 type="text"
@@ -184,11 +191,12 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 required
+                className="form-input-glow"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-2 form-input-animate">
+              <Label htmlFor="email" className="text-foreground">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -196,13 +204,14 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+                className="form-input-glow"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="country">Country</Label>
+            <div className="space-y-2 form-input-animate">
+              <Label htmlFor="country" className="text-foreground">Country</Label>
               <Select value={formData.country} onValueChange={(value) => setFormData({ ...formData, country: value })}>
-                <SelectTrigger>
+                <SelectTrigger className="form-input-glow">
                   <SelectValue placeholder="Select your country" />
                 </SelectTrigger>
                 <SelectContent>
@@ -217,7 +226,7 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
 
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-primary via-secondary to-accent hover:from-accent hover:to-primary transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl button-3d"
+              className="w-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 hover:from-blue-300 hover:via-blue-500 hover:to-blue-700 text-white transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl button-3d form-button-glow"
               disabled={isLoading}
             >
               <Rocket className="w-5 h-5 mr-2" />

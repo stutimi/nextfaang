@@ -136,6 +136,33 @@ export type Database = {
         }
         Relationships: []
       }
+      user_signups: {
+        Row: {
+          country: string | null
+          created_at: string
+          email: string
+          id: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
       visitor_logs: {
         Row: {
           country: string | null
