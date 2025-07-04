@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { SignupRequired } from "@/components/SignupRequired";
+import { CelebrationEffect } from "@/components/CelebrationEffect";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
@@ -25,6 +26,7 @@ const Index = () => {
   const [showAIMentor, setShowAIMentor] = useState(false);
   const [showVoiceTour, setShowVoiceTour] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -69,7 +71,18 @@ const Index = () => {
 
   // Show signup form if user hasn't signed up and isn't authenticated
   if (!hasSignedUp && !user) {
-    return <SignupRequired onSignupComplete={() => setHasSignedUp(true)} />;
+    return (
+      <>
+        <SignupRequired onSignupComplete={() => {
+          setHasSignedUp(true);
+          setShowCelebration(true);
+        }} />
+        <CelebrationEffect 
+          show={showCelebration} 
+          onComplete={() => setShowCelebration(false)} 
+        />
+      </>
+    );
   }
 
   return (

@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Zap, Users, Code, Star } from 'lucide-react';
+import { Zap, Users, Code, Star, Sparkles, Rocket } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import platformBg1 from '@/assets/platform-bg-1.png';
+import platformBg2 from '@/assets/platform-bg-2.png';
 
 interface SignupRequiredProps {
   onSignupComplete: () => void;
@@ -19,7 +21,24 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
     country: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [sparkles, setSparkles] = useState<Array<{id: number, x: number, y: number}>>([]);
   const { toast } = useToast();
+
+  // Create sparkle effects
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSparkles(prev => {
+        const newSparkles = Array.from({length: 3}, (_, i) => ({
+          id: Date.now() + i,
+          x: Math.random() * 100,
+          y: Math.random() * 100
+        }));
+        return [...prev.slice(-5), ...newSparkles];
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const countries = [
     'United States', 'India', 'United Kingdom', 'Canada', 'Australia', 
@@ -69,20 +88,57 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/20">
+    <div 
+      className="min-h-screen relative overflow-hidden flex items-center justify-center p-4"
+      style={{
+        background: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url(${platformBg1})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {Array.from({length: 50}).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full animate-floating-3d"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Sparkle effects */}
+      {sparkles.map(sparkle => (
+        <Sparkles
+          key={sparkle.id}
+          className="absolute w-4 h-4 text-yellow-400 animate-ping"
+          style={{
+            left: `${sparkle.x}%`,
+            top: `${sparkle.y}%`,
+            animationDuration: '2s'
+          }}
+        />
+      ))}
+
+      <Card className="w-full max-w-md shadow-2xl border-2 border-primary/20 card-3d backdrop-blur-xl bg-background/10">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <div className="p-3 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl">
-              <Zap className="h-8 w-8 text-white" />
+            <div className="p-4 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl pulse-glow relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+              <Rocket className="h-10 w-10 text-white relative z-10" />
             </div>
           </div>
           <div>
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Welcome to Coding Arena
+            <CardTitle className="text-3xl font-bold text-gradient animate-pulse">
+              Welcome to NextFang
             </CardTitle>
-            <CardDescription className="text-lg mt-2">
-              Join thousands of programmers in 1v1 coding duels
+            <CardDescription className="text-lg mt-2 text-white/80">
+              🚀 Elite Platform for Competitive Programming Mastery
             </CardDescription>
           </div>
           
@@ -161,10 +217,11 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
 
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-accent transition-all duration-300"
+              className="w-full bg-gradient-to-r from-primary via-secondary to-accent hover:from-accent hover:to-primary transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl button-3d"
               disabled={isLoading}
             >
-              {isLoading ? 'Joining...' : 'Join Coding Arena'}
+              <Rocket className="w-5 h-5 mr-2" />
+              {isLoading ? 'Launching...' : 'Launch Into NextFang 🚀'}
             </Button>
           </form>
 

@@ -613,8 +613,23 @@
   }
 }
 
-/* Enhanced utility classes */
+  /* Enhanced utility classes */
 @layer utilities {
+  .rainbow-text {
+    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-flow 3s ease-in-out infinite;
+  }
+
+  .rainbow-border {
+    border: 2px solid;
+    border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1;
+    animation: rainbow-flow 3s ease-in-out infinite;
+  }
+
   .matrix-bg {
     position: relative;
     overflow: hidden;
@@ -718,6 +733,11 @@
 @keyframes quantum-glow {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes rainbow-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* Micro-interactions */
