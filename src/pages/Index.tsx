@@ -18,10 +18,12 @@ import { EnhancedAIMentor } from "@/components/EnhancedAIMentor";
 import { FutureScope } from "@/components/FutureScope";
 import { ContactSection } from "@/components/ContactSection";
 import { CodingArena } from "@/components/CodingArena";
+import { VoiceAITour } from "@/components/VoiceAITour";
 
 const Index = () => {
   const [showChatbot, setShowChatbot] = useState(false);
   const [showAIMentor, setShowAIMentor] = useState(false);
+  const [showVoiceTour, setShowVoiceTour] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -93,24 +95,36 @@ const Index = () => {
           <StatsSection />
           
           {/* Core Learning Sections */}
-          <DSASection />
-          <CPSection />
+          <div id="dsa-section">
+            <DSASection />
+          </div>
+          
+          <div id="cp-section">
+            <CPSection />
+          </div>
+          
           <SystemDesignSection />
           
           {/* Smart Tools Section */}
-          <SmartToolsSection />
+          <div id="smart-tools">
+            <SmartToolsSection />
+          </div>
           
           {/* Open Source Section */}
           <OpenSourceSection />
           
           {/* Community Section */}
-          <CommunitySection />
+          <div id="community">
+            <CommunitySection />
+          </div>
           
           {/* Future Scope Section */}
           <FutureScope />
           
           {/* Contact Section */}
-          <ContactSection />
+          <div id="contact">
+            <ContactSection />
+          </div>
         </>
       )}
       
@@ -127,6 +141,22 @@ const Index = () => {
       
       {showAIMentor && (
         <EnhancedAIMentor onClose={() => setShowAIMentor(false)} />
+      )}
+
+      {/* Voice AI Tour */}
+      {showVoiceTour && (
+        <VoiceAITour onClose={() => setShowVoiceTour(false)} />
+      )}
+
+      {/* Floating Voice Tour Button */}
+      {!user && !showVoiceTour && (
+        <button
+          onClick={() => setShowVoiceTour(true)}
+          className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
+          title="Start Voice Tour"
+        >
+          🎤 Tour
+        </button>
       )}
     </div>
   );

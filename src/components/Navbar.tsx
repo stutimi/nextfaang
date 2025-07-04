@@ -28,9 +28,8 @@ export const Navbar = () => {
 
   const navItems = [
     { label: "Home", href: "#hero", action: () => scrollToSection('#hero') },
-    { label: "Features", href: "#features", action: () => scrollToSection('#features') },
-    { label: "Demo", href: "#demo", action: () => scrollToSection('#demo') },
-    { label: "Roadmap", href: "#roadmap", action: () => scrollToSection('#roadmap') },
+    { label: "Features", href: "#features", action: () => scrollToSection('#dsa-section') },
+    { label: "Roadmap", href: "#roadmap", action: () => scrollToSection('#cp-section') },
     { label: "Contact", href: "#contact", action: () => scrollToSection('#contact') },
     { label: "Community", href: "#community", action: () => scrollToSection('#community') }
   ];
@@ -139,9 +138,10 @@ export const Navbar = () => {
                 <Link to="/auth">
                   <Button 
                     size="sm" 
-                    className="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-accent transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-accent transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                   >
-                    Sign In / Join
+                    <Code className="h-4 w-4" />
+                    Enter Arena
                   </Button>
                 </Link>
               </>

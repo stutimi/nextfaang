@@ -6,34 +6,34 @@
 
 @layer base {
   :root {
-    /* Light mode */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Enhanced Light mode with amazing styling */
+    --background: 240 100% 99%;
+    --foreground: 240 10% 3.9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 100% 98%;
+    --card-foreground: 240 10% 3.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 100% 98%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 210 100% 50%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 220 100% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
+    --secondary: 200 100% 60%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 280 100% 70%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 210 100% 50%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 100% 55%;
 
     --radius: 1rem;
 
@@ -100,6 +100,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: 
+      radial-gradient(ellipse at top, hsl(220 100% 98%) 0%, hsl(240 100% 95%) 100%);
+  }
+
+  .dark body {
     background: radial-gradient(ellipse at center, hsl(220 20% 8%) 0%, hsl(0 0% 3%) 100%);
   }
 }
