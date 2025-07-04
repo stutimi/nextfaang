@@ -28,6 +28,8 @@ const Index = () => {
   const [showVoiceTour, setShowVoiceTour] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [hasTrackedVisitor, setHasTrackedVisitor] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -69,10 +71,6 @@ const Index = () => {
       </div>
     );
   }
-
-  // Show signup modal after user has browsed (only if not authenticated)
-  const [showSignupModal, setShowSignupModal] = useState(false);
-  const [hasTrackedVisitor, setHasTrackedVisitor] = useState(false);
 
   // Track visitor after 3 seconds if not authenticated
   useEffect(() => {
