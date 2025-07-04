@@ -41,28 +41,7 @@ https://nextfang-cp-legend-hub-21.lovable.app/
 </section>
 
 
-## 🛠️ Tech Stack
 
-**Frontend & Build Tools**
-- ⚛️ React 18 (with Hooks & Components)
-- ⚡ Vite (for fast builds)
-- 🟦 TypeScript
-
-**Styling & UI**
-- 🎨 Tailwind CSS
-- 🧱 shadcn/ui
-- 🧭 Lucide React (icons)
-
-**Routing & State**
-- 🧭 React Router DOM
-- 🪝 TanStack Query (React Query)
-
-**Utilities & Libraries**
-- 📊 Recharts (charts and graphs)
-- 📋 React Hook Form (form handling)
-- 🔐 Zod (schema validation)
-- 🔔 Sonner (toast notifications)
-- 🕒 date-fns (time formatting)
   
 <section>
   <h2>🚀 Deploying on Vercel</h2>
