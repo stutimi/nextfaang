@@ -100,12 +100,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: 
-      radial-gradient(ellipse at top, hsl(220 100% 98%) 0%, hsl(240 100% 95%) 100%);
-  }
-
-  .dark body {
-    background: radial-gradient(ellipse at center, hsl(220 20% 8%) 0%, hsl(0 0% 3%) 100%);
+    background: linear-gradient(270deg, #ff6ec4, #7873f5, #4adede, #7efff5);
+    background-size: 800% 800%;
+    animation: gradient 6s ease infinite;
   }
 
   /* Form Animation Styles with Blue/White Theme */
@@ -1020,6 +1017,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Micro-interactions */

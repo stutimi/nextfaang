@@ -22,3 +22,6 @@ verify_jwt = false
 
 [functions.random-cp-questions]
 verify_jwt = false
+
+[functions.duel-management]
+verify_jwt = false

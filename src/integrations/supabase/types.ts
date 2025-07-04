@@ -33,6 +33,48 @@ export type Database = {
         }
         Relationships: []
       }
+      bot_matches: {
+        Row: {
+          bot_difficulty: string
+          bot_score: number | null
+          created_at: string
+          end_time: string | null
+          id: string
+          player_id: string
+          player_score: number | null
+          problems: Json
+          start_time: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          bot_difficulty?: string
+          bot_score?: number | null
+          created_at?: string
+          end_time?: string | null
+          id?: string
+          player_id: string
+          player_score?: number | null
+          problems: Json
+          start_time?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          bot_difficulty?: string
+          bot_score?: number | null
+          created_at?: string
+          end_time?: string | null
+          id?: string
+          player_id?: string
+          player_score?: number | null
+          problems?: Json
+          start_time?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       codeforces_users: {
         Row: {
           country: string | null
@@ -66,6 +108,39 @@ export type Database = {
           max_rating?: number | null
           rank?: string | null
           rating?: number | null
+        }
+        Relationships: []
+      }
+      duel_requests: {
+        Row: {
+          created_at: string
+          id: string
+          match_type: string
+          problems: Json | null
+          receiver_cf_handle: string
+          sender_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          match_type?: string
+          problems?: Json | null
+          receiver_cf_handle: string
+          sender_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          match_type?: string
+          problems?: Json | null
+          receiver_cf_handle?: string
+          sender_id?: string
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
