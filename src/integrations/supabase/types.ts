@@ -33,6 +33,42 @@ export type Database = {
         }
         Relationships: []
       }
+      codeforces_users: {
+        Row: {
+          country: string | null
+          created_at: string
+          handle: string
+          id: string
+          last_updated: string
+          max_rank: string | null
+          max_rating: number | null
+          rank: string | null
+          rating: number | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          handle: string
+          id?: string
+          last_updated?: string
+          max_rank?: string | null
+          max_rating?: number | null
+          rank?: string | null
+          rating?: number | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          handle?: string
+          id?: string
+          last_updated?: string
+          max_rank?: string | null
+          max_rating?: number | null
+          rank?: string | null
+          rating?: number | null
+        }
+        Relationships: []
+      }
       matches: {
         Row: {
           created_at: string
@@ -133,6 +169,95 @@ export type Database = {
           user_id?: string
           username?: string
           wins?: number
+        }
+        Relationships: []
+      }
+      room_participants: {
+        Row: {
+          cf_handle: string | null
+          id: string
+          joined_at: string
+          problems_solved: number | null
+          room_id: string
+          submission_time: string | null
+          total_time_seconds: number | null
+          user_id: string
+        }
+        Insert: {
+          cf_handle?: string | null
+          id?: string
+          joined_at?: string
+          problems_solved?: number | null
+          room_id: string
+          submission_time?: string | null
+          total_time_seconds?: number | null
+          user_id: string
+        }
+        Update: {
+          cf_handle?: string | null
+          id?: string
+          joined_at?: string
+          problems_solved?: number | null
+          room_id?: string
+          submission_time?: string | null
+          total_time_seconds?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_participants_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rooms: {
+        Row: {
+          created_at: string
+          creator_cf_handle: string | null
+          creator_id: string
+          end_time: string | null
+          id: string
+          max_participants: number
+          opponent_cf_handle: string | null
+          opponent_id: string | null
+          problems: Json
+          room_code: string
+          start_time: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          creator_cf_handle?: string | null
+          creator_id: string
+          end_time?: string | null
+          id?: string
+          max_participants?: number
+          opponent_cf_handle?: string | null
+          opponent_id?: string | null
+          problems?: Json
+          room_code: string
+          start_time?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          creator_cf_handle?: string | null
+          creator_id?: string
+          end_time?: string | null
+          id?: string
+          max_participants?: number
+          opponent_cf_handle?: string | null
+          opponent_id?: string | null
+          problems?: Json
+          room_code?: string
+          start_time?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }

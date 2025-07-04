@@ -5,20 +5,40 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { Sword, Trophy, Clock, User, Code, Play, RefreshCw, Users, Target, Terminal, Bug, Sparkles, Zap } from "lucide-react";
+import { Sword, Trophy, Clock, User, Code, Play, RefreshCw, Users, Target, Terminal, Bug, Sparkles, Zap, Copy, UserCheck, Globe } from "lucide-react";
 import platformBg2 from '@/assets/platform-bg-2.png';
 
 interface Problem {
-  id: string;
   title: string;
-  difficulty: "Easy" | "Medium" | "Hard";
-  description: string;
-  examples: Array<{ input: string; output: string }>;
-  constraints: string[];
-  tags: string[];
+  difficulty: string;
+  url: string;
+  platform: string;
+  tags?: string[];
+  description?: string;
+  examples?: Array<{ input: string; output: string }>;
+  constraints?: string[];
+}
+
+interface CodeforcesUser {
+  handle: string;
+  rating: number;
+  rank: string;
+  country: string;
+}
+
+interface Room {
+  id: string;
+  room_code: string;
+  creator_id: string;
+  opponent_id: string | null;
+  problems: Problem[];
+  status: 'waiting' | 'active' | 'completed';
+  start_time: string | null;
+  end_time: string | null;
 }
 
 interface Match {
@@ -34,44 +54,8 @@ interface Match {
   ended_at: string | null;
 }
 
-const PROBLEMS_BANK: Problem[] = [
-  {
-    id: "1",
-    title: "Two Sum",
-    difficulty: "Easy",
-    description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
-    examples: [
-      { input: "nums = [2,7,11,15], target = 9", output: "[0,1]" },
-      { input: "nums = [3,2,4], target = 6", output: "[1,2]" }
-    ],
-    constraints: ["2 <= nums.length <= 10^4", "-10^9 <= nums[i] <= 10^9"],
-    tags: ["Array", "Hash Table"]
-  },
-  {
-    id: "2",
-    title: "Reverse String",
-    difficulty: "Easy",
-    description: "Write a function that reverses a string. The input string is given as an array of characters s.",
-    examples: [
-      { input: 's = ["h","e","l","l","o"]', output: '["o","l","l","e","h"]' },
-      { input: 's = ["H","a","n","n","a","h"]', output: '["h","a","n","n","a","H"]' }
-    ],
-    constraints: ["1 <= s.length <= 10^5"],
-    tags: ["Two Pointers", "String"]
-  },
-  {
-    id: "3",
-    title: "Maximum Subarray",
-    difficulty: "Medium",
-    description: "Given an integer array nums, find the contiguous subarray which has the largest sum and return its sum.",
-    examples: [
-      { input: "nums = [-2,1,-3,4,-1,2,1,-5,4]", output: "6" },
-      { input: "nums = [1]", output: "1" }
-    ],
-    constraints: ["1 <= nums.length <= 10^5", "-10^4 <= nums[i] <= 10^4"],
-    tags: ["Array", "Dynamic Programming"]
-  }
-];
+// Legacy problems bank - no longer used in enhanced version
+const PROBLEMS_BANK: Problem[] = [];
 
 const LANGUAGES = [
   { id: 71, name: "Python" },
@@ -83,19 +67,34 @@ const LANGUAGES = [
 
 export const CodingArena = () => {
   const { user, profile, refreshProfile } = useAuth();
-  const [currentProblem, setCurrentProblem] = useState<Problem | null>(null);
-  const [currentMatch, setCurrentMatch] = useState<Match | null>(null);
-  const [opponentProfile, setOpponentProfile] = useState<any>(null);
+  
+  // Room and matching state
+  const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
+  const [currentProblems, setCurrentProblems] = useState<Problem[]>([]);
+  const [currentProblemIndex, setCurrentProblemIndex] = useState(0);
+  const [roomCode, setRoomCode] = useState("");
+  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const [isJoiningRoom, setIsJoiningRoom] = useState(false);
+  
+  // Codeforces integration
+  const [cfUsername, setCfUsername] = useState("");
+  const [cfUserData, setCfUserData] = useState<CodeforcesUser | null>(null);
+  const [isValidatingCF, setIsValidatingCF] = useState(false);
+  const [opponentCfData, setOpponentCfData] = useState<CodeforcesUser | null>(null);
+  
+  // Match state
   const [code, setCode] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<number>(71);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
   const [matchResult, setMatchResult] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes
   const [isMatchActive, setIsMatchActive] = useState(false);
-  const [totalUsers, setTotalUsers] = useState(0);
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
+  const [problemsCompleted, setProblemsCompleted] = useState<number[]>([]);
+  
+  // Stats
+  const [totalUsers, setTotalUsers] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -126,6 +125,225 @@ export const CodingArena = () => {
     }
     return () => clearInterval(interval);
   }, [isMatchActive, timeLeft]);
+
+  // Validate Codeforces username
+  const validateCodeforcesUser = async () => {
+    if (!cfUsername.trim()) return;
+    
+    setIsValidatingCF(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('validate-codeforces-user', {
+        body: { handle: cfUsername.trim() }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setCfUserData(data.user);
+        toast({
+          title: "Codeforces User Validated!",
+          description: `${data.user.handle} (${data.user.rating}) verified successfully.`,
+        });
+      } else {
+        toast({
+          title: "User Not Found",
+          description: "Please check the Codeforces username and try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error validating CF user:', error);
+      toast({
+        title: "Validation Error",
+        description: "Failed to validate Codeforces user. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsValidatingCF(false);
+    }
+  };
+
+  // Fetch dynamic problems
+  const fetchProblems = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('random-cp-questions');
+      
+      if (error) throw error;
+
+      const problems: Problem[] = [
+        {
+          title: data.codeforces.title,
+          difficulty: data.codeforces.difficulty,
+          url: data.codeforces.url,
+          platform: "Codeforces",
+          tags: ["algorithmic"]
+        },
+        {
+          title: data.gfg.title,
+          difficulty: data.gfg.difficulty,
+          url: data.gfg.url,
+          platform: "GeeksforGeeks",
+          tags: ["programming"]
+        }
+      ];
+
+      return problems;
+    } catch (error) {
+      console.error('Error fetching problems:', error);
+      throw error;
+    }
+  };
+
+  // Create room
+  const createRoom = async () => {
+    if (!user || !cfUserData) {
+      toast({
+        title: "Setup Required",
+        description: "Please validate your Codeforces username first.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsCreatingRoom(true);
+    try {
+      const problems = await fetchProblems();
+      
+      const { data, error } = await supabase.functions.invoke('room-management', {
+        body: {
+          action: 'create',
+          userId: user.id,
+          cfHandle: cfUserData.handle,
+          problems: problems
+        }
+      });
+
+      if (error) throw error;
+
+      setCurrentRoom(data.room);
+      setCurrentProblems(problems);
+      setCurrentProblemIndex(0);
+      setProblemsCompleted([]);
+      
+      toast({
+        title: "Room Created!",
+        description: `Room code: ${data.room.room_code}. Share this with your opponent.`,
+      });
+    } catch (error) {
+      console.error('Error creating room:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create room. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCreatingRoom(false);
+    }
+  };
+
+  // Join room
+  const joinRoom = async () => {
+    if (!user || !cfUserData || !roomCode.trim()) {
+      toast({
+        title: "Setup Required",
+        description: "Please validate your Codeforces username and enter a room code.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsJoiningRoom(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('room-management', {
+        body: {
+          action: 'join',
+          userId: user.id,
+          cfHandle: cfUserData.handle,
+          roomCode: roomCode.trim()
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setCurrentRoom(data.room);
+        setCurrentProblems(data.room.problems);
+        setCurrentProblemIndex(0);
+        setProblemsCompleted([]);
+        
+        // Get opponent CF data
+        const opponentHandle = data.room.creator_cf_handle === cfUserData.handle 
+          ? data.room.opponent_cf_handle 
+          : data.room.creator_cf_handle;
+          
+        if (opponentHandle) {
+          const { data: opponentData } = await supabase.functions.invoke('validate-codeforces-user', {
+            body: { handle: opponentHandle }
+          });
+          if (opponentData?.success) {
+            setOpponentCfData(opponentData.user);
+          }
+        }
+        
+        toast({
+          title: "Joined Room!",
+          description: "Room joined successfully. Waiting for match to start.",
+        });
+      } else {
+        toast({
+          title: "Join Failed",
+          description: data.message || "Failed to join room.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error joining room:', error);
+      toast({
+        title: "Error",
+        description: "Failed to join room. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsJoiningRoom(false);
+    }
+  };
+
+  // Start match
+  const startMatch = async () => {
+    if (!currentRoom || !user) return;
+
+    try {
+      const { data, error } = await supabase.functions.invoke('room-management', {
+        body: {
+          action: 'start',
+          roomId: currentRoom.id,
+          userId: user.id
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setIsMatchActive(true);
+        setTimeLeft(900);
+        setCode("");
+        setMatchResult(null);
+        setOutput('');
+        
+        toast({
+          title: "Match Started!",
+          description: "Good luck! Solve the problems as fast as you can.",
+        });
+      }
+    } catch (error) {
+      console.error('Error starting match:', error);
+      toast({
+        title: "Error",
+        description: "Failed to start match. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const runCode = async () => {
     setIsRunning(true);
@@ -168,146 +386,58 @@ export const CodingArena = () => {
     }
   };
 
-  const generateOpponent = () => {
-    const names = ["CodeMaster", "AlgoNinja", "ByteWarrior", "LogicLord", "SyntaxSage", "BugSlayer", "DataDemon"];
-    return names[Math.floor(Math.random() * names.length)];
-  };
-
-  const findMatch = async () => {
-    if (!user || !profile) return;
-    
-    setIsSearching(true);
-    try {
-      // For now, simulate finding a match with a bot
-      setTimeout(async () => {
-        const problem = PROBLEMS_BANK[Math.floor(Math.random() * PROBLEMS_BANK.length)];
-        const botOpponent = {
-          username: generateOpponent(),
-          rating: profile.rating + Math.floor(Math.random() * 200) - 100, // Similar rating
-          country: 'Bot Land'
-        };
-        
-        // Create match in database
-        const { data: matchData, error } = await supabase
-          .from('matches')
-          .insert({
-            player1_id: user.id,
-            player2_id: user.id, // For demo, using same user as bot
-            problem_id: problem.id,
-            problem_title: problem.title,
-            problem_difficulty: problem.difficulty,
-            status: 'ongoing'
-          })
-          .select()
-          .single();
-
-        if (error) throw error;
-
-        setCurrentMatch(matchData as Match);
-        setCurrentProblem(problem);
-        setOpponentProfile(botOpponent);
-        setCode("");
-        setMatchResult(null);
-        setTimeLeft(900);
-        setIsMatchActive(true);
-        setIsSearching(false);
-        
-        toast({
-          title: "Match Found!",
-          description: `You're facing ${botOpponent.username} (${botOpponent.rating}). Good luck!`,
-        });
-      }, 2000); // 2 second search time
-    } catch (error: any) {
-      console.error('Error creating match:', error);
-      toast({
-        title: "Error",
-        description: "Failed to create match. Please try again.",
-        variant: "destructive",
-      });
-      setIsSearching(false);
-    }
-  };
-
-  const handleTimeUp = async () => {
-    setIsMatchActive(false);
-    setMatchResult("Time's up! You lost this match.");
-    await updateMatchResult(false);
-  };
-
-  const submitCode = async () => {
-    if (!code.trim() || !currentProblem) return;
+  const submitSolution = async () => {
+    if (!code.trim() || !currentProblems[currentProblemIndex] || !isMatchActive) return;
     
     setIsSubmitting(true);
     
     try {
-      // Simulate Judge0 API call
-      const response = await fetch('https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Key': 'YOUR_RAPIDAPI_KEY', // User would need to add this
-          'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-        },
-        body: JSON.stringify({
-          language_id: selectedLanguage,
-          source_code: btoa(code), // Base64 encode
-          stdin: btoa(""), // Empty for now
-          expected_output: btoa("expected_result") // This would be dynamic
-        })
-      });
-
-      // For demo purposes, simulate a random result
+      // Simulate solution validation
       const isCorrect = Math.random() > 0.3; // 70% success rate for demo
-      const opponentTime = Math.random() * 600 + 300; // Random opponent time
-      const userTime = 900 - timeLeft;
       
       if (isCorrect) {
-        const wonByTime = userTime < opponentTime;
-        setMatchResult(wonByTime ? 
-          `Accepted! You won against ${opponentProfile?.username} by ${Math.floor(opponentTime - userTime)}s!` :
-          `Accepted! But ${opponentProfile?.username} was faster by ${Math.floor(userTime - opponentTime)}s.`
-        );
-        await updateMatchResult(wonByTime);
+        const newCompleted = [...problemsCompleted, currentProblemIndex];
+        setProblemsCompleted(newCompleted);
+        
+        if (newCompleted.length === currentProblems.length) {
+          // All problems completed
+          setMatchResult(`🎉 Congratulations! You solved all ${currentProblems.length} problems!`);
+          setIsMatchActive(false);
+          await updateMatchResult(true);
+        } else {
+          // Move to next problem
+          setCurrentProblemIndex(currentProblemIndex + 1);
+          setCode("");
+          toast({
+            title: "Problem Solved!",
+            description: `Moving to problem ${currentProblemIndex + 2}/${currentProblems.length}`,
+          });
+        }
       } else {
-        setMatchResult(`Wrong Answer! ${opponentProfile?.username} solved it correctly and won.`);
-        await updateMatchResult(false);
+        setMatchResult(`❌ Wrong Answer! Try again or move to the next problem.`);
       }
-      
-      setIsMatchActive(false);
     } catch (error) {
       console.error('Submission error:', error);
       toast({
         title: "Submission Error",
-        description: "Failed to submit code. Using demo mode.",
+        description: "Failed to submit solution. Please try again.",
         variant: "destructive",
       });
-      
-      // Fallback to demo result
-      const isCorrect = Math.random() > 0.3;
-      setMatchResult(isCorrect ? "Accepted! You won this match!" : "Wrong Answer! You lost this match.");
-      await updateMatchResult(isCorrect);
-      setIsMatchActive(false);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleTimeUp = async () => {
+    setIsMatchActive(false);
+    setMatchResult(`⏰ Time's up! You completed ${problemsCompleted.length}/${currentProblems.length} problems.`);
+    await updateMatchResult(problemsCompleted.length > currentProblems.length / 2);
+  };
+
   const updateMatchResult = async (won: boolean) => {
-    if (!currentMatch || !user || !profile) return;
+    if (!user || !profile) return;
 
     try {
-      // Update match status
-      const { error: matchError } = await supabase
-        .from('matches')
-        .update({
-          status: 'completed',
-          winner_id: won ? user.id : null, // null means opponent won
-          ended_at: new Date().toISOString()
-        })
-        .eq('id', currentMatch.id);
-
-      if (matchError) throw matchError;
-
       // Calculate new rating
       const newRating = calculateNewRating(profile.rating, won);
       const newWins = won ? profile.wins + 1 : profile.wins;
@@ -341,7 +471,7 @@ export const CodingArena = () => {
 
   const calculateNewRating = (currentRating: number, won: boolean) => {
     const K = 32; // ELO K-factor
-    const expectedScore = 0.5; // Assuming equal opponents for bots
+    const expectedScore = 0.5; // Assuming equal opponents
     const actualScore = won ? 1 : 0;
     const change = K * (actualScore - expectedScore);
     return Math.max(800, Math.round(currentRating + change)); // Minimum rating of 800
@@ -354,13 +484,12 @@ export const CodingArena = () => {
   };
 
   const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case "Easy": return "bg-green-100 text-green-800";
-      case "Medium": return "bg-yellow-100 text-yellow-800";
-      case "Hard": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
-    }
+    if (difficulty === "Easy" || parseInt(difficulty) < 1200) return "bg-green-100 text-green-800";
+    if (difficulty === "Medium" || parseInt(difficulty) < 1600) return "bg-yellow-100 text-yellow-800";
+    return "bg-red-100 text-red-800";
   };
+
+  const currentProblem = currentProblems[currentProblemIndex];
 
   return (
     <div 
@@ -401,215 +530,395 @@ export const CodingArena = () => {
           />
         ))}
       </div>
+      
       <div className="relative z-10">
-      {/* Enhanced Stats Header */}
-      <div className="grid md:grid-cols-5 gap-4">
-        <Card className="card-3d bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-xl border-yellow-500/20">
-          <CardContent className="p-4 text-center">
-            <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-2 animate-pulse" />
-            <div className="text-2xl font-bold rainbow-text">{profile?.rating || 1200}</div>
-            <div className="text-sm text-muted-foreground">Rating</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <Target className="h-8 w-8 text-green-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-green-600">{profile?.wins || 0}</div>
-            <div className="text-sm text-muted-foreground">Wins</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-red-600">{profile?.losses || 0}</div>
-            <div className="text-sm text-muted-foreground">Losses</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold">{profile?.total_matches || 0}</div>
-            <div className="text-sm text-muted-foreground">Total Matches</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-blue-600">{totalUsers}</div>
-            <div className="text-sm text-muted-foreground">Total Players</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Enhanced Arena */}
-      <Card className="card-3d bg-background/90 backdrop-blur-xl border-2 border-primary/20">
-        <CardHeader className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
-          <CardTitle className="flex items-center gap-2 rainbow-text text-2xl">
-            <Zap className="h-6 w-6 animate-pulse" />
-            NextFang Coding Arena v2.0
-          </CardTitle>
-          <CardDescription className="text-lg">
-            🚀 Elite 1v1 Programming Battles • Enhanced Multi-Platform Compiler
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {!isMatchActive && !currentProblem && (
-            <div className="text-center py-8">
-              <Button 
-                onClick={findMatch} 
-                size="lg" 
-                className="gap-2"
-                disabled={isSearching}
-              >
-                {isSearching ? (
-                  <>
-                    <RefreshCw className="h-4 w-4 animate-spin" />
-                    Finding Opponent...
-                  </>
-                ) : (
-                  <>
-                    <Play className="h-4 w-4" />
-                    Find Match
-                  </>
-                )}
-              </Button>
-            </div>
+        {/* Enhanced Stats Header */}
+        <div className="grid md:grid-cols-6 gap-4 mb-6">
+          <Card className="card-3d bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-xl border-yellow-500/20">
+            <CardContent className="p-4 text-center">
+              <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-2 animate-pulse" />
+              <div className="text-2xl font-bold rainbow-text">{profile?.rating || 1200}</div>
+              <div className="text-sm text-muted-foreground">Rating</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Target className="h-8 w-8 text-green-500 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-green-600">{profile?.wins || 0}</div>
+              <div className="text-sm text-muted-foreground">Wins</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-red-600">{profile?.losses || 0}</div>
+              <div className="text-sm text-muted-foreground">Losses</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold">{profile?.total_matches || 0}</div>
+              <div className="text-sm text-muted-foreground">Total Matches</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Users className="h-8 w-8 text-blue-500 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-blue-600">{totalUsers}</div>
+              <div className="text-sm text-muted-foreground">Total Players</div>
+            </CardContent>
+          </Card>
+          {cfUserData && (
+            <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-xl border-purple-500/20">
+              <CardContent className="p-4 text-center">
+                <Globe className="h-8 w-8 text-purple-500 mx-auto mb-2" />
+                <div className="text-lg font-bold text-purple-600">{cfUserData.rating}</div>
+                <div className="text-xs text-muted-foreground">{cfUserData.handle}</div>
+              </CardContent>
+            </Card>
           )}
+        </div>
 
-          {currentProblem && (
-            <div className="space-y-6">
-              {/* Match Info */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    <span className="font-medium">You</span>
-                  </div>
-                  <span className="text-muted-foreground">VS</span>
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    <span className="font-medium">
-                      {opponentProfile?.username} ({opponentProfile?.rating})
-                    </span>
-                  </div>
-                </div>
-                {isMatchActive && (
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    <span className="font-mono text-lg">{formatTime(timeLeft)}</span>
-                  </div>
-                )}
+        {/* Codeforces Setup */}
+        {!cfUserData && (
+          <Card className="card-3d bg-gradient-to-br from-purple-500/5 to-pink-500/5 backdrop-blur-xl border-purple-500/20 mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <UserCheck className="h-5 w-5" />
+                Connect Codeforces Account
+              </CardTitle>
+              <CardDescription>
+                Validate your Codeforces username to participate in competitive matches
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Enter your Codeforces username"
+                  value={cfUsername}
+                  onChange={(e) => setCfUsername(e.target.value)}
+                  className="flex-1"
+                />
+                <Button 
+                  onClick={validateCodeforcesUser}
+                  disabled={isValidatingCF || !cfUsername.trim()}
+                  className="gap-2"
+                >
+                  {isValidatingCF ? (
+                    <RefreshCw className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <UserCheck className="h-4 w-4" />
+                  )}
+                  Validate
+                </Button>
               </div>
+            </CardContent>
+          </Card>
+        )}
 
-              {/* Problem */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-semibold">{currentProblem.title}</h3>
-                  <Badge className={getDifficultyColor(currentProblem.difficulty)}>
-                    {currentProblem.difficulty}
+        {/* Room Management */}
+        {cfUserData && !currentRoom && (
+          <Card className="card-3d bg-background/90 backdrop-blur-xl border-2 border-primary/20 mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sword className="h-5 w-5" />
+                Create or Join Room
+              </CardTitle>
+              <CardDescription>
+                Start a new competitive match or join an existing room
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Button 
+                    onClick={createRoom}
+                    disabled={isCreatingRoom}
+                    className="w-full gap-2"
+                    size="lg"
+                  >
+                    {isCreatingRoom ? (
+                      <RefreshCw className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Play className="h-4 w-4" />
+                    )}
+                    Create New Room
+                  </Button>
+                  <p className="text-sm text-muted-foreground text-center">
+                    Create a room with random problems
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Enter room code"
+                      value={roomCode}
+                      onChange={(e) => setRoomCode(e.target.value)}
+                      className="flex-1"
+                    />
+                    <Button 
+                      onClick={joinRoom}
+                      disabled={isJoiningRoom || !roomCode.trim()}
+                      className="gap-2"
+                    >
+                      {isJoiningRoom ? (
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Users className="h-4 w-4" />
+                      )}
+                      Join
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground text-center">
+                    Join an existing room
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Room Status */}
+        {currentRoom && (
+          <Card className="card-3d bg-background/90 backdrop-blur-xl border-2 border-primary/20">
+            <CardHeader className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10">
+              <CardTitle className="flex items-center gap-2 rainbow-text text-2xl">
+                <Zap className="h-6 w-6 animate-pulse" />
+                NextFang Coding Arena v2.0 - Enhanced
+              </CardTitle>
+              <CardDescription className="text-lg">
+                🚀 Real-Time CP Battles • Dynamic Question Fetching • Multi-Platform
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Room Info */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 p-4 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">Room Code:</span>
+                    <span className="font-mono text-lg bg-white dark:bg-gray-800 px-2 py-1 rounded">
+                      {currentRoom.room_code}
+                    </span>
+                    <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(currentRoom.room_code)}>
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <Badge variant="outline">
+                    {currentRoom.status === 'waiting' ? 'Waiting for opponent' : 
+                     currentRoom.status === 'active' ? 'Match active' : 'Completed'}
                   </Badge>
                 </div>
                 
-                <p className="text-gray-700">{currentProblem.description}</p>
-                
-                <div className="space-y-2">
-                  <h4 className="font-medium">Examples:</h4>
-                  {currentProblem.examples.map((example, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded">
-                      <div><strong>Input:</strong> {example.input}</div>
-                      <div><strong>Output:</strong> {example.output}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-1">
-                  {currentProblem.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Code Editor */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <Select value={selectedLanguage.toString()} onValueChange={(value) => setSelectedLanguage(parseInt(value))}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LANGUAGES.map((lang) => (
-                        <SelectItem key={lang.id} value={lang.id.toString()}>
-                          {lang.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                 <div className="space-y-4">
-                  <Textarea
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="// Write your NextFang solution here...
-// Platform: NextFang v2.0 - Enhanced Multi-Platform Compiler
-// Supports: LeetCode, GFG, CodeChef, Codeforces compatible syntax"
-                    className="min-h-[300px] font-mono bg-black/80 text-green-400 border-primary/20"
-                    disabled={!isMatchActive}
-                  />
-                  
-                  {/* Enhanced Output Section */}
-                  <div className="bg-black/90 rounded-lg p-4 border border-primary/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Terminal className="h-4 w-4 text-blue-400" />
-                      <span className="text-sm font-semibold text-blue-400">NextFang Compiler Output:</span>
-                    </div>
-                    <pre className="text-sm text-green-400 whitespace-pre-wrap max-h-60 overflow-y-auto">
-                      {output || '🚀 Ready to run your code with NextFang Enhanced Compiler!\n\nFeatures:\n✅ Multi-platform support (LeetCode/GFG/CodeChef)\n⚡ Lightning-fast execution\n🔍 Detailed test case analysis\n💯 Performance metrics\n\nClick "Run Code" to begin...'}
-                    </pre>
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span>{cfUserData?.handle} ({cfUserData?.rating})</span>
                   </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button 
-                    onClick={runCode} 
-                    disabled={isRunning}
-                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 flex items-center gap-2"
-                  >
-                    <Play className="h-4 w-4" />
-                    {isRunning ? 'Running...' : 'Run Code'}
-                  </Button>
-                  <Button 
-                    onClick={submitCode}
-                    disabled={!isMatchActive || isSubmitting || !code.trim()}
-                    className="gap-2"
-                  >
-                    {isSubmitting ? (
-                      <RefreshCw className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Code className="h-4 w-4" />
-                    )}
-                    {isSubmitting ? "Submitting..." : "Submit"}
-                  </Button>
-                  
-                  {!isMatchActive && currentProblem && (
-                    <Button onClick={findMatch} variant="outline" className="gap-2" disabled={isSearching}>
-                      <Play className="h-4 w-4" />
-                      New Match
-                    </Button>
+                  {opponentCfData && (
+                    <>
+                      <span className="text-muted-foreground">VS</span>
+                      <div className="flex items-center gap-2">
+                        <User className="h-4 w-4" />
+                        <span>{opponentCfData.handle} ({opponentCfData.rating})</span>
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
 
+              {/* Problems Overview */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Problems ({currentProblems.length})</h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">
+                      Progress: {problemsCompleted.length}/{currentProblems.length}
+                    </span>
+                    {isMatchActive && (
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        <span className="font-mono text-lg">{formatTime(timeLeft)}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="grid gap-2">
+                  {currentProblems.map((problem, index) => (
+                    <div 
+                      key={index} 
+                      className={`p-3 rounded-lg border-2 ${
+                        index === currentProblemIndex ? 'border-primary bg-primary/5' :
+                        problemsCompleted.includes(index) ? 'border-green-500 bg-green-50 dark:bg-green-950/20' :
+                        'border-gray-200 dark:border-gray-700'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{problem.title}</span>
+                          <Badge className={getDifficultyColor(problem.difficulty)}>
+                            {problem.difficulty}
+                          </Badge>
+                          <Badge variant="outline" className="text-xs">
+                            {problem.platform}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {problemsCompleted.includes(index) && (
+                            <Badge className="bg-green-100 text-green-800">
+                              ✅ Solved
+                            </Badge>
+                          )}
+                          {index === currentProblemIndex && isMatchActive && (
+                            <Badge className="bg-blue-100 text-blue-800">
+                              Current
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Match Controls */}
+              {currentRoom.status === 'waiting' && (
+                <div className="text-center py-8">
+                  <Button 
+                    onClick={startMatch} 
+                    size="lg" 
+                    className="gap-2"
+                    disabled={!currentRoom.opponent_id}
+                  >
+                    <Play className="h-4 w-4" />
+                    Start Match
+                  </Button>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    {!currentRoom.opponent_id ? 'Waiting for opponent to join...' : 'Ready to start!'}
+                  </p>
+                </div>
+              )}
+
+              {/* Active Problem */}
+              {isMatchActive && currentProblem && (
+                <div className="space-y-6">
+                  <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 p-4 rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-xl font-semibold">
+                        Problem {currentProblemIndex + 1}: {currentProblem.title}
+                      </h3>
+                      <a 
+                        href={currentProblem.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline text-sm"
+                      >
+                        View on {currentProblem.platform} →
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className={getDifficultyColor(currentProblem.difficulty)}>
+                        {currentProblem.difficulty}
+                      </Badge>
+                      <Badge variant="outline">{currentProblem.platform}</Badge>
+                      {currentProblem.tags?.map(tag => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Code Editor */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <Select value={selectedLanguage.toString()} onValueChange={(value) => setSelectedLanguage(parseInt(value))}>
+                        <SelectTrigger className="w-48">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {LANGUAGES.map((lang) => (
+                            <SelectItem key={lang.id} value={lang.id.toString()}>
+                              {lang.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Textarea
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        placeholder="// Write your solution here...
+// Platform: NextFang v2.0 - Enhanced Multi-Platform Compiler
+// Supports: LeetCode, GFG, CodeChef, Codeforces compatible syntax"
+                        className="min-h-[300px] font-mono bg-black/80 text-green-400 border-primary/20"
+                      />
+                      
+                      {/* Enhanced Output Section */}
+                      <div className="bg-black/90 rounded-lg p-4 border border-primary/20">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Terminal className="h-4 w-4 text-blue-400" />
+                          <span className="text-sm font-semibold text-blue-400">NextFang Compiler Output:</span>
+                        </div>
+                        <pre className="text-sm text-green-400 whitespace-pre-wrap max-h-60 overflow-y-auto">
+                          {output || '🚀 Ready to run your code with NextFang Enhanced Compiler!\n\nFeatures:\n✅ Multi-platform support (LeetCode/GFG/CodeChef/Codeforces)\n⚡ Lightning-fast execution\n🔍 Detailed test case analysis\n💯 Performance metrics\n🏆 Real-time competitive environment\n\nClick "Run Code" to begin...'}
+                        </pre>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button 
+                        onClick={runCode} 
+                        disabled={isRunning}
+                        className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 flex items-center gap-2"
+                      >
+                        <Play className="h-4 w-4" />
+                        {isRunning ? 'Running...' : 'Run Code'}
+                      </Button>
+                      <Button 
+                        onClick={submitSolution}
+                        disabled={isSubmitting || !code.trim()}
+                        className="gap-2"
+                      >
+                        {isSubmitting ? (
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Code className="h-4 w-4" />
+                        )}
+                        {isSubmitting ? "Submitting..." : "Submit Solution"}
+                      </Button>
+                      
+                      {currentProblemIndex < currentProblems.length - 1 && (
+                        <Button 
+                          onClick={() => {
+                            setCurrentProblemIndex(currentProblemIndex + 1);
+                            setCode("");
+                          }}
+                          variant="outline" 
+                          className="gap-2"
+                        >
+                          Skip Problem
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Match Result */}
               {matchResult && (
-                <div className={`p-4 rounded-lg ${matchResult.includes('won') || matchResult.includes('Accepted') ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                <div className={`p-4 rounded-lg ${
+                  matchResult.includes('Congratulations') || matchResult.includes('solved') 
+                    ? 'bg-green-50 text-green-800 dark:bg-green-950/20 dark:text-green-400' 
+                    : 'bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-400'
+                }`}>
                   <div className="font-medium">{matchResult}</div>
                 </div>
               )}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
