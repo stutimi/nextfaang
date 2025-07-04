@@ -3,12 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 
 export const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Default to dark mode
 
   useEffect(() => {
-    // Check if dark mode is already set
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setIsDark(isDarkMode);
+    // Load theme preference on mount or default to dark
+    const savedTheme = localStorage.getItem('theme');
+    const shouldBeDark = savedTheme === 'light' ? false : true; // Default to dark if no preference
+    
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove('dark');
+      setIsDark(false);
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -26,18 +34,6 @@ export const ThemeToggle = () => {
     // Save preference to localStorage
     localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
   };
-
-  // Load theme preference on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    } else {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    }
-  }, []);
 
   return (
     <Button

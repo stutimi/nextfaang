@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface VisitorStats {
   totalVisitors: number;
@@ -15,23 +16,39 @@ export const useVisitorStats = () => {
   });
 
   useEffect(() => {
-    // Initialize stats from localStorage or default values
-    const savedStats = localStorage.getItem('nextfang-visitor-stats');
-    const initialStats = savedStats ? JSON.parse(savedStats) : {
-      totalVisitors: 15847,
-      activeUsers: 234,
-      todayVisitors: 1247
+    const fetchVisitorStats = async () => {
+      try {
+        // Get total visitors count
+        const { count: totalCount } = await supabase
+          .from('visitor_logs')
+          .select('*', { count: 'exact', head: true });
+
+        // Get today's visitors count
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const { count: todayCount } = await supabase
+          .from('visitor_logs')
+          .select('*', { count: 'exact', head: true })
+          .gte('visited_at', today.toISOString());
+
+        setStats({
+          totalVisitors: totalCount || 0,
+          activeUsers: Math.floor(Math.random() * 50) + 200, // Simulated active users
+          todayVisitors: todayCount || 0
+        });
+      } catch (error) {
+        console.error('Error fetching visitor stats:', error);
+        // Fallback to default values
+        setStats({
+          totalVisitors: 15847,
+          activeUsers: 234,
+          todayVisitors: 1247
+        });
+      }
     };
 
-    // Increment total visitors on first load
-    if (!sessionStorage.getItem('visited')) {
-      initialStats.totalVisitors += 1;
-      initialStats.todayVisitors += 1;
-      sessionStorage.setItem('visited', 'true');
-    }
-
-    setStats(initialStats);
-    localStorage.setItem('nextfang-visitor-stats', JSON.stringify(initialStats));
+    fetchVisitorStats();
 
     // Simulate real-time active users fluctuation
     const interval = setInterval(() => {

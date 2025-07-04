@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useVisitorTracker } from "@/hooks/useVisitorTracker";
 import { SignupRequired } from "@/components/SignupRequired";
 import { CelebrationEffect } from "@/components/CelebrationEffect";
 import { Navbar } from "@/components/Navbar";
@@ -30,6 +31,9 @@ const Index = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
+  // Track visitors to the website
+  useVisitorTracker();
+
   // Check if user has already signed up
   useEffect(() => {
     const signupData = localStorage.getItem('user_signup');
@@ -37,26 +41,6 @@ const Index = () => {
       setHasSignedUp(true);
     }
   }, []);
-
-  // Track visitor if not authenticated
-  useEffect(() => {
-    if (!loading && !user) {
-      // Track visitor (this could be enhanced with IP geolocation)
-      const trackVisitor = async () => {
-        try {
-          const response = await fetch('https://api.ipify.org?format=json');
-          const { ip } = await response.json();
-          
-          // You could add more visitor tracking here
-          console.log('Visitor tracked:', { ip, timestamp: new Date() });
-        } catch (error) {
-          console.error('Failed to track visitor:', error);
-        }
-      };
-      
-      trackVisitor();
-    }
-  }, [user, loading]);
 
   if (loading) {
     return (
