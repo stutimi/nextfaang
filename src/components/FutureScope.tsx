@@ -400,7 +400,7 @@ export const FutureScope = () => {
           </CardContent>
         </Card>
 
-        {/* Beta Program CTA */}
+        {/* CP Awareness Section */}
         <div className="text-center relative">
           <Card className="glass-morphism border-primary/20 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -410,32 +410,39 @@ export const FutureScope = () => {
               <div className="flex justify-center mb-6">
                 <div className="flex gap-4">
                   <div className="p-3 rounded-xl bg-primary/10 animate-bounce">
-                    <Database className="h-8 w-8 text-primary" />
+                    <Target className="h-8 w-8 text-primary" />
                   </div>
                   <div className="p-3 rounded-xl bg-secondary/10 animate-bounce" style={{ animationDelay: '0.2s' }}>
-                    <Layers className="h-8 w-8 text-secondary" />
+                    <Brain className="h-8 w-8 text-secondary" />
                   </div>
                   <div className="p-3 rounded-xl bg-accent/10 animate-bounce" style={{ animationDelay: '0.4s' }}>
-                    <Network className="h-8 w-8 text-accent" />
+                    <BookOpen className="h-8 w-8 text-accent" />
                   </div>
                 </div>
               </div>
               
               <h3 className="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Be Part of the Future
+                🎯 Why CP Awareness is Missing in India & How NEXTFANG Bridges It
               </h3>
               
               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join our beta program and get early access to revolutionary features. 
-                Help shape the future of competitive programming education with cutting-edge AI tools.
+                Understanding the gap in competitive programming awareness and how we're revolutionizing 
+                CP education with comprehensive resources and structured learning paths.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Button className="button-3d bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-10 py-4 text-lg font-bold shadow-xl">
-                  <Star className="h-5 w-5 mr-2" />
-                  Join Beta Program
+                <Button 
+                  className="button-3d bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-10 py-4 text-lg font-bold shadow-xl"
+                  onClick={() => window.location.href = '/resources'}
+                >
+                  <BookOpen className="h-5 w-5 mr-2" />
+                  Explore Resources
                 </Button>
-                <Button variant="outline" className="border-primary/30 hover:bg-primary/5 px-10 py-4 text-lg font-semibold">
+                <Button 
+                  variant="outline" 
+                  className="border-primary/30 hover:bg-primary/5 px-10 py-4 text-lg font-semibold"
+                  onClick={() => document.getElementById('cp-awareness-section')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   Learn More
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Button>
