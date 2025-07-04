@@ -1,18 +1,55 @@
 # 🧠 NEXTFAANG: CP Legend Hub
 
-Welcome to the project! This is a competitive programming and DSA learning platform designed for both CS and non-CS students. The goal is to empower students to crack tech interviews and master CP through structured learning, performance analysis, and curated content.
+Welcome to the ultimate competitive programming and DSA learning platform! NEXTFAANG is designed for both CS and non-CS students, empowering them to crack tech interviews and master competitive programming through structured learning, real-time performance analysis, and curated content.
 
 ---
 
-## 🌐 Project Info
+## 🌐 Live Demo & Links
 
-**Live Demo**: [NEXTFAANG Platform](https://nextfang.netlify.app/)
-https://nextfang-cp-legend-hub-21.lovable.app/
+**Live Demo**: [NEXTFAANG Platform](https://nextfang-cp-legend-hub-21.lovable.app/)
 
-https://nextfang-cp-legend-hub-21.lovable.app/
+**GitHub Repository**: Connected via Lovable's GitHub integration for seamless deployment
+
 ---
 
-https://nextfang-cp-legend-hub-21.lovable.app/
+## 🛠️ Tech Stack
+
+### Frontend Technologies
+- **React 18** - Modern UI library with hooks and concurrent features
+- **TypeScript** - Type-safe development experience
+- **Vite** - Lightning-fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework with custom design system
+- **Shadcn/UI + Radix UI** - Accessible, customizable component library
+- **React Router Dom** - Client-side routing and navigation
+- **TanStack Query** - Server state management and caching
+- **Framer Motion** - Smooth animations and transitions
+- **Recharts** - Interactive data visualization and analytics
+- **Lucide React** - Beautiful, consistent icons
+
+### Backend Technologies
+- **Supabase** - Complete backend-as-a-service platform
+  - **PostgreSQL Database** - Robust relational database with advanced features
+  - **Row Level Security (RLS)** - Fine-grained access control
+  - **Real-time Subscriptions** - Live data updates
+  - **Authentication** - Email/password and social login
+  - **Edge Functions** - Serverless TypeScript/JavaScript functions
+  - **File Storage** - Scalable file management with policies
+  - **Auto-generated APIs** - RESTful and GraphQL endpoints
+
+### Custom APIs & Integrations
+- **Random CP Questions API** - Edge function serving problems from:
+  - Codeforces API integration
+  - GeeksforGeeks problem sets
+  - Difficulty-based filtering and recommendations
+- **User Analytics** - Session tracking and performance metrics
+- **Visitor Tracking** - Real-time user statistics and demographics
+
+### Development & Deployment
+- **Lovable Platform** - AI-powered development environment
+- **GitHub Integration** - Automated version control and CI/CD
+- **Vercel/Netlify Ready** - Optimized for modern hosting platforms
+- **ESLint + TypeScript** - Code quality and consistency
+- **Responsive Design** - Mobile-first approach with Tailwind breakpoints
 
 <section>
   <h2>🌐 Key Features</h2>
