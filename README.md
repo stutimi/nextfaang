@@ -6,7 +6,7 @@ Welcome to the ultimate competitive programming and DSA learning platform! NEXTF
 
 ## 🌐 Live Demo & Links
 
-**Live Demo**: [NEXTFAANG Platform](https://nextfang-cp-legend-hub-21.lovable.app/)
+**Live Demo**: [NEXTFAANG Platform](https://nextfaang-cp-legend-hub.vercel.app/)
 
 **GitHub Repository**: Connected via Lovable's GitHub integration for seamless deployment
 
