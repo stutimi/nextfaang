@@ -68,18 +68,11 @@ Welcome to the ultimate competitive programming and DSA learning platform! NEXTF
     <li><strong>🧾 AI Resume Builder:</strong> Auto-generate resumes based on user profile and goals.</li>
     <li><strong>🗣️ Voice Chatbot Support:</strong> Chatbot to guide users using voice and natural language queries.</li>
     <li><strong>🤖 AI Platform Guide:</strong> Personalized walkthroughs and suggestions using an AI-powered assistant.</li>
-  </ul>
-
-  <h3>🧪 Coming Soon</h3>
-  <ul>
     <li><strong>🧮 Problem Analyzer:</strong> Topic-wise insights and improvement tracking.</li>
     <li><strong>👨‍💻 Built-in Compiler:</strong> Run code directly on the platform.</li>
   </ul>
 </section>
 
-
-
-  
 <section>
   <h2>🚀 Deploying on Vercel</h2>
   <p>
@@ -103,16 +96,16 @@ Welcome to the ultimate competitive programming and DSA learning platform! NEXTF
 
 ---
 Website Overview
-<a href="https://ibb.co/B5ShS9ZY"><img src="https://i.ibb.co/jP1C1SMj/Screenshot-2025-06-14-104355.png" alt="Screenshot-2025-06-14-104355" border="0"></a>
+<a href="https://ibb.co/MkRWYPf7"><img src="https://i.ibb.co/9HqzFyhW/Screenshot-2025-07-07-193002.png" alt="Screenshot-2025-07-07-193002" border="0"></a>
 
-Our Vision
-<a href="https://ibb.co/F42X0Kwd"><img src="https://i.ibb.co/PGKM9NhV/Screenshot-2025-06-14-104829.png" alt="Screenshot-2025-06-14-104829" border="0"></a>
+dsa sheet
+<a href="https://ibb.co/tPwsbVsS"><img src="https://i.ibb.co/93mTqQTJ/Screenshot-2025-07-07-193045.png" alt="Screenshot-2025-07-07-193045" border="0"></a>
 
-First View
-<a href="https://ibb.co/wNLCx5Tf"><img src="https://i.ibb.co/RpSPVR1q/Screenshot-2025-06-14-104956.png" alt="Screenshot-2025-06-14-104956" border="0"></a>
+our visition
+<a href="https://ibb.co/mCtB0Ktb"><img src="https://i.ibb.co/jvG5zYGb/Screenshot-2025-07-07-193605.png" alt="Screenshot-2025-07-07-193605" border="0"></a>
 
-Code Conqure Compete
-<a href="https://ibb.co/MxH4VWTM"><img src="https://i.ibb.co/4nLGT9yP/Screenshot-2025-06-14-105048.png" alt="Screenshot-2025-06-14-105048" border="0"></a>
+our community
+<a href="https://ibb.co/qLwXmKDM"><img src="https://i.ibb.co/kVFkqjGg/Screenshot-2025-07-07-193503.png" alt="Screenshot-2025-07-07-193503" border="0"></a>
 
 Cp Joureny
 <a href="https://ibb.co/SXLMGqFq"><img src="https://i.ibb.co/vxtTR202/Screenshot-2025-06-14-105134.png" alt="Screenshot-2025-06-14-105134" border="0"></a>
