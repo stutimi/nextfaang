@@ -95,6 +95,10 @@ Welcome to the ultimate competitive programming and DSA learning platform! NEXTF
 </section>
 
 ---
+
+Map of the platform
+<a href="https://ibb.co/p6VbcF6d"><img src="https://i.ibb.co/wZGBVmZ4/Screenshot-2025-07-14-144530.png" alt="Screenshot-2025-07-14-144530" border="0"></a>
+
 Website Overview
 <a href="https://ibb.co/MkRWYPf7"><img src="https://i.ibb.co/9HqzFyhW/Screenshot-2025-07-07-193002.png" alt="Screenshot-2025-07-07-193002" border="0"></a>
 
@@ -110,11 +114,17 @@ our community
 Smart Tool For Smart Students 
 <a href="https://ibb.co/Z113zQcX"><img src="https://i.ibb.co/Fqq94Q83/Screenshot-2025-07-07-193530.png" alt="Screenshot-2025-07-07-193530" border="0"></a>
 
+Arketucture Diagram
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/sv8XQgFt/Screenshot-2025-07-14-144558.png" alt="Screenshot-2025-07-14-144558" border="0"></a>
+
 form link
 <a href="https://ibb.co/Kz5Q1RXp"><img src="https://i.ibb.co/HpKMJ1Vf/Screenshot-2025-07-07-193823.png" alt="Screenshot-2025-07-07-193823" border="0"></a>
 
 CP REsorces Hub
 <a href="https://ibb.co/Ps0ZNr6c"><img src="https://i.ibb.co/Q7tFfJKP/Screenshot-2025-06-14-105801.png" alt="Screenshot-2025-06-14-105801" border="0"></a>
+
+flow chart
+<a href="https://ibb.co/gbjCLhv4"><img src="https://i.ibb.co/NgVzdb1T/Screenshot-2025-07-14-145208.png" alt="Screenshot-2025-07-14-145208" border="0"></a>
 
 Resorces
 <a href="https://ibb.co/mV3V0FC7"><img src="https://i.ibb.co/cSjSwXcd/Screenshot-2025-06-14-105856.png" alt="Screenshot-2025-06-14-105856" border="0"></a>
