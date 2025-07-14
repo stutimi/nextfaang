@@ -107,38 +107,17 @@ our visition
 our community
 <a href="https://ibb.co/qLwXmKDM"><img src="https://i.ibb.co/kVFkqjGg/Screenshot-2025-07-07-193503.png" alt="Screenshot-2025-07-07-193503" border="0"></a>
 
-Cp Joureny
-<a href="https://ibb.co/SXLMGqFq"><img src="https://i.ibb.co/vxtTR202/Screenshot-2025-06-14-105134.png" alt="Screenshot-2025-06-14-105134" border="0"></a>
-
 Smart Tool For Smart Students 
-<a href="https://ibb.co/vxJsqKMm"><img src="https://i.ibb.co/QF68Q1xn/Screenshot-2025-06-14-105208.png" alt="Screenshot-2025-06-14-105208" border="0"></a>
+<a href="https://ibb.co/Z113zQcX"><img src="https://i.ibb.co/Fqq94Q83/Screenshot-2025-07-07-193530.png" alt="Screenshot-2025-07-07-193530" border="0"></a>
 
-Master DSA Creck any Interview
-<a href="https://ibb.co/QFHdbRcz"><img src="https://i.ibb.co/Y7dZRMWY/Screenshot-2025-06-14-105253.png" alt="Screenshot-2025-06-14-105253" border="0"></a>
-
-Linkedin Goal Mine
-<a href="https://ibb.co/5gBKxfCG"><img src="https://i.ibb.co/TxmWqFJY/Screenshot-2025-06-14-105340.png" alt="Screenshot-2025-06-14-105340" border="0"></a>
-
-Daily Performence Analizer
-<a href="https://ibb.co/5XYy7j37"><img src="https://i.ibb.co/vCsGtdWt/Screenshot-2025-06-14-105447.png" alt="Screenshot-2025-06-14-105447" border="0"></a>
-
-Join Our Community
-<a href="https://ibb.co/Qv331pZb"><img src="https://i.ibb.co/5hggfGdM/Screenshot-2025-06-14-105642.png" alt="Screenshot-2025-06-14-105642" border="0"></a>
-
-Community Support
-<a href="https://ibb.co/0jTfHqCd"><img src="https://i.ibb.co/4ZzjhW85/Screenshot-2025-06-14-105731.png" alt="Screenshot-2025-06-14-105731" border="0"></a>
+form link
+<a href="https://ibb.co/Kz5Q1RXp"><img src="https://i.ibb.co/HpKMJ1Vf/Screenshot-2025-07-07-193823.png" alt="Screenshot-2025-07-07-193823" border="0"></a>
 
 CP REsorces Hub
 <a href="https://ibb.co/Ps0ZNr6c"><img src="https://i.ibb.co/Q7tFfJKP/Screenshot-2025-06-14-105801.png" alt="Screenshot-2025-06-14-105801" border="0"></a>
 
-Practice Mode
-<a href="https://ibb.co/HDwn7rpd"><img src="https://i.ibb.co/pvVJ23ry/Screenshot-2025-06-14-105841.png" alt="Screenshot-2025-06-14-105841" border="0"></a>
-
 Resorces
 <a href="https://ibb.co/mV3V0FC7"><img src="https://i.ibb.co/cSjSwXcd/Screenshot-2025-06-14-105856.png" alt="Screenshot-2025-06-14-105856" border="0"></a>
-
-Platform Guide
-<a href="https://ibb.co/zTgGmTcL"><img src="https://i.ibb.co/dwvGfw93/Screenshot-2025-06-14-110008.png" alt="Screenshot-2025-06-14-110008" border="0"></a>
 
 NextFAANG tools and AI Setup
 <a href="https://ibb.co/mCwKfXqG"><img src="https://i.ibb.co/tMt6Vxs4/Screenshot-2025-06-14-110109.png" alt="Screenshot-2025-06-14-110109" border="0"></a>
@@ -152,10 +131,8 @@ CP Dictionary
 CP Tricks And Tips
 <a href="https://ibb.co/bgGMXfVs"><img src="https://i.ibb.co/ynxcq3C6/Screenshot-2025-06-14-110206.png" alt="Screenshot-2025-06-14-110206" border="0"></a>
 
-DSA Mastery
-<a href="https://ibb.co/mF1TZd7M"><img src="https://i.ibb.co/LhbRjBf2/Screenshot-2025-06-14-110252.png" alt="Screenshot-2025-06-14-110252" border="0"></a>
-
-
+Coding Arena
+<a href="https://ibb.co/4yTbySF"><img src="https://i.ibb.co/Rn0Xn6g/Screenshot-2025-07-07-193951.png" alt="Screenshot-2025-07-07-193951" border="0"></a>
 
 
 yaml
