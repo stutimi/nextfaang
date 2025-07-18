@@ -159,7 +159,7 @@ export const FutureScope = () => {
   ];
 
   return (
-    <section id="future" className="relative overflow-hidden bg-gradient-to-br from-gray-900 to-gray-950 py-24">
+    <section id="future" className="relative overflow-hidden bg-gradient-to-br from-background to-muted py-24">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
@@ -176,12 +176,12 @@ export const FutureScope = () => {
             Future Vision
           </Badge>
           <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            <span className="block text-gray-100">Building the</span>
+            <span className="block text-foreground">Building the</span>
             <span className="block bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
               Future of CP Education
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Revolutionary features and smart tools that will transform how you learn competitive programming
           </p>
         </div>
@@ -189,7 +189,7 @@ export const FutureScope = () => {
         {/* Smart Tools Section */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-100">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
               Upcoming Smart Tools
             </h3>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-blue-500 mx-auto rounded-full"></div>
@@ -199,7 +199,7 @@ export const FutureScope = () => {
             {smartTools.map((tool, index) => (
               <Card 
                 key={index} 
-                className="bg-gray-900/50 border border-gray-800 hover:border-primary/40 transition-colors group"
+                className="glass-card border-border hover:border-primary/40 transition-colors group"
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
@@ -212,8 +212,8 @@ export const FutureScope = () => {
                       </Badge>
                     )}
                   </div>
-                  <h4 className="font-bold text-lg mb-2 text-gray-100">{tool.title}</h4>
-                  <p className="text-sm text-gray-400">{tool.description}</p>
+                  <h4 className="font-bold text-lg mb-2 text-foreground">{tool.title}</h4>
+                  <p className="text-sm text-muted-foreground">{tool.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -223,7 +223,7 @@ export const FutureScope = () => {
         {/* Features Grid */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-100">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
               Revolutionary Features
             </h3>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-blue-500 mx-auto rounded-full"></div>
@@ -233,14 +233,14 @@ export const FutureScope = () => {
             {futureFeatures.map((feature, index) => (
               <Card 
                 key={index} 
-                className="bg-gray-900/50 border border-gray-800 hover:border-primary/40 transition-colors group"
+                className="glass-card border-border hover:border-primary/40 transition-colors group"
               >
                 <CardHeader className="flex flex-row items-start space-y-0 space-x-4 pb-4">
-                  <div className={`p-3 rounded-lg ${feature.color} text-white`}>
+                  <div className={`p-3 rounded-lg ${feature.color} text-primary-foreground`}>
                     <feature.icon className="h-6 w-6" />
                   </div>
                   <div className="space-y-1">
-                    <CardTitle className="text-xl text-gray-100">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                     <Badge 
                       variant={feature.status === "Beta" ? "default" : "secondary"}
                       className="mt-1"
@@ -250,7 +250,7 @@ export const FutureScope = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-gray-400 mb-4">
+                  <CardDescription className="text-muted-foreground mb-4">
                     {feature.description}
                   </CardDescription>
                   <div className="space-y-2">
@@ -260,7 +260,7 @@ export const FutureScope = () => {
                         <Badge 
                           key={idx} 
                           variant="outline" 
-                          className="border-gray-700 text-gray-300 hover:bg-primary/10 hover:border-primary/30"
+                          className="border-border text-muted-foreground hover:bg-primary/10 hover:border-primary/30"
                         >
                           {item}
                         </Badge>
@@ -311,7 +311,7 @@ export const FutureScope = () => {
             </div>
             
             <Button 
-              className="bg-white text-gray-900 hover:bg-white/90 font-bold px-8 py-4 shadow-lg"
+              className="bg-background text-foreground hover:bg-muted border border-border font-bold px-8 py-4 shadow-lg"
               size="lg"
             >
               Join the Revolution

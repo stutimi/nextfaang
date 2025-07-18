@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 
 export const DSASection = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden" id="dsa">
+    <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="dsa">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
       </div>
 
@@ -28,11 +28,11 @@ export const DSASection = () => {
               <Database className="h-5 w-5 mr-2" />
               Data Structures Mastery
             </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               DSA Course That <span className="text-primary">Transforms</span> Careers
             </h2>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Master Data Structures and Algorithms with our battle-tested curriculum designed by industry experts and ICPC champions.
           </p>
         </motion.div>
@@ -46,55 +46,55 @@ export const DSASection = () => {
           className="grid lg:grid-cols-3 gap-8 mb-16"
         >
           {/* Featured Course */}
-          <Card className="lg:col-span-2 group glass-card border-gray-800 hover:border-primary/30 transition-all duration-500">
+          <Card className="lg:col-span-2 group glass-card border-border hover:border-primary/30 transition-all duration-500">
             <CardHeader>
               <div className="flex items-start justify-between mb-6">
-                <div className="p-4 bg-gradient-to-br from-primary to-blue-500 rounded-xl shadow-lg">
-                  <Zap className="h-8 w-8 text-white" />
+                <div className="p-4 bg-gradient-to-br from-primary to-accent rounded-xl shadow-lg">
+                  <Zap className="h-8 w-8 text-primary-foreground" />
                 </div>
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-primary-foreground">
                   MOST POPULAR
                 </Badge>
               </div>
               <CardTitle className="text-2xl md:text-3xl font-bold mb-4">
                 Striver's A2Z DSA Course
               </CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-muted-foreground">
                 The ultimate DSA roadmap covering all concepts from beginner to advanced level with 180+ handpicked problems.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     180+ Problems
                   </Badge>
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     Video Solutions
                   </Badge>
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     Step by Step
                   </Badge>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     Free Access
                   </Badge>
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     Community Support
                   </Badge>
-                  <Badge variant="secondary" className="bg-gray-800/50 text-gray-200">
+                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
                     Interview Ready
                   </Badge>
                 </div>
               </div>
               
-              <div className="bg-gray-800/30 rounded-xl p-4 space-y-3 border border-gray-800">
+              <div className="bg-muted/30 rounded-xl p-4 space-y-3 border border-border">
                 <h4 className="font-semibold text-primary flex items-center gap-2">
                   <Brain className="h-5 w-5" />
                   Course Highlights:
                 </h4>
-                <div className="grid md:grid-cols-2 gap-2 text-gray-300">
+                <div className="grid md:grid-cols-2 gap-2 text-muted-foreground">
                   {[
                     "Arrays & Hashing Fundamentals",
                     "Binary Search Mastery",
@@ -114,7 +114,7 @@ export const DSASection = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg"
-                  className="flex-1 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white"
+                  className="flex-1 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground"
                   onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-5 w-5" />
@@ -123,7 +123,7 @@ export const DSASection = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-gray-700 hover:bg-gray-800/30 hover:border-primary/50"
+                  className="border-border hover:bg-muted/30 hover:border-primary/50"
                 >
                   <BookOpen className="mr-2 h-5 w-5" />
                   View Roadmap
@@ -133,7 +133,7 @@ export const DSASection = () => {
           </Card>
 
           {/* Stats Card */}
-          <Card className="glass-card bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-gray-800">
+          <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 border-border">
             <CardContent className="pt-8">
               <h3 className="text-2xl font-bold mb-8 text-center text-primary">Course Impact</h3>
               <div className="space-y-8">
@@ -153,7 +153,7 @@ export const DSASection = () => {
                   >
                     <div className="flex justify-center mb-2">{stat.icon}</div>
                     <div className="text-4xl font-bold mb-1">{stat.value}</div>
-                    <div className="text-gray-300">{stat.label}</div>
+                    <div className="text-muted-foreground">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -192,16 +192,16 @@ export const DSASection = () => {
               color: "purple"
             }
           ].map((feature, index) => (
-            <Card key={index} className="glass-card border-gray-800 hover:border-primary/30 transition-all duration-300">
+            <Card key={index} className="glass-card border-border hover:border-primary/30 transition-all duration-300">
               <CardHeader>
                 <div className={`p-3 bg-${feature.color}-500/10 rounded-lg w-fit mb-3`}>
                   {feature.icon}
                 </div>
                 <CardTitle className="text-xl">{feature.title}</CardTitle>
-                <CardDescription className="text-gray-300">{feature.description}</CardDescription>
+                <CardDescription className="text-muted-foreground">{feature.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2 text-gray-300">
+                <div className="space-y-2 text-muted-foreground">
                   {feature.items.map((item, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <div className={`w-1.5 h-1.5 bg-${feature.color}-400 rounded-full`}></div>
@@ -222,18 +222,18 @@ export const DSASection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-800">
+          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-primary to-blue-500 rounded-full w-fit mx-auto mb-6">
-                <Database className="h-8 w-8 text-white" />
+                <Database className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Transform Your Career?</h3>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join our community of 500K+ students who have mastered DSA and landed their dream tech jobs.
               </p>
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white px-12"
+                className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground px-12"
                 onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
               >
                 <Star className="mr-2 h-5 w-5" />

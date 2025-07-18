@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
@@ -182,6 +183,7 @@ export const Navbar = () => {
 
           {/* Enhanced Auth Section */}
           <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
             <SignedOut>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -317,6 +319,9 @@ export const Navbar = () => {
 
                   {/* Mobile Auth Section */}
                   <div className="pt-4 border-t border-primary/20">
+                    <div className="flex items-center justify-center mb-4">
+                      <ThemeToggle />
+                    </div>
                     <SignedOut>
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}

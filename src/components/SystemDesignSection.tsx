@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export const SystemDesignSection = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden" id="system-design">
+    <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="system-design">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
@@ -32,7 +32,7 @@ export const SystemDesignSection = () => {
               Architect <span className="text-indigo-400">Scalable Systems</span> Like FAANG
             </h2>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Complete system design roadmap with videos for Software Development Engineers. Build scalable systems like tech giants.
           </p>
         </motion.div>
@@ -46,15 +46,15 @@ export const SystemDesignSection = () => {
           className="grid lg:grid-cols-3 gap-8 mb-16"
         >
           {/* System Design Roadmap */}
-          <Card className="glass-card border-gray-800 hover:border-indigo-500/30 transition-all duration-500 group">
+          <Card className="glass-card border-border hover:border-indigo-500/30 transition-all duration-500 group">
             <CardHeader>
               <div className="p-4 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl w-fit mb-4">
-                <Network className="h-8 w-8 text-white" />
+                <Network className="h-8 w-8 text-primary-foreground" />
               </div>
               <CardTitle className="text-xl md:text-2xl font-bold group-hover:text-indigo-400 transition-colors">
                 Complete System Design Roadmap
               </CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-muted-foreground">
                 Comprehensive roadmap with videos covering all aspects of system design for SDE interviews
               </CardDescription>
             </CardHeader>
@@ -65,7 +65,7 @@ export const SystemDesignSection = () => {
                 <Badge className="bg-pink-500/10 text-pink-400">Video Tutorials</Badge>
                 <Badge className="bg-indigo-500/10 text-indigo-400">SDE Focused</Badge>
               </div>
-              <div className="space-y-2 text-sm text-gray-300">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 {[
                   "Fundamentals of System Design",
                   "Scalability and Load Balancing",
@@ -79,7 +79,7 @@ export const SystemDesignSection = () => {
                 ))}
               </div>
               <Button 
-                className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white"
+                className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-primary-foreground"
                 onClick={() => window.open('https://takeuforward.org/system-design/complete-system-design-roadmap-with-videos-for-sdes', '_blank')}
               >
                 <Video className="mr-2 h-4 w-4" />
@@ -90,15 +90,15 @@ export const SystemDesignSection = () => {
           </Card>
 
           {/* DBMS Interview Questions */}
-          <Card className="glass-card border-gray-800 hover:border-purple-500/30 transition-all duration-500 group">
+          <Card className="glass-card border-border hover:border-purple-500/30 transition-all duration-500 group">
             <CardHeader>
               <div className="p-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl w-fit mb-4">
-                <Database className="h-8 w-8 text-white" />
+                <Database className="h-8 w-8 text-primary-foreground" />
               </div>
               <CardTitle className="text-xl md:text-2xl font-bold group-hover:text-purple-400 transition-colors">
                 DBMS Interview Questions
               </CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-muted-foreground">
                 Most asked Database Management System interview questions for tech companies
               </CardDescription>
             </CardHeader>
@@ -109,7 +109,7 @@ export const SystemDesignSection = () => {
                 <Badge className="bg-indigo-500/10 text-indigo-400">Transactions</Badge>
                 <Badge className="bg-purple-500/10 text-purple-400">Indexing</Badge>
               </div>
-              <div className="space-y-2 text-sm text-gray-300">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 {[
                   "SQL vs NoSQL Databases",
                   "ACID Properties & Transactions",
@@ -123,7 +123,7 @@ export const SystemDesignSection = () => {
                 ))}
               </div>
               <Button 
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-primary-foreground"
                 onClick={() => window.open('https://takeuforward.org/dbms/most-asked-dbms-interview-questions', '_blank')}
               >
                 <BookOpen className="mr-2 h-4 w-4" />
@@ -134,15 +134,15 @@ export const SystemDesignSection = () => {
           </Card>
 
           {/* Interview Preparation */}
-          <Card className="glass-card border-gray-800 hover:border-pink-500/30 transition-all duration-500 group">
+          <Card className="glass-card border-border hover:border-pink-500/30 transition-all duration-500 group">
             <CardHeader>
               <div className="p-4 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl w-fit mb-4">
-                <Server className="h-8 w-8 text-white" />
+                <Server className="h-8 w-8 text-primary-foreground" />
               </div>
               <CardTitle className="text-xl md:text-2xl font-bold group-hover:text-pink-400 transition-colors">
                 Interview Preparation Platform
               </CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-muted-foreground">
                 Complete interview preparation with system design, coding, and behavioral questions
               </CardDescription>
             </CardHeader>
@@ -153,7 +153,7 @@ export const SystemDesignSection = () => {
                 <Badge className="bg-purple-500/10 text-purple-400">Technical</Badge>
                 <Badge className="bg-indigo-500/10 text-indigo-400">System Design</Badge>
               </div>
-              <div className="space-y-2 text-sm text-gray-300">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 {[
                   "Mock Interview Sessions",
                   "Behavioral Question Bank",
@@ -167,7 +167,7 @@ export const SystemDesignSection = () => {
                 ))}
               </div>
               <Button 
-                className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white"
+                className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-primary-foreground"
                 onClick={() => window.open('https://takeuforward.org/interview', '_blank')}
               >
                 <Globe className="mr-2 h-4 w-4" />
@@ -186,10 +186,10 @@ export const SystemDesignSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-800">
+          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full w-fit mx-auto mb-6">
-                <Layers className="h-8 w-8 text-white" />
+                <Layers className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                 Why Master System Design?
@@ -220,11 +220,11 @@ export const SystemDesignSection = () => {
                     viewport={{ once: true }}
                     className="text-center"
                   >
-                    <div className="p-4 bg-gray-800/50 rounded-full w-fit mx-auto mb-4">
+                    <div className="p-4 bg-muted/50 rounded-full w-fit mx-auto mb-4">
                       {feature.icon}
                     </div>
                     <h4 className="font-semibold mb-2">{feature.title}</h4>
-                    <p className="text-sm text-gray-300">{feature.description}</p>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
                   </motion.div>
                 ))}
               </div>
