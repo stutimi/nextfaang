@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy, Home, Book, Phone, Users as CommunityIcon } from "lucide-react";
+import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,11 +10,26 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, profile, signOut } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId);
@@ -26,214 +40,324 @@ export const Navbar = () => {
   };
 
   const navItems = [
-    { label: "Home", icon: <Home className="h-4 w-4" />, action: () => scrollToSection('#hero') },
-    { label: "DSA", icon: <Book className="h-4 w-4" />, action: () => scrollToSection('#dsa-section') },
-    { label: "CP", icon: <Code className="h-4 w-4" />, action: () => scrollToSection('#cp-section') },
-    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community') },
-    { label: "Contact", icon: <Phone className="h-4 w-4" />, action: () => scrollToSection('#contact') }
+    { label: "Home", icon: <Home className="h-4 w-4" />, action: () => scrollToSection('#hero'), badge: null },
+    { label: "DSA", icon: <Book className="h-4 w-4" />, action: () => scrollToSection('#dsa-section'), badge: "New" },
+    { label: "CP", icon: <Code className="h-4 w-4" />, action: () => scrollToSection('#cp-section'), badge: "Hot" },
+    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community'), badge: null },
+    { label: "Contact", icon: <Phone className="h-4 w-4" />, action: () => scrollToSection('#contact'), badge: null }
   ];
 
   const toolsItems = [
-    { label: "Contest Analyzer", href: "/contest-analyzer" },
-    { label: "CP Dictionary", href: "/cp-dictionary" },
-    { label: "Tricks & Tips", href: "/cp-tricks-tips" },
-    { label: "DSA Mastery", href: "/dsa-mastery" }
+    { label: "Contest Analyzer", href: "/contest-analyzer", icon: <Sparkles className="h-4 w-4" />, description: "Analyze your contest performance" },
+    { label: "CP Dictionary", href: "/cp-dictionary", icon: <Book className="h-4 w-4" />, description: "Learn competitive programming terms" },
+    { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: <Rocket className="h-4 w-4" />, description: "Master advanced techniques" },
+    { label: "DSA Mastery", href: "/dsa-mastery", icon: <Star className="h-4 w-4" />, description: "Complete data structures guide" }
   ];
 
   return (
-    <nav className="bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/60 sticky top-0 z-50 border-b border-gray-800 shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 cursor-pointer">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
+    <nav className={`glass-card sticky top-0 z-50 transition-all duration-500 ${
+      scrolled
+        ? 'bg-background/80 backdrop-blur-xl border-b border-primary/20 shadow-2xl shadow-primary/10'
+        : 'bg-background/60 backdrop-blur-lg border-b border-border/50'
+    }`}>
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
+          {/* Enhanced Logo */}
+          <Link to="/" className="flex items-center gap-3 cursor-pointer group">
+            <motion.div
+              whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3"
             >
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg">
-                <Zap className="h-5 w-5 text-white" />
+              <div className="relative p-3 bg-gradient-to-br from-primary via-accent to-primary rounded-2xl shadow-lg group-hover:shadow-primary/50 transition-all duration-300">
+                <Zap className="h-6 w-6 text-white relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+              <div className="relative">
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-pulse">
                   NEXTFAANG
                 </h1>
-                <p className="text-xs text-gray-400">India's First LGM Platform</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs text-muted-foreground font-medium">India's First LGM Platform</p>
+                  <Badge variant="secondary" className="text-xs px-2 py-0.5 bg-primary/10 text-primary border-primary/20">
+                    Pro
+                  </Badge>
+                </div>
               </div>
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4">
-            {!user && navItems.map((item) => (
-              <motion.button
+          {/* Enhanced Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-2">
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.label}
-                onClick={item.action}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-1 text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors px-3 py-2 rounded-lg hover:bg-gray-800"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative"
               >
-                {item.icon}
-                {item.label}
-              </motion.button>
-            ))}
-            
-            {!user && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Button variant="ghost" size="sm" className="flex items-center gap-1 text-gray-300 hover:bg-gray-800">
-                      <span>Tools</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </Button>
-                  </motion.div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
-                  className="w-48 bg-gray-900 border border-gray-800"
+                <motion.button
+                  onClick={item.action}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 px-4 py-2.5 rounded-xl hover:bg-primary/10 group"
                 >
-                  {toolsItems.map((tool) => (
-                    <DropdownMenuItem 
-                      key={tool.label} 
-                      className="cursor-pointer text-gray-300 hover:bg-gray-800"
-                      asChild
+                  <span className="group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </span>
+                  {item.label}
+                  {item.badge && (
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs px-1.5 py-0.5 ml-1 ${
+                        item.badge === 'Hot'
+                          ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                          : 'bg-green-500/20 text-green-400 border-green-500/30'
+                      }`}
                     >
-                      <Link to={tool.href} className="w-full">
-                        {tool.label}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </div>
+                      {item.badge}
+                    </Badge>
+                  )}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.button>
+              </motion.div>
+            ))}
 
-          {/* Auth Section */}
-          <div className="hidden md:flex items-center gap-4">
-            {user ? (
-              <>
-                {profile && (
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="gap-1 bg-blue-900/30 text-blue-400">
-                      <Trophy className="h-3 w-3" />
-                      {profile.rating}
-                    </Badge>
-                    <Badge variant="outline" className="gap-1 border-gray-700 text-gray-300">
-                      {profile.wins}W / {profile.losses}L
-                    </Badge>
-                  </div>
-                )}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="flex items-center gap-2 text-gray-300 hover:bg-gray-800">
-                      <User className="h-4 w-4" />
-                      {profile?.username || user.email?.split('@')[0]}
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent 
-                    align="end" 
-                    className="w-48 bg-gray-900 border border-gray-800"
+            {/* Enhanced Tools Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center gap-2 text-foreground/80 hover:text-primary hover:bg-primary/10 px-4 py-2.5 rounded-xl transition-all duration-300 group"
                   >
-                    <DropdownMenuItem disabled className="text-gray-500 hover:bg-gray-800">
-                      <User className="h-4 w-4 mr-2" />
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-800" />
-                    <DropdownMenuItem 
-                      onClick={signOut} 
-                      className="cursor-pointer text-red-400 hover:bg-red-900/30"
-                    >
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
-            ) : (
-              <Link to="/auth">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="sm" 
-                    className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white shadow-md"
-                  >
-                    <Code className="h-4 w-4 mr-2" />
-                    Start Coding
+                    <Sparkles className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                    <span className="font-medium">Tools</span>
+                    <ChevronDown className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
                   </Button>
                 </motion.div>
-              </Link>
-            )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-72 glass-card border-primary/20 shadow-2xl shadow-primary/10"
+              >
+                <div className="p-2">
+                  <div className="text-sm font-semibold text-primary mb-3 px-2">Developer Tools</div>
+                  {toolsItems.map((tool, index) => (
+                    <motion.div
+                      key={tool.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <DropdownMenuItem
+                        className="cursor-pointer hover:bg-primary/10 rounded-lg p-3 group transition-all duration-200"
+                        asChild
+                      >
+                        <Link to={tool.href} className="w-full flex items-start gap-3">
+                          <div className="p-1.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-200">
+                            {tool.icon}
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200">
+                              {tool.label}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-0.5">
+                              {tool.description}
+                            </div>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    </motion.div>
+                  ))}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.div whileTap={{ scale: 0.95 }} className="md:hidden">
+          {/* Enhanced Auth Section */}
+          <div className="hidden lg:flex items-center gap-4">
+            <SignedOut>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <SignInButton>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-primary/10 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2 rounded-xl font-medium"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Sign In
+                  </Button>
+                </SignInButton>
+              </motion.div>
+            </SignedOut>
+            <SignedIn>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="p-1 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20"
+              >
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10 rounded-xl",
+                      userButtonPopoverCard: "glass-card border-primary/20",
+                    }
+                  }}
+                />
+              </motion.div>
+            </SignedIn>
+          </div>
+
+          {/* Enhanced Mobile Menu Button */}
+          <motion.div
+            whileTap={{ scale: 0.95 }}
+            className="lg:hidden"
+          >
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:bg-gray-800"
+              className="text-foreground hover:bg-primary/10 hover:text-primary p-2 rounded-xl transition-all duration-300"
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <motion.div
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </motion.div>
             </Button>
           </motion.div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden py-4 border-t border-gray-800"
-          >
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.label}
-                  onClick={item.action}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors p-3 rounded-lg hover:bg-gray-800"
-                >
-                  {item.icon}
-                  {item.label}
-                </motion.button>
-              ))}
-              
-              {/* Mobile Tools Section */}
-              <div className="pt-3 border-t border-gray-800">
-                <div className="text-sm font-medium text-gray-500 mb-2 px-3">Tools</div>
-                {toolsItems.map((tool) => (
-                  <Link
-                    key={tool.label}
-                    to={tool.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors p-3 rounded-lg hover:bg-gray-800"
-                  >
-                    {tool.label}
-                  </Link>
-                ))}
+        {/* Enhanced Mobile Navigation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: -20 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="lg:hidden overflow-hidden"
+            >
+              <div className="glass-card m-4 p-6 rounded-2xl border-primary/20 shadow-2xl shadow-primary/10">
+                <div className="flex flex-col gap-4">
+                  {/* Mobile Nav Items */}
+                  <div className="space-y-2">
+                    {navItems.map((item, index) => (
+                      <motion.button
+                        key={item.label}
+                        onClick={item.action}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-primary/10 group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="group-hover:scale-110 transition-transform duration-300">
+                            {item.icon}
+                          </span>
+                          {item.label}
+                        </div>
+                        {item.badge && (
+                          <Badge
+                            variant="secondary"
+                            className={`text-xs px-2 py-0.5 ${
+                              item.badge === 'Hot'
+                                ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                                : 'bg-green-500/20 text-green-400 border-green-500/30'
+                            }`}
+                          >
+                            {item.badge}
+                          </Badge>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  {/* Mobile Tools Section */}
+                  <div className="pt-4 border-t border-primary/20">
+                    <div className="text-sm font-semibold text-primary mb-3 px-2 flex items-center gap-2">
+                      <Sparkles className="h-4 w-4" />
+                      Developer Tools
+                    </div>
+                    <div className="space-y-2">
+                      {toolsItems.map((tool, index) => (
+                        <motion.div
+                          key={tool.label}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: (navItems.length + index) * 0.1 }}
+                        >
+                          <Link
+                            to={tool.href}
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center gap-3 text-sm font-medium text-foreground hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-primary/10 group"
+                          >
+                            <div className="p-1.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-200">
+                              {tool.icon}
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium">{tool.label}</div>
+                              <div className="text-xs text-muted-foreground">{tool.description}</div>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Mobile Auth Section */}
+                  <div className="pt-4 border-t border-primary/20">
+                    <SignedOut>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <SignInButton>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full bg-primary/10 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 py-3 rounded-xl font-medium"
+                          >
+                            <User className="h-4 w-4 mr-2" />
+                            Sign In to Continue
+                          </Button>
+                        </SignInButton>
+                      </motion.div>
+                    </SignedOut>
+                    <SignedIn>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="flex items-center justify-center"
+                      >
+                        <UserButton
+                          appearance={{
+                            elements: {
+                              avatarBox: "w-12 h-12 rounded-xl",
+                              userButtonPopoverCard: "glass-card border-primary/20",
+                            }
+                          }}
+                        />
+                      </motion.div>
+                    </SignedIn>
+                  </div>
+                </div>
               </div>
-              
-              <div className="pt-3 border-t border-gray-800">
-                {user ? (
-                  <Button 
-                    variant="outline" 
-                    className="w-full mt-2 border-red-900 text-red-400 hover:bg-red-900/30"
-                    onClick={signOut}
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sign Out
-                  </Button>
-                ) : (
-                  <Link to="/auth" className="block mt-2" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white">
-                      <Code className="h-4 w-4 mr-2" />
-                      Start Coding
-                    </Button>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

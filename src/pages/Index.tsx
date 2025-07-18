@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
 import { useVisitorTracker } from "@/hooks/useVisitorTracker";
 import { SignupRequired } from "@/components/SignupRequired";
 import { CelebrationEffect } from "@/components/CelebrationEffect";
@@ -25,7 +24,6 @@ const Index = () => {
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [showTour, setShowTour] = useState(false);
-  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   const smoothScrollTo = (elementId: string) => {
@@ -71,77 +69,44 @@ const Index = () => {
     };
   }, []);
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
 
-  if (!hasSignedUp && !user) {
-    return (
-      <>
-        <SignupRequired 
-          onSignupComplete={() => {
-            setHasSignedUp(true);
-            setShowCelebration(true);
-          }} 
-        />
-        <CelebrationEffect 
-          show={showCelebration} 
-          onComplete={() => setShowCelebration(false)} 
-        />
-      </>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      
-      {user ? (
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Welcome back, <span className="text-primary">{user.email?.split('@')[0]}</span>!
-            </h1>
-            <p className="text-muted-foreground">Ready for your next coding challenge?</p>
-          </div>
-          <CodingArena />
+      <main className="space-y-20 md:space-y-32">
+        <div id="hero">
+          <HeroSection />
         </div>
-      ) : (
-        <main className="space-y-20 md:space-y-32">
-          <div id="hero">
-            <HeroSection />
+        
+        <StatsSection />
+        
+        <section id="learning-sections" className="space-y-20 md:space-y-32">
+          <div id="dsa-section">
+            <DSASection />
           </div>
-          
-          <StatsSection />
-          
-          <section id="learning-sections" className="space-y-20 md:space-y-32">
-            <div id="dsa-section">
-              <DSASection />
-            </div>
-            <div id="cp-section">
-              <CPSection />
-            </div>
-            <SystemDesignSection />
-          </section>
+          <div id="cp-section">
+            <CPSection />
+          </div>
+          <SystemDesignSection />
+        </section>
 
-          <div id="smart-tools">
-            <SmartToolsSection />
-          </div>
-          
-          <OpenSourceSection />
-          
-          <div id="community">
-            <CommunitySection />
-          </div>
-          
-          <FutureScope />
-          
-          <div id="contact">
-            <ContactSection />
-          </div>
-        </main>
-      )}
-      
+        <div id="smart-tools">
+          <SmartToolsSection />
+        </div>
+        
+        <OpenSourceSection />
+        
+        <div id="community">
+          <CommunitySection />
+        </div>
+        
+        <FutureScope />
+        
+        <div id="contact">
+          <ContactSection />
+        </div>
+      </main>
       <Chatbot />
       {showTour && <VoiceAITour onClose={() => setShowTour(false)} />}
     </div>

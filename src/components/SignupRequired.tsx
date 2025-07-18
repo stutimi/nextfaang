@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Zap, Users, Code, Star, Sparkles, Rocket } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import platformBg1 from '@/assets/platform-bg-1.png';
 import platformBg2 from '@/assets/platform-bg-2.png';
@@ -59,20 +58,6 @@ export const SignupRequired = ({ onSignupComplete }: SignupRequiredProps) => {
 
     setIsLoading(true);
     try {
-      // Store signup data in backend
-      await supabase.from('user_signups').insert({
-        username: formData.username,
-        email: formData.email,
-        country: formData.country
-      });
-
-      // Also log visitor data
-      await supabase.from('visitor_logs').insert({
-        ip_address: null,
-        user_agent: navigator.userAgent,
-        country: formData.country
-      });
-
       // Store signup data in localStorage
       localStorage.setItem('user_signup', JSON.stringify(formData));
       
