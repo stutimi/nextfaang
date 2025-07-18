@@ -76,7 +76,7 @@ export const SmartToolsSection = () => {
   ];
 
   return (
-    <section className="relative py-24 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden" id="tools">
+    <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="tools">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl"></div>
@@ -102,7 +102,7 @@ export const SmartToolsSection = () => {
               AI-Powered <span className="text-violet-400">Developer Tools</span>
             </h2>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Powerful AI-driven tools to accelerate your competitive programming journey. From performance analysis to personalized learning paths.
           </p>
         </motion.div>
@@ -118,24 +118,24 @@ export const SmartToolsSection = () => {
           {tools.map((tool, index) => (
             <Card 
               key={index} 
-              className="glass-card border-gray-800 hover:border-violet-500/30 transition-all duration-500 group"
+              className="glass-card border-border hover:border-violet-500/30 transition-all duration-500 group"
             >
               <CardHeader>
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-4 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    <tool.icon className="h-8 w-8 text-white" />
+                    <tool.icon className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <Badge className={`${
                     tool.status === 'Live' ? 'bg-green-500' : 
                     tool.status === 'Enhanced' ? 'bg-blue-500' : 'bg-orange-500'
-                  } text-white`}>
+                  } text-primary-foreground`}>
                     {tool.status}
                   </Badge>
                 </div>
                 <CardTitle className="text-xl md:text-2xl font-bold group-hover:text-violet-400 transition-colors">
                   {tool.title}
                 </CardTitle>
-                <CardDescription className="text-gray-300">
+                <CardDescription className="text-muted-foreground">
                   {tool.description}
                 </CardDescription>
               </CardHeader>
@@ -144,7 +144,7 @@ export const SmartToolsSection = () => {
                   <h4 className="font-semibold mb-2 text-violet-400">Key Features:</h4>
                   <div className="space-y-2">
                     {tool.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-sm text-gray-300">
+                      <div key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                         <div className="w-1.5 h-1.5 bg-violet-400 rounded-full mt-2"></div>
                         <span>{feature}</span>
                       </div>
@@ -155,7 +155,7 @@ export const SmartToolsSection = () => {
                 <Link to={tool.route}>
                   <Button 
                     size="lg"
-                    className="w-full bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white"
+                    className="w-full bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-primary-foreground"
                     disabled={tool.status === 'Coming Soon'}
                   >
                     {tool.status === 'Coming Soon' ? (
@@ -187,16 +187,16 @@ export const SmartToolsSection = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="glass-card border-gray-800 hover:border-violet-500/30 transition-all duration-500 text-center group"
+              className="glass-card border-border hover:border-violet-500/30 transition-all duration-500 text-center group"
             >
               <CardContent className="pt-8">
                 <div className="p-4 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl w-fit mx-auto mb-4 group-hover:scale-105 transition-transform duration-300">
-                  <feature.icon className="h-8 w-8 text-white" />
+                  <feature.icon className="h-8 w-8 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-bold mb-2 group-hover:text-violet-400 transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-muted-foreground">
                   {feature.description}
                 </p>
               </CardContent>
@@ -212,20 +212,20 @@ export const SmartToolsSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-800">
+          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full w-fit mx-auto mb-6">
-                <Zap className="h-8 w-8 text-white" />
+                <Zap className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Supercharge Your CP Journey</h3>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Use our smart tools to identify weak areas, track progress, and get personalized recommendations for faster improvement.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contest-analyzer">
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white px-12"
+                    className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-primary-foreground px-12"
                   >
                     <BarChart className="mr-2 h-5 w-5" />
                     Try Performance Analyzer
@@ -236,7 +236,7 @@ export const SmartToolsSection = () => {
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="border-gray-700 hover:bg-gray-800/30 hover:border-violet-500/50"
+                    className="border-border hover:bg-muted/30 hover:border-violet-500/50"
                   >
                     <Search className="mr-2 h-5 w-5" />
                     Explore All Tools

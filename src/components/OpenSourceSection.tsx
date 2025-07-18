@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export const OpenSourceSection = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-gray-900 to-gray-950 overflow-hidden" id="opensource">
+    <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="opensource">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
@@ -32,7 +32,7 @@ export const OpenSourceSection = () => {
               Contribute to the <span className="text-emerald-400">Global Developer</span> Community
             </h2>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Start your open source journey and build your developer profile while helping projects used by millions.
           </p>
         </motion.div>
@@ -46,18 +46,18 @@ export const OpenSourceSection = () => {
           className="grid lg:grid-cols-2 gap-8 mb-16"
         >
           {/* Video Tutorial Card */}
-          <Card className="glass-card border-gray-800 hover:border-emerald-500/30 transition-all duration-500 group">
+          <Card className="glass-card border-border hover:border-emerald-500/30 transition-all duration-500 group">
             <CardHeader className="text-center">
               <div className="relative mx-auto mb-6">
                 <div className="p-6 bg-gradient-to-br from-emerald-500 to-green-500 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
-                  <Video className="h-12 w-12 text-white" />
+                  <Video className="h-12 w-12 text-primary-foreground" />
                 </div>
                 <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center animate-pulse">
-                  <Play className="h-3 w-3 text-white" />
+                  <Play className="h-3 w-3 text-primary-foreground" />
                 </div>
               </div>
               <CardTitle className="text-2xl md:text-3xl font-bold mb-4">Complete Open Source Guide</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-muted-foreground">
                 Master Git, GitHub, and make your first contribution with this comprehensive tutorial.
               </CardDescription>
             </CardHeader>
@@ -69,12 +69,12 @@ export const OpenSourceSection = () => {
                 <Badge className="bg-emerald-500/10 text-emerald-400">Best Practices</Badge>
               </div>
               
-              <div className="bg-gray-800/30 rounded-xl p-4 space-y-3 border border-gray-800">
+              <div className="bg-muted/30 rounded-xl p-4 space-y-3 border border-border">
                 <h4 className="font-semibold text-emerald-400 flex items-center gap-2">
                   <BookOpen className="h-5 w-5" />
                   What You'll Learn:
                 </h4>
-                <div className="space-y-2 text-gray-300">
+                <div className="space-y-2 text-muted-foreground">
                   {[
                     "Git fundamentals and version control",
                     "How to find beginner-friendly projects",
@@ -91,7 +91,7 @@ export const OpenSourceSection = () => {
 
               <Button 
                 size="lg"
-                className="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white"
+                className="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-primary-foreground"
                 onClick={() => window.open('https://youtu.be/fSmLiOMp2qI?si=jD7PtH5repNUcpYp', '_blank')}
               >
                 <Play className="mr-2 h-5 w-5" />
@@ -102,7 +102,7 @@ export const OpenSourceSection = () => {
 
           {/* Benefits and Stats */}
           <div className="space-y-8">
-            <Card className="glass-card bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-gray-800">
+            <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 border-border">
               <CardContent className="pt-8">
                 <h3 className="text-2xl font-bold mb-8 text-center text-emerald-400">Open Source Impact</h3>
                 <div className="grid grid-cols-2 gap-6">
@@ -122,7 +122,7 @@ export const OpenSourceSection = () => {
                     >
                       <div className="flex justify-center mb-2">{stat.icon}</div>
                       <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                      <div className="text-gray-300 text-sm">{stat.label}</div>
+                      <div className="text-muted-foreground text-sm">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -159,7 +159,7 @@ export const OpenSourceSection = () => {
               ].map((benefit, index) => (
                 <Card 
                   key={index} 
-                  className="glass-card border-gray-800 hover:border-emerald-500/30 transition-all duration-300"
+                  className="glass-card border-border hover:border-emerald-500/30 transition-all duration-300"
                 >
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
@@ -168,7 +168,7 @@ export const OpenSourceSection = () => {
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                        <p className="text-sm text-gray-300">{benefit.description}</p>
+                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -186,19 +186,19 @@ export const OpenSourceSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-gray-800">
+          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full w-fit mx-auto mb-6">
-                <Github className="h-8 w-8 text-white" />
+                <Github className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Make Your First Contribution?</h3>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join millions of developers shaping the future of software through open source.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white px-12"
+                  className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-primary-foreground px-12"
                   onClick={() => window.open('https://youtu.be/fSmLiOMp2qI?si=jD7PtH5repNUcpYp', '_blank')}
                 >
                   <Play className="mr-2 h-5 w-5" />
@@ -207,7 +207,7 @@ export const OpenSourceSection = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-gray-700 hover:bg-gray-800/30 hover:border-emerald-500/50"
+                  className="border-border hover:bg-muted/30 hover:border-emerald-500/50"
                   onClick={() => window.open('https://github.com/explore', '_blank')}
                 >
                   <Github className="mr-2 h-5 w-5" />
