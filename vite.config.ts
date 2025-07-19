@@ -4,6 +4,7 @@ import path from "path";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
+// Fixed lovable-tagger dependency conflict for Vercel deployment
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
