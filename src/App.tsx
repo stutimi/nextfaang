@@ -2,15 +2,11 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
-
-import { ErrorCatcher } from "@/components/ErrorCatcher";
-import { ReactLifecycleSafetyWrapper } from "@/components/ReactLifecycleSafetyWrapper";
-import { useReconcilerRecovery } from "@/hooks/useReconcilerRecovery";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./hooks/useAuth";
 import Index from "./pages/Index";
-
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import CPContributors from "./pages/CPContributors";
 import Resources from "./pages/Resources";
@@ -21,105 +17,35 @@ import CPDictionary from "./pages/CPDictionary";
 import CPTricksAndTips from "./pages/CPTricksAndTips";
 import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
-import { ProfilePage } from "./components/ProfilePage";
 
-const App = () => {
-  // Use reconciler recovery hook to handle React internal errors
-  const { recoveryCount } = useReconcilerRecovery();
-  
-  return (
-    <ErrorCatcher key={`app-${recoveryCount}`}>
-      <ReactLifecycleSafetyWrapper>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange={false}
-          suppressHydrationWarning={true}
-        >
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
       <TooltipProvider>
-        <ErrorBoundary
-          fallback={
-            <div className="p-4 text-center">
-              <p>Failed to load notifications. Please refresh the page.</p>
-            </div>
-          }
-        >
-          <Toaster />
-          <Sonner />
-        </ErrorBoundary>
-        
-        <ErrorBoundary
-          onError={(error, errorInfo) => {
-            console.error('Route Error:', error, errorInfo);
-          }}
-        >
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={
-              <ErrorBoundary>
-                <Index />
-              </ErrorBoundary>
-            } />
-            <Route path="/cp-contributors" element={
-              <ErrorBoundary>
-                <CPContributors />
-              </ErrorBoundary>
-            } />
-            <Route path="/resources" element={
-              <ErrorBoundary>
-                <Resources />
-              </ErrorBoundary>
-            } />
-            <Route path="/resume-tips" element={
-              <ErrorBoundary>
-                <ResumeTips />
-              </ErrorBoundary>
-            } />
-            <Route path="/dsa-mastery" element={
-              <ErrorBoundary>
-                <DSAMastery />
-              </ErrorBoundary>
-            } />
-            <Route path="/hackathon-guide" element={
-              <ErrorBoundary>
-                <HackathonGuide />
-              </ErrorBoundary>
-            } />
-            <Route path="/cp-dictionary" element={
-              <ErrorBoundary>
-                <CPDictionary />
-              </ErrorBoundary>
-            } />
-            <Route path="/cp-tricks-tips" element={
-              <ErrorBoundary>
-                <CPTricksAndTips />
-              </ErrorBoundary>
-            } />
-            <Route path="/language-translation" element={
-              <ErrorBoundary>
-                <LanguageTranslation />
-              </ErrorBoundary>
-            } />
-            <Route path="/contest-analyzer" element={
-              <ErrorBoundary>
-                <ContestAnalyzer />
-              </ErrorBoundary>
-            } />
-            <Route path="/profile" element={
-              <ErrorBoundary>
-                <ProfilePage />
-              </ErrorBoundary>
-            } />
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/cp-contributors" element={<CPContributors />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/resume-tips" element={<ResumeTips />} />
+            <Route path="/dsa-mastery" element={<DSAMastery />} />
+            <Route path="/hackathon-guide" element={<HackathonGuide />} />
+            <Route path="/cp-dictionary" element={<CPDictionary />} />
+            <Route path="/cp-tricks-tips" element={<CPTricksAndTips />} />
+            <Route path="/language-translation" element={<LanguageTranslation />} />
+            <Route path="/contest-analyzer" element={<ContestAnalyzer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </ErrorBoundary>
+        </BrowserRouter>
       </TooltipProvider>
-
-    </ThemeProvider>
-      </ReactLifecycleSafetyWrapper>
-    </ErrorCatcher>
-  );
-};
+    </AuthProvider>
+  </QueryClientProvider>
+);
 
 export default App;

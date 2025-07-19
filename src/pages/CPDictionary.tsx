@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Search, BookOpen, Code, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const CPDictionary = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -78,28 +77,24 @@ const CPDictionary = () => {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "Easy": return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
-      case "Medium": return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
-      case "Hard": return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
-      default: return "bg-muted text-muted-foreground";
+      case "Easy": return "bg-green-100 text-green-800";
+      case "Medium": return "bg-yellow-100 text-yellow-800";
+      case "Hard": return "bg-red-100 text-red-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "Algorithm": return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
-      case "Technique": return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300";
-      case "Concept": return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300";
-      default: return "bg-muted text-muted-foreground";
+      case "Algorithm": return "bg-blue-100 text-blue-800";
+      case "Technique": return "bg-purple-100 text-purple-800";
+      case "Concept": return "bg-orange-100 text-orange-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Theme Toggle in top right */}
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <Link to="/">
@@ -154,9 +149,9 @@ const CPDictionary = () => {
                 <CardDescription className="text-base mb-4 leading-relaxed">
                   {item.definition}
                 </CardDescription>
-                <div className="bg-muted/50 p-3 rounded-lg border-l-4 border-primary">
-                  <div className="text-sm font-medium text-primary mb-1">Example:</div>
-                  <div className="text-sm text-muted-foreground">{item.example}</div>
+                <div className="bg-slate-50 p-3 rounded-lg border-l-4 border-blue-500">
+                  <div className="text-sm font-medium text-blue-800 mb-1">Example:</div>
+                  <div className="text-sm text-slate-700">{item.example}</div>
                 </div>
               </CardContent>
             </Card>

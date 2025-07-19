@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   Users, 
   Bot, 
@@ -39,6 +41,7 @@ interface DuelLobbyProps {
 }
 
 export const DuelLobby = ({ onStartDuel, onStartBotMatch, cfUserData }: DuelLobbyProps) => {
+  const { user } = useAuth();
   const { toast } = useToast();
   
   const [friendHandle, setFriendHandle] = useState("");
@@ -49,12 +52,35 @@ export const DuelLobby = ({ onStartDuel, onStartBotMatch, cfUserData }: DuelLobb
   const [isLoadingRequests, setIsLoadingRequests] = useState(false);
 
   useEffect(() => {
-    // Mock: No backend, just clear requests
-    setDuelRequests([]);
+    fetchDuelRequests();
   }, []);
 
+  const fetchDuelRequests = async () => {
+    if (!user) return;
+    
+    setIsLoadingRequests(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('duel-management', {
+        body: {
+          action: 'get_duel_requests',
+          userId: user.id
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        setDuelRequests(data.duelRequests);
+      }
+    } catch (error) {
+      console.error('Error fetching duel requests:', error);
+    } finally {
+      setIsLoadingRequests(false);
+    }
+  };
+
   const sendDuelRequest = async () => {
-    if (!friendHandle.trim()) return;
+    if (!friendHandle.trim() || !user) return;
 
     if (friendHandle.toLowerCase() === cfUserData?.handle?.toLowerCase()) {
       toast({
@@ -66,46 +92,114 @@ export const DuelLobby = ({ onStartDuel, onStartBotMatch, cfUserData }: DuelLobb
     }
 
     setIsSendingDuel(true);
-    setTimeout(() => {
-      toast({
-        title: "Duel Request Sent! ⚔️",
-        description: `Challenge sent to ${friendHandle}. Waiting for their response.`,
+    try {
+      const { data, error } = await supabase.functions.invoke('duel-management', {
+        body: {
+          action: 'send_duel_request',
+          userId: user.id,
+          receiverCfHandle: friendHandle.trim()
+        }
       });
-      setFriendHandle("");
+
+      if (error) throw error;
+
+      if (data.success) {
+        toast({
+          title: "Duel Request Sent! ⚔️",
+          description: `Challenge sent to ${friendHandle}. Waiting for their response.`,
+        });
+        setFriendHandle("");
+        fetchDuelRequests();
+      } else {
+        toast({
+          title: "Request Failed",
+          description: data.error || "Failed to send duel request.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error sending duel request:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send duel request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSendingDuel(false);
-    }, 1000);
+    }
   };
 
   const respondToDuel = async (duelId: string, response: 'accept' | 'decline') => {
-    toast({
-      title: response === 'accept' ? "Duel Accepted! 🔥" : "Duel Declined",
-      description: response === 'accept' 
-        ? "Get ready for battle! Starting match..." 
-        : "Duel request declined.",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('duel-management', {
+        body: {
+          action: response === 'accept' ? 'accept_duel_request' : 'decline_duel_request',
+          userId: user?.id,
+          duelId
+        }
+      });
 
-    if (response === 'accept') {
-      const duel = duelRequests.find(d => d.id === duelId);
-      if (duel) {
-        onStartDuel(duel);
+      if (error) throw error;
+
+      if (data.success) {
+        toast({
+          title: response === 'accept' ? "Duel Accepted! 🔥" : "Duel Declined",
+          description: response === 'accept' 
+            ? "Get ready for battle! Starting match..." 
+            : "Duel request declined.",
+        });
+
+        if (response === 'accept') {
+          const duel = duelRequests.find(d => d.id === duelId);
+          if (duel) {
+            onStartDuel(duel);
+          }
+        }
+
+        fetchDuelRequests();
       }
+    } catch (error) {
+      console.error('Error responding to duel:', error);
+      toast({
+        title: "Error",
+        description: "Failed to respond to duel request.",
+        variant: "destructive",
+      });
     }
   };
 
   const startBotMatch = async () => {
+    if (!user) return;
+
     setIsCreatingBotMatch(true);
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase.functions.invoke('duel-management', {
+        body: {
+          action: 'create_bot_match',
+          userId: user.id,
+          botDifficulty
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.success) {
+        toast({
+          title: "Bot Match Created! 🤖",
+          description: `Facing ${botDifficulty} difficulty bot. Good luck!`,
+        });
+        onStartBotMatch(data.botMatch);
+      }
+    } catch (error) {
+      console.error('Error creating bot match:', error);
       toast({
-        title: "Bot Match Created! 🤖",
-        description: `Facing ${botDifficulty} difficulty bot. Good luck!`,
+        title: "Error",
+        description: "Failed to create bot match. Please try again.",
+        variant: "destructive",
       });
-      onStartBotMatch({
-        bot_difficulty: botDifficulty,
-        problems: [],
-        opponent: { handle: "AI Bot" }
-      });
+    } finally {
       setIsCreatingBotMatch(false);
-    }, 1000);
+    }
   };
 
   const getBotDifficultyColor = (difficulty: string) => {
@@ -127,8 +221,8 @@ export const DuelLobby = ({ onStartDuel, onStartBotMatch, cfUserData }: DuelLobb
   };
 
   const pendingRequests = duelRequests.filter(r => r.status === 'pending');
-  const sentRequests = pendingRequests.filter(r => r.sender_id === cfUserData?.handle);
-  const receivedRequests = pendingRequests.filter(r => r.sender_id !== cfUserData?.handle);
+  const sentRequests = pendingRequests.filter(r => r.sender_id === user?.id);
+  const receivedRequests = pendingRequests.filter(r => r.sender_id !== user?.id);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
