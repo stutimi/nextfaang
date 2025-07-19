@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document explains the voice interaction functionality in NEXTFAANG, which has been updated to use `react-speech-recognition` instead of `react-speech-kit` for better compatibility with React 18.3.1.
+This document explains the voice interaction functionality in NEXTFAANG, which has been updated to use the native Web Speech API instead of external libraries for better compatibility with React 18.3.1.
 
 ## Features
 
@@ -35,6 +35,11 @@ const MyComponent = () => {
       // Perform search with searchTerm
     }
   };
+
+  // Check for browser support
+  if (!browserSupportsSpeechRecognition) {
+    return <div>Your browser doesn't support speech recognition.</div>;
+  }
 
   return (
     <div>

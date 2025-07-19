@@ -18,7 +18,7 @@ echo Done!
 echo.
 
 echo Step 3: Verifying installation...
-call npm list react react-speech-recognition
+call npm list react
 echo Done!
 echo.
 

@@ -227,7 +227,8 @@ This release introduces comprehensive light mode support across the entire appli
 ### Hotfix: Dependency Compatibility Update
 
 #### Changes
-- Fixed React 18.3.1 compatibility issue by replacing react-speech-kit with react-speech-recognition
+- Fixed React 18.3.1 compatibility issue by replacing react-speech-kit with native Web Speech API
+- Updated VoiceEffects component to use native browser speech synthesis
 - Resolved npm dependency conflicts preventing successful builds
 - Improved build system stability for deployment with theme-aware CSS custom properties
 - text-gray-100/300/400 converted to text-foreground/muted-foreground

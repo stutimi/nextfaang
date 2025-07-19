@@ -16,7 +16,7 @@ echo "Done!"
 echo
 
 echo "Step 3: Verifying installation..."
-npm list react react-speech-recognition
+npm list react
 echo "Done!"
 echo
 

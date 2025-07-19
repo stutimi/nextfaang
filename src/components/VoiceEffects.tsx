@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
 import { motion } from 'framer-motion';
 import { Volume2, VolumeX, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,37 +11,60 @@ interface VoiceEffectsProps {
 }
 
 export const VoiceEffects = ({ enabled = true, onToggle }: VoiceEffectsProps) => {
-  const { speak, cancel, speaking, voices } = useSpeechSynthesis();
   const [isEnabled, setIsEnabled] = useState(enabled);
+  const [speaking, setSpeaking] = useState(false);
   const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
     // Select a futuristic-sounding voice if available
-    const availableVoices = voices.filter(v => v.lang.startsWith('en'));
-    const preferredVoice = availableVoices.find(v => 
-      v.name.toLowerCase().includes('karen') || 
-      v.name.toLowerCase().includes('samantha') ||
-      v.name.toLowerCase().includes('daniel')
-    ) || availableVoices[0];
-    
-    setCurrentVoice(preferredVoice);
-  }, [voices]);
+    if (window.speechSynthesis) {
+      const availableVoices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+      const preferredVoice = availableVoices.find(v => 
+        v.name.toLowerCase().includes('karen') || 
+        v.name.toLowerCase().includes('samantha') ||
+        v.name.toLowerCase().includes('daniel')
+      ) || availableVoices[0];
+      
+      setCurrentVoice(preferredVoice);
+
+      // Handle voices loading asynchronously
+      window.speechSynthesis.onvoiceschanged = () => {
+        const voices = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+        const voice = voices.find(v => 
+          v.name.toLowerCase().includes('karen') || 
+          v.name.toLowerCase().includes('samantha') ||
+          v.name.toLowerCase().includes('daniel')
+        ) || voices[0];
+        setCurrentVoice(voice);
+      };
+    }
+  }, []);
 
   const speakMessage = (message: string, priority: 'low' | 'high' = 'low') => {
-    if (!isEnabled) return;
+    if (!isEnabled || !window.speechSynthesis) return;
     
     if (priority === 'high' && speaking) {
-      cancel();
+      window.speechSynthesis.cancel();
     }
     
-    const voiceConfig = {
-      voice: currentVoice,
-      rate: 0.9,
-      pitch: 1.1,
-      volume: 0.8,
-    };
+    const utterance = new SpeechSynthesisUtterance(message);
+    if (currentVoice) utterance.voice = currentVoice;
+    utterance.rate = 0.9;
+    utterance.pitch = 1.1;
+    utterance.volume = 0.8;
     
-    speak({ text: message, ...voiceConfig });
+    utterance.onstart = () => setSpeaking(true);
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    
+    window.speechSynthesis.speak(utterance);
+  };
+  
+  const cancel = () => {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+    }
   };
 
   const toggleVoice = () => {
