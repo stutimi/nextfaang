@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Users, Sword } from "lucide-react";
+import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Users, Sword, BookOpen } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserProfile } from "@/components/UserProfile";
 import { Link } from "react-router-dom";
@@ -35,11 +35,12 @@ export const Navbar = () => {
   };
 
   const navItems = [
-    { label: "Home", icon: <Home className="h-4 w-4" />, action: () => scrollToSection('#hero'), badge: null },
-    { label: "DSA", icon: <Book className="h-4 w-4" />, action: () => scrollToSection('#dsa-section'), badge: "New" },
-    { label: "CP", icon: <Code className="h-4 w-4" />, action: () => scrollToSection('#cp-section'), badge: "Hot" },
-    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community'), badge: null },
-    { label: "Contact", icon: <Phone className="h-4 w-4" />, action: () => scrollToSection('#contact'), badge: null }
+    { label: "Home", icon: <Home className="h-4 w-4" />, action: () => scrollToSection('#hero'), badge: null, type: 'scroll' },
+    { label: "DSA", icon: <Book className="h-4 w-4" />, action: () => scrollToSection('#dsa-section'), badge: "New", type: 'scroll' },
+    { label: "Competitive Programming", icon: <Code className="h-4 w-4" />, href: "/competitive-programming", badge: "Hot", type: 'link' },
+    { label: "Resources", icon: <BookOpen className="h-4 w-4" />, href: "/resources", badge: null, type: 'link' },
+    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community'), badge: null, type: 'scroll' },
+    { label: "Contact", icon: <Phone className="h-4 w-4" />, action: () => scrollToSection('#contact'), badge: null, type: 'scroll' }
   ];
 
   const toolsItems = [
@@ -76,30 +77,58 @@ export const Navbar = () => {
                 transition={{ delay: index * 0.1 }}
                 className="relative"
               >
-                <motion.button
-                  onClick={item.action}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 px-4 py-2.5 rounded-xl hover:bg-primary/10 group"
-                >
-                  <span className="group-hover:scale-110 transition-transform duration-300">
-                    {item.icon}
-                  </span>
-                  {item.label}
-                  {item.badge && (
-                    <Badge
-                      variant="secondary"
-                      className={`text-xs px-1.5 py-0.5 ml-1 ${
-                        item.badge === 'Hot'
-                          ? 'bg-red-500/20 text-red-400 border-red-500/30'
-                          : 'bg-green-500/20 text-green-400 border-green-500/30'
-                      }`}
+                {item.type === 'link' ? (
+                  <Link to={item.href}>
+                    <motion.div
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 px-4 py-2.5 rounded-xl hover:bg-primary/10 group"
                     >
-                      {item.badge}
-                    </Badge>
-                  )}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.button>
+                      <span className="group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </span>
+                      {item.label}
+                      {item.badge && (
+                        <Badge
+                          variant="secondary"
+                          className={`text-xs px-1.5 py-0.5 ml-1 ${
+                            item.badge === 'Hot'
+                              ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                              : 'bg-green-500/20 text-green-400 border-green-500/30'
+                          }`}
+                        >
+                          {item.badge}
+                        </Badge>
+                      )}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </motion.div>
+                  </Link>
+                ) : (
+                  <motion.button
+                    onClick={item.action}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 px-4 py-2.5 rounded-xl hover:bg-primary/10 group"
+                  >
+                    <span className="group-hover:scale-110 transition-transform duration-300">
+                      {item.icon}
+                    </span>
+                    {item.label}
+                    {item.badge && (
+                      <Badge
+                        variant="secondary"
+                        className={`text-xs px-1.5 py-0.5 ml-1 ${
+                          item.badge === 'Hot'
+                            ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                            : 'bg-green-500/20 text-green-400 border-green-500/30'
+                        }`}
+                      >
+                        {item.badge}
+                      </Badge>
+                    )}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.button>
+                )}
               </motion.div>
             ))}
 
@@ -196,34 +225,64 @@ export const Navbar = () => {
                   {/* Mobile Nav Items */}
                   <div className="space-y-2">
                     {navItems.map((item, index) => (
-                      <motion.button
+                      <motion.div
                         key={item.label}
-                        onClick={item.action}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-primary/10 group"
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="group-hover:scale-110 transition-transform duration-300">
-                            {item.icon}
-                          </span>
-                          {item.label}
-                        </div>
-                        {item.badge && (
-                          <Badge
-                            variant="secondary"
-                            className={`text-xs px-2 py-0.5 ${
-                              item.badge === 'Hot'
-                                ? 'bg-red-500/20 text-red-400 border-red-500/30'
-                                : 'bg-green-500/20 text-green-400 border-green-500/30'
-                            }`}
+                        {item.type === 'link' ? (
+                          <Link
+                            to={item.href}
+                            onClick={() => setIsOpen(false)}
+                            className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-primary/10 group"
                           >
-                            {item.badge}
-                          </Badge>
+                            <div className="flex items-center gap-3">
+                              <span className="group-hover:scale-110 transition-transform duration-300">
+                                {item.icon}
+                              </span>
+                              {item.label}
+                            </div>
+                            {item.badge && (
+                              <Badge
+                                variant="secondary"
+                                className={`text-xs px-2 py-0.5 ${
+                                  item.badge === 'Hot'
+                                    ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                                    : 'bg-green-500/20 text-green-400 border-green-500/30'
+                                }`}
+                              >
+                                {item.badge}
+                              </Badge>
+                            )}
+                          </Link>
+                        ) : (
+                          <motion.button
+                            onClick={item.action}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-primary/10 group"
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="group-hover:scale-110 transition-transform duration-300">
+                                {item.icon}
+                              </span>
+                              {item.label}
+                            </div>
+                            {item.badge && (
+                              <Badge
+                                variant="secondary"
+                                className={`text-xs px-2 py-0.5 ${
+                                  item.badge === 'Hot'
+                                    ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                                    : 'bg-green-500/20 text-green-400 border-green-500/30'
+                                }`}
+                              >
+                                {item.badge}
+                              </Badge>
+                            )}
+                          </motion.button>
                         )}
-                      </motion.button>
+                      </motion.div>
                     ))}
                   </div>
 

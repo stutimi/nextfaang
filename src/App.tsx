@@ -22,6 +22,7 @@ import CPTricksAndTips from "./pages/CPTricksAndTips";
 import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
 import CPArena from "./pages/CPArena";
+import CompetitiveProgramming from "./pages/CompetitiveProgramming";
 import { ProfilePage } from "./components/ProfilePage";
 
 
@@ -110,6 +111,11 @@ const App = () => {
             <Route path="/cp-arena" element={
               <ErrorBoundary>
                 <CPArena />
+              </ErrorBoundary>
+            } />
+            <Route path="/competitive-programming" element={
+              <ErrorBoundary>
+                <CompetitiveProgramming />
               </ErrorBoundary>
             } />
             <Route path="/profile" element={
