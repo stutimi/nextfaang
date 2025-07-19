@@ -23,6 +23,8 @@
 
 **Designed by [Xenonesis](https://github.com/Xenonesis) 🚀**
 
+**Created by [@Xenonesis](https://github.com/Xenonesis)**
+
 </div>
 
 ---
