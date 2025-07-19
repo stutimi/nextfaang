@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { VictoryAnimation, BattleAnimation, CountdownAnimation } from "./ArenaAnimations";
 import Tilt from "react-parallax-tilt";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -65,12 +66,34 @@ export const MatchArena = ({ problems, matchType, botDifficulty, opponentData, o
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
+  const [showBattleAnimation, setShowBattleAnimation] = useState(true);
+  const [showVictoryAnimation, setShowVictoryAnimation] = useState(false);
+  const [countdown, setCountdown] = useState(3);
+  const [showCountdown, setShowCountdown] = useState(true);
 
   const botLogic = new BotLogic(botDifficulty || 'medium');
 
   useEffect(() => {
+    // Initial countdown
+    if (showCountdown) {
+      const countdownInterval = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            setShowCountdown(false);
+            setShowBattleAnimation(true);
+            setTimeout(() => setShowBattleAnimation(false), 2000);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(countdownInterval);
+    }
+    
+    // Match timer
     const interval = setInterval(() => {
-      if (isMatchActive && timeLeft > 0) {
+      if (!showCountdown && isMatchActive && timeLeft > 0) {
         setTimeLeft((prev) => prev - 1);
       } else if (timeLeft === 0) {
         handleMatchEnd();
@@ -78,7 +101,7 @@ export const MatchArena = ({ problems, matchType, botDifficulty, opponentData, o
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isMatchActive, timeLeft]);
+  }, [isMatchActive, timeLeft, showCountdown]);
 
   useEffect(() => {
     if (matchType === 'bot' && isMatchActive) {
@@ -115,7 +138,15 @@ export const MatchArena = ({ problems, matchType, botDifficulty, opponentData, o
       description: `You solved ${problemsCompleted.length}/${problems.length} problems`,
     });
     
-    onMatchEnd(result);
+    if (playerWon) {
+      setShowVictoryAnimation(true);
+      setTimeout(() => {
+        setShowVictoryAnimation(false);
+        onMatchEnd(result);
+      }, 3000);
+    } else {
+      onMatchEnd(result);
+    }
   };
 
   const runCode = async () => {
@@ -210,6 +241,10 @@ export const MatchArena = ({ problems, matchType, botDifficulty, opponentData, o
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Animations */}
+      <CountdownAnimation count={countdown} isVisible={showCountdown} />
+      <BattleAnimation isVisible={showBattleAnimation} />
+      <VictoryAnimation isVisible={showVictoryAnimation} />
       {/* Left Panel - Problem and Info */}
       <motion.div 
         className="lg:col-span-1 space-y-4"

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -7,13 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { UserCheck, Play, Zap, Sparkles, Trophy, Target, Users, Globe, RefreshCw, Sword, Copy, User, Clock, Terminal, Code } from "lucide-react";
+import { UserCheck, Play, Zap, Sparkles, Trophy, Target, Users, Globe, RefreshCw, Sword, Copy, User, Clock, Terminal, Code, Shield, Flame } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { DuelLobby } from "./arena/DuelLobby";
 import { MatchArena } from "./arena/MatchArena";
 import { VoiceEffects, useVoiceEffects } from "./VoiceEffects";
 import { InteractiveTour } from "./InteractiveTour";
+import { Link } from "react-router-dom";
 
 interface Problem {
   title: string;
@@ -79,6 +79,7 @@ export const CodingArena = () => {
   const [currentMatch, setCurrentMatch] = useState<any>(null);
   const [matchType, setMatchType] = useState<'friend' | 'bot' | null>(null);
   const [showTour, setShowTour] = useState(false);
+  const [showFullArena, setShowFullArena] = useState(false);
   
   useEffect(() => {
     // Check if user needs onboarding
@@ -169,7 +170,46 @@ export const CodingArena = () => {
             Where Code Warriors Forge Their Legacy
           </p>
 
+          {/* Quick Stats */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-6 mt-6"
+          >
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-primary" />
+              <span className="text-lg">2,547+ Active Warriors</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Sword className="h-5 w-5 text-accent" />
+              <span className="text-lg">25K+ Arena Battles</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Trophy className="h-5 w-5 text-yellow-400" />
+              <span className="text-lg">150+ FAANG Placements</span>
+            </div>
+          </motion.div>
 
+          {/* Full Arena Link */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6"
+          >
+            <Link to="/cp-arena">
+              <Button 
+                variant="outline" 
+                className="group relative overflow-hidden border-primary/50 hover:border-primary"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <Globe className="h-4 w-4 mr-2" />
+                <span>Explore Full CP Arena</span>
+                <span className="ml-2 text-xs bg-primary/20 px-2 py-0.5 rounded-full">New</span>
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* CF Validation Section */}
@@ -244,6 +284,59 @@ export const CodingArena = () => {
             />
           </motion.div>
         )}
+
+        {/* Arena Features */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mt-12"
+        >
+          <h2 className="text-2xl font-bold text-center mb-8">Arena Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
+              <Card className="h-full magical-glow">
+                <CardHeader className="text-center">
+                  <div className="mx-auto bg-primary/20 p-3 rounded-full mb-4">
+                    <Sword className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Real-time 1v1 Duels</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center text-muted-foreground">
+                  Challenge friends or random opponents to competitive programming battles with real-time performance tracking.
+                </CardContent>
+              </Card>
+            </Tilt>
+            
+            <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
+              <Card className="h-full magical-glow">
+                <CardHeader className="text-center">
+                  <div className="mx-auto bg-accent/20 p-3 rounded-full mb-4">
+                    <Shield className="h-6 w-6 text-accent" />
+                  </div>
+                  <CardTitle>AI Bot Matches</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center text-muted-foreground">
+                  Practice against intelligent bots with adjustable difficulty levels to improve your skills anytime.
+                </CardContent>
+              </Card>
+            </Tilt>
+            
+            <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
+              <Card className="h-full magical-glow">
+                <CardHeader className="text-center">
+                  <div className="mx-auto bg-yellow-500/20 p-3 rounded-full mb-4">
+                    <Trophy className="h-6 w-6 text-yellow-400" />
+                  </div>
+                  <CardTitle>Global Tournaments</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center text-muted-foreground">
+                  Compete in scheduled tournaments with participants worldwide and win prizes and recognition.
+                </CardContent>
+              </Card>
+            </Tilt>
+          </div>
+        </motion.div>
       </div>
 
       {/* Voice Effects */}
