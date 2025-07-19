@@ -56,6 +56,27 @@ This means:
 - The key format is incorrect
 - The key has been revoked
 - You're using a development key in production or vice versa
+- You're using a placeholder value instead of a real key
+
+### Quick Fix
+
+Run the Clerk setup helper script to fix authentication issues:
+
+```bash
+# Use the CommonJS version (recommended)
+node setup-clerk.cjs
+
+# Or use the ES modules version
+node setup-clerk.js
+
+# On Windows, you can also double-click setup-clerk.bat
+```
+
+This script will:
+1. Check your current Clerk configuration
+2. Identify any issues with your keys
+3. Guide you through updating your keys
+4. Update your environment files with valid keys
 
 ### HTTP Development Issues
 

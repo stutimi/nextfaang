@@ -691,6 +691,22 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 # VITE_GOOGLE_ANALYTICS_ID=your_ga_id
 ```
 
+#### 🛠️ **Clerk Authentication Setup**
+
+If you encounter Clerk authentication errors, run the setup helper script:
+
+```bash
+# Run the Clerk setup helper (CommonJS version)
+node setup-clerk.cjs
+
+# Or for ES modules version
+node setup-clerk.js
+
+# On Windows, you can also double-click setup-clerk.bat
+```
+
+This script will help you configure Clerk authentication properly for both development and production environments.
+
 #### 🔧 **Setup Instructions**
 
 <table>
