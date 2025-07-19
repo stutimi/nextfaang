@@ -13,6 +13,7 @@ import { clerkInstanceSafetyWrapper } from '@/utils/clerkInstanceSafetyWrapper';
 import { reactReconcilerHandler } from '@/utils/reactReconcilerHandler';
 import { reactFiberHandler } from '@/utils/reactFiberHandler';
 import { reactWorkLoopHandler } from '@/utils/reactWorkLoopHandler';
+import { extensionErrorHandler } from '@/utils/extensionErrorHandler';
 import { masterErrorHandler } from '@/utils/masterErrorHandler';
 import { checkErrorHandlingStatus, logCurrentProtectionStatus } from '@/utils/errorHandlingStatus';
 import { clerkCookieHandler } from '@/utils/clerkCookieHandler';
