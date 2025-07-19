@@ -7,6 +7,7 @@
 #### Critical Fixes
 
 - Fixed "Class constructors cannot be invoked without 'new'" error in instanceCreationHandler
+- Added detection for class constructors in setTimeout and setInterval callbacks
 - Moved React import to the top of the file to ensure proper initialization
 - Resolved console error spam from setTimeout callbacks
 - Improved error handling in instance creation process
