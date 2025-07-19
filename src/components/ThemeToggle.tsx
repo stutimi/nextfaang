@@ -21,6 +21,7 @@ export const ThemeToggle = () => {
     return (
       <Button variant="ghost" size="sm" className="w-9 h-9 px-0">
         <Sun className="h-4 w-4" />
+        <span className="sr-only">Loading theme...</span>
       </Button>
     );
   }
