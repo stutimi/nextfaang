@@ -22,8 +22,8 @@
     --secondary: 210 40% 88%;     /* Darker gray */
     --secondary-foreground: 222 47% 8%;
 
-    --muted: 210 40% 85%;         /* More visible muted background */
-    --muted-foreground: 215 16% 25%; /* Much darker muted text */
+    --muted: 210 40% 88%;         /* More visible muted background */
+    --muted-foreground: 215 16% 20%; /* Much darker muted text */
 
     --accent: 210 40% 82%;        /* More visible accent */
     --accent-foreground: 222 47% 8%;

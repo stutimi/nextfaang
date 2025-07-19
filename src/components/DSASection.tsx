@@ -8,10 +8,10 @@ export const DSASection = () => {
   return (
     <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="dsa">
       {/* Background elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30 dark:opacity-20">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-secondary/20 dark:bg-secondary/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -133,7 +133,7 @@ export const DSASection = () => {
           </Card>
 
           {/* Stats Card */}
-          <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 border-border">
+          <Card className="glass-card bg-gradient-to-br from-card/70 to-muted/70 dark:from-card/50 dark:to-muted/50 border-border">
             <CardContent className="pt-8">
               <h3 className="text-2xl font-bold mb-8 text-center text-primary">Course Impact</h3>
               <div className="space-y-8">
@@ -222,7 +222,7 @@ export const DSASection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
+          <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 dark:from-card/30 dark:to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-primary to-blue-500 rounded-full w-fit mx-auto mb-6">
                 <Database className="h-8 w-8 text-primary-foreground" />

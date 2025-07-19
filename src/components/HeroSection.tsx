@@ -13,7 +13,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background/95 to-primary/5 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background/95 to-primary/10 dark:to-primary/5 overflow-hidden">
       {/* Enhanced background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated gradient orbs */}
@@ -28,7 +28,7 @@ export const HeroSection = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-primary/30 to-accent/30 dark:from-primary/20 dark:to-accent/20 rounded-full blur-3xl"
         />
         <motion.div 
           animate={{ 
@@ -42,7 +42,7 @@ export const HeroSection = () => {
             ease: "easeInOut",
             delay: 5
           }}
-          className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-secondary/30 to-primary/20 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-r from-secondary/40 to-primary/30 dark:from-secondary/30 dark:to-primary/20 rounded-full blur-3xl"
         />
         <motion.div 
           animate={{ 
@@ -54,7 +54,7 @@ export const HeroSection = () => {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-accent/20 to-primary/20 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-accent/30 to-primary/30 dark:from-accent/20 dark:to-primary/20 rounded-full blur-3xl"
         />
         
         {/* Enhanced grid pattern with animation */}
@@ -67,7 +67,7 @@ export const HeroSection = () => {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,hsl(var(--primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary))_1px,transparent_1px)] bg-[size:40px_40px]"
+          className="absolute inset-0 opacity-[0.08] dark:opacity-[0.03] bg-[linear-gradient(to_right,hsl(var(--primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary))_1px,transparent_1px)] bg-[size:40px_40px]"
         />
         
         {/* Floating particles */}
@@ -75,7 +75,7 @@ export const HeroSection = () => {
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-primary/30 rounded-full"
+              className="absolute w-2 h-2 bg-primary/50 dark:bg-primary/30 rounded-full"
               animate={{
                 y: [0, -100, 0],
                 x: [0, Math.random() * 100 - 50, 0],
@@ -108,7 +108,7 @@ export const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Badge variant="outline" className="px-6 py-3 border-2 border-primary/40 bg-gradient-to-r from-primary/10 to-accent/10 text-primary font-semibold text-sm backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+              <Badge variant="outline" className="px-6 py-3 border-2 border-primary/60 dark:border-primary/40 bg-gradient-to-r from-primary/20 to-accent/20 dark:from-primary/10 dark:to-accent/10 text-primary font-semibold text-sm backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
                 <motion.div
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -131,7 +131,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="block text-foreground mb-2"
+              className="block text-gray-800 dark:text-gray-100 mb-2 font-extrabold"
             >
               Welcome to
             </motion.span>
@@ -139,14 +139,28 @@ export const HeroSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-              className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent relative"
+              className="block bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent relative font-black"
             >
               NEXTFAANG
               <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20 rounded-lg blur-xl"
+                className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-indigo-500/30 dark:from-blue-400/20 dark:via-purple-400/20 dark:to-indigo-400/20 rounded-lg blur-xl"
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
+              {/* Additional glow effect for better visibility */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent opacity-80"
+                animate={{ 
+                  textShadow: [
+                    "0 0 20px rgba(59, 130, 246, 0.5)",
+                    "0 0 40px rgba(147, 51, 234, 0.5)",
+                    "0 0 20px rgba(59, 130, 246, 0.5)"
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                NEXTFAANG
+              </motion.div>
             </motion.span>
           </motion.h1>
 
@@ -226,9 +240,33 @@ export const HeroSection = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
           >
             {[
-              { number: "1M+", label: "Problems Solved", icon: Target, color: "primary" },
-              { number: "150+", label: "FAANG Placements", icon: Zap, color: "accent" },
-              { number: "98%", label: "Success Rate", icon: Bot, color: "secondary" }
+              { 
+                number: "1M+", 
+                label: "Problems Solved", 
+                icon: Target, 
+                numberColor: "text-primary",
+                iconColor: "text-primary",
+                bgColor: "bg-primary/10",
+                borderColor: "border-primary/20"
+              },
+              { 
+                number: "150+", 
+                label: "FAANG Placements", 
+                icon: Zap, 
+                numberColor: "text-blue-600 dark:text-blue-400",
+                iconColor: "text-blue-600 dark:text-blue-400",
+                bgColor: "bg-blue-500/10",
+                borderColor: "border-blue-500/20"
+              },
+              { 
+                number: "98%", 
+                label: "Success Rate", 
+                icon: Bot, 
+                numberColor: "text-green-600 dark:text-green-400",
+                iconColor: "text-green-600 dark:text-green-400",
+                bgColor: "bg-green-500/10",
+                borderColor: "border-green-500/20"
+              }
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -242,12 +280,12 @@ export const HeroSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="relative z-10 text-center">
                     <div className="mb-4 flex justify-center">
-                      <div className={`p-3 rounded-full bg-${stat.color}/10 border border-${stat.color}/20`}>
-                        <stat.icon className={`h-8 w-8 text-${stat.color}`} />
+                      <div className={`p-3 rounded-full ${stat.bgColor} border ${stat.borderColor}`}>
+                        <stat.icon className={`h-8 w-8 ${stat.iconColor}`} />
                       </div>
                     </div>
                     <motion.div 
-                      className={`text-4xl md:text-5xl font-bold text-${stat.color} mb-3`}
+                      className={`text-4xl md:text-5xl font-bold ${stat.numberColor} mb-3`}
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
                     >
