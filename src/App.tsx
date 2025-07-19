@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { ErrorDebugPanel } from "@/components/ErrorDebugPanel";
+
 import { ErrorCatcher } from "@/components/ErrorCatcher";
 import { ReactLifecycleSafetyWrapper } from "@/components/ReactLifecycleSafetyWrapper";
 import { useReconcilerRecovery } from "@/hooks/useReconcilerRecovery";
@@ -21,6 +21,7 @@ import CPDictionary from "./pages/CPDictionary";
 import CPTricksAndTips from "./pages/CPTricksAndTips";
 import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
+import { ProfilePage } from "./components/ProfilePage";
 
 const App = () => {
   // Use reconciler recovery hook to handle React internal errors
@@ -104,14 +105,17 @@ const App = () => {
                 <ContestAnalyzer />
               </ErrorBoundary>
             } />
+            <Route path="/profile" element={
+              <ErrorBoundary>
+                <ProfilePage />
+              </ErrorBoundary>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>
       </TooltipProvider>
-      
-      {/* Development-only error debug panel */}
-      <ErrorDebugPanel />
+
     </ThemeProvider>
       </ReactLifecycleSafetyWrapper>
     </ErrorCatcher>

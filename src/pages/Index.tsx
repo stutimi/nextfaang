@@ -88,6 +88,9 @@ const Index = () => {
           <div id="cp-section">
             <CPSection />
           </div>
+          <div id="coding-arena">
+            <CodingArena />
+          </div>
           <SystemDesignSection />
         </section>
 
