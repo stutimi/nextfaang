@@ -114,11 +114,13 @@ Transform coding education in India by providing world-class resources, personal
 <td width="33%">
 
 #### 🎙️ **Voice AI Features**
-- 🗣️ **Voice-Guided Tours**
-- 🎤 **Speech-to-Code**
-- 🔊 **Audio Explanations**
-- 🌐 **Multi-Language Support**
-- 🎵 **Interactive Voice Effects**
+- 🗣️ **Voice-Guided Tours** - Navigate the platform using voice commands
+- 🎤 **Speech-to-Code** - Convert spoken algorithms to code
+- 🔊 **Audio Explanations** - Listen to problem explanations
+- 🌐 **Multi-Language Support** - Voice recognition in multiple languages
+- 🎵 **Interactive Voice Effects** - Enhanced audio feedback
+
+> 📝 **Note**: Voice features use the Web Speech API via react-speech-recognition. [Learn more](docs/VOICE_INTERACTION.md)
 
 </td>
 <td width="33%">
@@ -304,7 +306,7 @@ graph TD
 
 #### 🌟 **Try These Amazing Features**
 
-[![Voice AI Tour](https://img.shields.io/badge/🎙️_Voice_AI_Tour-Experience_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Voice AI Tour](https://img.shields.io/badge/🎙️_Voice_AI_Tour-Experience_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/voice-demo)
 [![Interactive Chatbot](https://img.shields.io/badge/💬_AI_Chatbot-Chat_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
 [![Performance Analytics](https://img.shields.io/badge/📊_Analytics_Dashboard-View_Stats-green?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
 

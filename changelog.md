@@ -220,7 +220,16 @@ This release introduces comprehensive light mode support across the entire appli
 #### Technical Improvements
 
 **Color System Overhaul:**
-- Replaced hard-coded colors with theme-aware CSS custom properties
+- Replaced hard-coded colors
+
+## Version 4.0.1 (2025-07-19)
+
+### Hotfix: Dependency Compatibility Update
+
+#### Changes
+- Fixed React 18.3.1 compatibility issue by replacing react-speech-kit with react-speech-recognition
+- Resolved npm dependency conflicts preventing successful builds
+- Improved build system stability for deployment with theme-aware CSS custom properties
 - text-gray-100/300/400 converted to text-foreground/muted-foreground
 - bg-gray-800/900 converted to glass-card/border-border
 - text-white converted to text-primary-foreground (for colored backgrounds)
