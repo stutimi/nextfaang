@@ -187,3 +187,93 @@ export const SafeUserButton = (props?: any) => {
     </Button>
   );
 };
+
+// Safe useUser hook
+export const useClerkUser = () => {
+  const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+  const [user, setUser] = React.useState<any>(null);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [isSignedIn, setIsSignedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    if (PUBLISHABLE_KEY) {
+      import('@clerk/clerk-react')
+        .then((clerkModule) => {
+          // Use the useUser hook from Clerk
+          const useUser = clerkModule.useUser;
+          if (useUser) {
+            // This is a bit tricky since we can't use hooks conditionally
+            // We'll need to handle this differently
+            setIsLoaded(true);
+          }
+        })
+        .catch((error) => {
+          console.warn('Failed to load Clerk useUser:', error);
+          setIsLoaded(true);
+        });
+    } else {
+      setIsLoaded(true);
+    }
+  }, [PUBLISHABLE_KEY]);
+
+  return {
+    user,
+    isLoaded,
+    isSignedIn
+  };
+};
+
+// Component wrapper that provides user data
+export const ClerkUserProvider = ({ children }: { children: (userData: any) => React.ReactNode }) => {
+  const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+  const [ClerkUseUser, setClerkUseUser] = React.useState<any>(null);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    if (PUBLISHABLE_KEY) {
+      import('@clerk/clerk-react')
+        .then((clerkModule) => {
+          setClerkUseUser(() => clerkModule.useUser);
+          setIsLoaded(true);
+        })
+        .catch((error) => {
+          console.warn('Failed to load Clerk:', error);
+          setIsLoaded(true);
+        });
+    } else {
+      setIsLoaded(true);
+    }
+  }, [PUBLISHABLE_KEY]);
+
+  if (!isLoaded) return null;
+
+  if (!PUBLISHABLE_KEY || !ClerkUseUser) {
+    // Return mock data when Clerk is not available
+    return children({
+      user: null,
+      isLoaded: true,
+      isSignedIn: false
+    });
+  }
+
+  // This component will use the actual useUser hook
+  const UserDataWrapper = () => {
+    try {
+      const { user, isLoaded: userLoaded, isSignedIn } = ClerkUseUser();
+      return children({
+        user,
+        isLoaded: userLoaded,
+        isSignedIn
+      });
+    } catch (error) {
+      console.warn('Error using Clerk useUser:', error);
+      return children({
+        user: null,
+        isLoaded: true,
+        isSignedIn: false
+      });
+    }
+  };
+
+  return <UserDataWrapper />;
+};

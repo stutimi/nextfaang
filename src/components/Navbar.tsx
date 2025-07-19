@@ -1,35 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, ChevronDown, User, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
+import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { UserProfile } from "@/components/UserProfile";
 import { Link } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  SafeSignedIn as SignedIn,
-  SafeSignedOut as SignedOut,
-  SafeSignInButton as SignInButton,
-  SafeUserButton as UserButton,
-} from "@/components/ClerkWrapper";
+
 import NextfaangLogo from '@/assets/nextfaang-logo.svg?react';
 
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (toolsRef.current && !toolsRef.current.contains(event.target as Node)) {
+        setToolsOpen(false);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -56,11 +50,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className={`glass-card sticky top-0 z-50 transition-all duration-500 ${
-      scrolled
-        ? 'bg-background/80 backdrop-blur-xl border-b border-primary/20 shadow-2xl shadow-primary/10'
-        : 'bg-background/60 backdrop-blur-lg border-b border-border/50'
-    }`}>
+    <nav className={`sticky top-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border transition-all duration-500`}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Enhanced Logo */}
@@ -112,96 +102,52 @@ export const Navbar = () => {
             ))}
 
             {/* Enhanced Tools Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="flex items-center gap-2 text-foreground/80 hover:text-primary hover:bg-primary/10 px-4 py-2.5 rounded-xl transition-all duration-300 group"
-                  >
-                    <Sparkles className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="font-medium">Tools</span>
-                    <ChevronDown className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
-                  </Button>
-                </motion.div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-72 glass-card border-primary/20 shadow-2xl shadow-primary/10"
+            <div className="relative" ref={toolsRef}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-2 text-foreground/80 hover:text-primary hover:bg-primary/10 px-4 py-2.5 rounded-xl transition-all duration-300 group"
+                onClick={() => setToolsOpen(!toolsOpen)}
               >
-                <div className="p-2">
-                  <div className="text-sm font-semibold text-primary mb-3 px-2">Developer Tools</div>
-                  {toolsItems.map((tool, index) => (
-                    <motion.div
-                      key={tool.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <DropdownMenuItem
-                        className="cursor-pointer hover:bg-primary/10 rounded-lg p-3 group transition-all duration-200"
-                        asChild
+                <Sparkles className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                <span className="font-medium">Tools</span>
+                <ChevronDown className={`h-3 w-3 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
+              </Button>
+
+              {toolsOpen && (
+                <div className="absolute right-0 top-full mt-2 w-72 bg-popover border border-border rounded-md shadow-lg z-[100]">
+                  <div className="p-2">
+                    <div className="text-sm font-semibold text-primary mb-3 px-2">Developer Tools</div>
+                    {toolsItems.map((tool) => (
+                      <Link
+                        key={tool.label}
+                        to={tool.href}
+                        className="w-full flex items-start gap-3 cursor-pointer hover:bg-primary/10 rounded-lg p-3 group transition-all duration-200"
+                        onClick={() => setToolsOpen(false)}
                       >
-                        <Link to={tool.href} className="w-full flex items-start gap-3">
-                          <div className="p-1.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-200">
-                            {tool.icon}
+                        <div className="p-1.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-200">
+                          {tool.icon}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200">
+                            {tool.label}
                           </div>
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200">
-                              {tool.label}
-                            </div>
-                            <div className="text-xs text-muted-foreground mt-0.5">
-                              {tool.description}
-                            </div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            {tool.description}
                           </div>
-                        </Link>
-                      </DropdownMenuItem>
-                    </motion.div>
-                  ))}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              )}
+            </div>
           </div>
 
           {/* Enhanced Auth Section */}
           <div className="hidden lg:flex items-center gap-4">
             <ThemeToggle />
-            <SignedOut>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <SignInButton>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="bg-primary/10 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2 rounded-xl font-medium"
-                  >
-                    <User className="h-4 w-4 mr-2" />
-                    Sign In
-                  </Button>
-                </SignInButton>
-              </motion.div>
-            </SignedOut>
-            <SignedIn>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="p-1 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20"
-              >
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-10 h-10 rounded-xl",
-                      userButtonPopoverCard: "glass-card border-primary/20",
-                    }
-                  }}
-                />
-              </motion.div>
-            </SignedIn>
+            <UserProfile />
           </div>
 
           {/* Enhanced Mobile Menu Button */}
@@ -308,41 +254,14 @@ export const Navbar = () => {
                     <div className="flex items-center justify-center mb-4">
                       <ThemeToggle />
                     </div>
-                    <SignedOut>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        <SignInButton>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full bg-primary/10 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 py-3 rounded-xl font-medium"
-                          >
-                            <User className="h-4 w-4 mr-2" />
-                            Sign In to Continue
-                          </Button>
-                        </SignInButton>
-                      </motion.div>
-                    </SignedOut>
-                    <SignedIn>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex items-center justify-center"
-                      >
-                        <UserButton
-                          appearance={{
-                            elements: {
-                              avatarBox: "w-12 h-12 rounded-xl",
-                              userButtonPopoverCard: "glass-card border-primary/20",
-                            }
-                          }}
-                        />
-                      </motion.div>
-                    </SignedIn>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="flex items-center justify-center"
+                    >
+                      <UserProfile />
+                    </motion.div>
                   </div>
                 </div>
               </div>

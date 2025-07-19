@@ -158,7 +158,7 @@ export const CodingArena = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center space-y-4"
         >
-          <motion.h1 
+          <motion.h1
             className="text-6xl font-bold rainbow-text mb-4"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ repeat: Infinity, duration: 3 }}
@@ -168,6 +168,8 @@ export const CodingArena = () => {
           <p className="text-xl text-muted-foreground">
             Where Code Warriors Forge Their Legacy
           </p>
+
+
         </motion.div>
 
         {/* CF Validation Section */}

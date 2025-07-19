@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Joyride, { CallBackProps, Step } from 'react-joyride';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Rocket, Zap, Target, Crown, Star } from 'lucide-react';
 import { useVoiceEffects } from './VoiceEffects';
+import { useTheme } from 'next-themes';
 
 interface InteractiveTourProps {
   isOpen: boolean;
@@ -17,6 +18,12 @@ export const InteractiveTour = ({ isOpen, onComplete, onSkip }: InteractiveTourP
   const [run, setRun] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const { speak, speakPreset } = useVoiceEffects();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -198,12 +205,138 @@ export const InteractiveTour = ({ isOpen, onComplete, onSkip }: InteractiveTourP
     }
   };
 
-  const tourStyles = {
+  // Theme-aware styles for Joyride - memoized for performance
+  const currentTheme = mounted ? (resolvedTheme || theme) : 'dark';
+  const isDark = currentTheme === 'dark';
+
+  // Add CSS custom properties for theme-aware styling
+  useEffect(() => {
+    if (mounted) {
+      const root = document.documentElement;
+      root.style.setProperty('--joyride-primary', isDark ? '#00c9ff' : '#3b82f6');
+      root.style.setProperty('--joyride-bg', isDark ? '#1a1a2e' : '#ffffff');
+      root.style.setProperty('--joyride-text', isDark ? '#ffffff' : '#000000');
+      root.style.setProperty('--joyride-border', isDark ? '#00c9ff' : '#3b82f6');
+      root.style.setProperty('--joyride-overlay', isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.6)');
+    }
+  }, [mounted, isDark]);
+
+  const tourStyles = useMemo(() => ({
     options: {
-      primaryColor: '#00c9ff',
+      primaryColor: isDark ? '#00c9ff' : '#3b82f6',
       zIndex: 1000,
     },
-  };
+    overlay: {
+      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.6)',
+    },
+    tooltip: {
+      backgroundColor: isDark ? 'hsl(217, 33%, 16%)' : 'hsl(0, 0%, 100%)',
+      borderRadius: '12px',
+      border: isDark
+        ? '1px solid hsl(195, 100%, 50%, 0.3)'
+        : '1px solid hsl(221, 83%, 53%, 0.2)',
+      boxShadow: isDark
+        ? '0 25px 50px rgba(0, 0, 0, 0.9), 0 0 40px hsl(195, 100%, 50%, 0.4)'
+        : '0 10px 25px rgba(0, 0, 0, 0.1), 0 0 20px hsl(221, 83%, 53%, 0.2)',
+      color: isDark ? 'hsl(210, 40%, 98%)' : 'hsl(222, 84%, 5%)',
+      fontSize: '16px',
+      padding: '24px',
+      backdropFilter: 'blur(20px)',
+    },
+    tooltipContainer: {
+      textAlign: 'left' as const,
+    },
+    tooltipTitle: {
+      color: isDark ? 'hsl(195, 100%, 50%)' : 'hsl(221, 83%, 53%)',
+      fontSize: '20px',
+      fontWeight: '700',
+      marginBottom: '12px',
+    },
+    tooltipContent: {
+      color: isDark ? 'hsl(210, 40%, 98%)' : 'hsl(222, 84%, 5%)',
+      fontSize: '16px',
+      lineHeight: '1.6',
+    },
+    buttonNext: {
+      backgroundColor: isDark ? 'hsl(195, 100%, 50%)' : 'hsl(221, 83%, 53%)',
+      borderRadius: '8px',
+      border: 'none',
+      color: 'white',
+      fontSize: '14px',
+      fontWeight: '600',
+      padding: '12px 24px',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+    buttonBack: {
+      backgroundColor: 'transparent',
+      border: isDark
+        ? '2px solid hsl(195, 100%, 50%, 0.5)'
+        : '2px solid hsl(221, 83%, 53%, 0.5)',
+      borderRadius: '8px',
+      color: isDark ? 'hsl(195, 100%, 50%)' : 'hsl(221, 83%, 53%)',
+      fontSize: '14px',
+      fontWeight: '600',
+      padding: '10px 22px',
+      cursor: 'pointer',
+      marginRight: '12px',
+      transition: 'all 0.3s ease',
+    },
+    buttonSkip: {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: isDark ? 'hsl(210, 40%, 70%)' : 'hsl(222, 47%, 40%)',
+      fontSize: '14px',
+      fontWeight: '500',
+      padding: '8px 16px',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+    buttonClose: {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: isDark ? 'hsl(210, 40%, 70%)' : 'hsl(222, 47%, 40%)',
+      fontSize: '18px',
+      fontWeight: '500',
+      padding: '8px',
+      cursor: 'pointer',
+      position: 'absolute' as const,
+      right: '12px',
+      top: '12px',
+      width: '32px',
+      height: '32px',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all 0.3s ease',
+    },
+    beacon: {
+      backgroundColor: isDark ? 'hsl(195, 100%, 50%)' : 'hsl(221, 83%, 53%)',
+      border: isDark
+        ? '4px solid hsl(195, 100%, 50%, 0.3)'
+        : '4px solid hsl(221, 83%, 53%, 0.3)',
+    },
+    beaconInner: {
+      backgroundColor: isDark ? 'hsl(195, 100%, 50%)' : 'hsl(221, 83%, 53%)',
+    },
+    beaconOuter: {
+      backgroundColor: isDark
+        ? 'hsl(195, 100%, 50%, 0.3)'
+        : 'hsl(221, 83%, 53%, 0.3)',
+      border: isDark
+        ? '2px solid hsl(195, 100%, 50%, 0.5)'
+        : '2px solid hsl(221, 83%, 53%, 0.5)',
+    },
+    spotlight: {
+      backgroundColor: isDark ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 0.7)',
+    },
+  }), [mounted, currentTheme, isDark]);
+
+  // Don't render until mounted to prevent hydration issues
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
@@ -223,9 +356,17 @@ export const InteractiveTour = ({ isOpen, onComplete, onSkip }: InteractiveTourP
           next: 'Next',
           skip: 'Skip Tour',
         }}
+        floaterProps={{
+          disableAnimation: false,
+          styles: {
+            floater: {
+              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))',
+            }
+          }
+        }}
       />
       
-      {!isOpen && (
+      {!run && !isOpen && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
