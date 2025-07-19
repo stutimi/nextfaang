@@ -1,40 +1,38 @@
 import React from 'react';
 import { VoiceControl } from '../components/VoiceControl';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { AlertTriangle } from 'lucide-react';
 
 const VoiceDemoPage: React.FC = () => {
-  const [command, setCommand] = React.useState<string>('');
-  
-  const handleTranscriptChange = (transcript: string) => {
-    setCommand(transcript);
-    
-    // Simple voice command processing
-    const lowerTranscript = transcript.toLowerCase();
-    
-    if (lowerTranscript.includes('go to home')) {
-      window.location.href = '/';
-    } else if (lowerTranscript.includes('open contest analyzer')) {
-      window.location.href = '/contest-analyzer';
-    } else if (lowerTranscript.includes('show coding arena')) {
-      window.location.href = '/coding-arena';
-    }
-  };
-  
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Voice Interaction Demo</h1>
+      
+      <Card className="mb-6 border-yellow-500">
+        <CardHeader className="bg-yellow-50 dark:bg-yellow-900/20">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-yellow-500" />
+            <CardTitle>Voice Features Temporarily Disabled</CardTitle>
+          </div>
+          <CardDescription>
+            Voice features have been temporarily disabled for compatibility reasons. This demo page shows the UI only.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>We're working on implementing voice features using more compatible technologies. The interface below is for demonstration purposes only.</p>
+        </CardContent>
+      </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Voice Control</CardTitle>
             <CardDescription>
-              Try speaking commands like "Go to home", "Open contest analyzer", or "Show coding arena"
+              UI demonstration of voice control features
             </CardDescription>
           </CardHeader>
           <CardContent>
             <VoiceControl 
-              onTranscriptChange={handleTranscriptChange}
               demoText="Welcome to NEXTFAANG voice control. You can navigate the platform using voice commands."
             />
           </CardContent>
@@ -44,7 +42,7 @@ const VoiceDemoPage: React.FC = () => {
           <CardHeader>
             <CardTitle>Voice Commands</CardTitle>
             <CardDescription>
-              List of available voice commands
+              Examples of planned voice commands
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -58,20 +56,6 @@ const VoiceDemoPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-      
-      {command && (
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Current Command</CardTitle>
-            <CardDescription>
-              The system is processing this voice input
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg font-medium">{command}</p>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };

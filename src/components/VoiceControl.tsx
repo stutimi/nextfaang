@@ -18,8 +18,7 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
     resetTranscript,
     startListening,
     stopListening,
-    speak,
-    browserSupportsSpeechRecognition
+    speak
   } = useVoiceInteraction();
 
   React.useEffect(() => {
@@ -27,14 +26,6 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
       onTranscriptChange(transcript);
     }
   }, [transcript, onTranscriptChange]);
-
-  if (!browserSupportsSpeechRecognition) {
-    return (
-      <div className="p-4 border border-red-300 bg-red-50 text-red-700 rounded-md">
-        Your browser doesn't support speech recognition.
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-4">
@@ -58,12 +49,12 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
         </Button>
       </div>
       
-      {transcript && (
-        <div className="p-4 border border-border bg-muted rounded-md">
-          <p className="font-medium">Transcript:</p>
-          <p>{transcript}</p>
-        </div>
-      )}
+      <div className="p-4 border border-border bg-muted rounded-md">
+        <p className="font-medium">Voice features are currently disabled for compatibility reasons.</p>
+        <p className="text-sm text-muted-foreground mt-2">
+          The voice interaction UI is shown for demonstration purposes only.
+        </p>
+      </div>
     </div>
   );
 };

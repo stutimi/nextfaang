@@ -222,15 +222,22 @@ This release introduces comprehensive light mode support across the entire appli
 **Color System Overhaul:**
 - Replaced hard-coded colors
 
-## Version 4.0.1 (2025-07-19)
+## Version 4.0.2 (2025-07-19)
 
-### Hotfix: Dependency Compatibility Update
+### Hotfix: Voice Features Temporarily Disabled
 
 #### Changes
-- Fixed React 18.3.1 compatibility issue by replacing react-speech-kit with native Web Speech API
-- Updated VoiceEffects component to use native browser speech synthesis
-- Resolved npm dependency conflicts preventing successful builds
-- Improved build system stability for deployment with theme-aware CSS custom properties
+- Temporarily disabled voice features due to cross-browser compatibility issues
+- Replaced voice functionality with UI-only components to maintain design consistency
+- Added informational notices about the status of voice features
+- Removed dependencies on Web Speech API to resolve build errors
+- Updated documentation to reflect the current state of voice features
+
+#### Technical Details
+- Removed speech recognition and synthesis functionality
+- Created stub implementations of voice-related hooks and components
+- Simplified UI to indicate that voice features are coming soon
+- Improved build stability by eliminating browser-specific API usage with theme-aware CSS custom properties
 - text-gray-100/300/400 converted to text-foreground/muted-foreground
 - bg-gray-800/900 converted to glass-card/border-border
 - text-white converted to text-primary-foreground (for colored backgrounds)

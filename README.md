@@ -113,14 +113,14 @@ Transform coding education in India by providing world-class resources, personal
 </td>
 <td width="33%">
 
-#### 🎙️ **Voice AI Features**
+#### 🎙️ **Voice AI Features** (Coming Soon)
 - 🗣️ **Voice-Guided Tours** - Navigate the platform using voice commands
 - 🎤 **Speech-to-Code** - Convert spoken algorithms to code
 - 🔊 **Audio Explanations** - Listen to problem explanations
 - 🌐 **Multi-Language Support** - Voice recognition in multiple languages
 - 🎵 **Interactive Voice Effects** - Enhanced audio feedback
 
-> 📝 **Note**: Voice features use the Web Speech API via react-speech-recognition. [Learn more](docs/VOICE_INTERACTION.md)
+> 📝 **Note**: Voice features are currently in development. The UI demo is available at [/voice-demo](https://nextfaang-cp-legend-hub.vercel.app/voice-demo)
 
 </td>
 <td width="33%">
