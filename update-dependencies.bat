@@ -13,7 +13,7 @@ echo Done!
 echo.
 
 echo Step 2: Installing dependencies...
-call npm install --legacy-peer-deps
+call npm install
 echo Done!
 echo.
 
@@ -24,6 +24,9 @@ echo.
 
 echo ===================================
 echo Installation complete!
+echo.
+echo Voice features have been temporarily disabled
+echo for compatibility reasons.
 echo.
 echo You can now run the project with:
 echo npm run dev

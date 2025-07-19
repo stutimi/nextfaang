@@ -1,42 +1,39 @@
-# Voice Interaction Update
+# Voice Features Update
 
 ## Overview
 
-This update replaces the external speech libraries with native Web Speech API implementations to resolve dependency conflicts with React 18.3.1.
+Voice features have been temporarily disabled due to cross-browser compatibility issues and dependency conflicts with React 18.3.1.
 
 ## Changes Made
 
-1. **Removed Dependencies**:
-   - Removed `react-speech-kit` (incompatible with React 18)
-   - Removed `react-speech-recognition` (not needed)
+1. **Removed Voice Functionality**:
+   - Removed all speech recognition and synthesis functionality
+   - Replaced with UI-only components that maintain design consistency
+   - Created stub implementations of voice-related hooks and components
 
-2. **Added Native Implementations**:
-   - Updated `VoiceEffects.tsx` to use native Web Speech API
-   - Created custom `useVoiceInteraction` hook using native browser APIs
-   - Added TypeScript declarations for Web Speech API
+2. **Improved Build Stability**:
+   - Eliminated browser-specific API usage
+   - Removed dependencies on Web Speech API
+   - Simplified component implementation
 
-3. **New Features**:
-   - Added voice demo page at `/voice-demo`
-   - Improved browser compatibility detection
-   - Enhanced error handling for speech recognition
+3. **Updated Documentation**:
+   - Added informational notices about the status of voice features
+   - Updated README to indicate that voice features are coming soon
+   - Created documentation explaining the current state of voice features
 
-## Browser Support
+## Current Status
 
-The Web Speech API is supported in most modern browsers:
-- Chrome: Full support
-- Edge: Full support
-- Firefox: Partial support
-- Safari: Partial support
+A UI demonstration of the planned voice features is available at `/voice-demo`. This demo shows the interface without actual voice functionality.
 
-## Testing
+## Future Plans
 
-To test the voice functionality:
-1. Navigate to `/voice-demo`
-2. Click "Start Listening" and speak a command
-3. Click "Demo TTS" to test text-to-speech
+We are working on a more robust implementation of voice features that will:
 
-## Notes
+1. Use a more compatible approach to speech recognition
+2. Work consistently across all modern browsers
+3. Provide better error handling and fallbacks
+4. Integrate seamlessly with the existing UI
 
-- Users will need to grant microphone permissions to use speech recognition
-- Some browsers may require HTTPS for speech recognition to work
-- The speech synthesis may sound different across browsers and operating systems
+## Timeline
+
+Voice features are expected to be re-enabled in a future update. The current focus is on ensuring the core platform functionality is stable and accessible to all users.
