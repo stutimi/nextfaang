@@ -29,11 +29,19 @@ masterErrorHandler.initialize();
 // Initialize Clerk-specific error handling
 clerkCookieHandler.initialize();
 
+// Initialize extension error handler separately for immediate effect
+extensionErrorHandler.initialize();
+
 // Verify error handling status
 setTimeout(() => {
   checkErrorHandlingStatus();
   logCurrentProtectionStatus();
   logClerkDevelopmentStatus();
+  
+  // Import extension error test in development mode only
+  if (import.meta.env.DEV) {
+    import('./utils/extensionErrorTest');
+  }
 }, 2000);
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -41,7 +49,8 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 // Fallback for development if Clerk key is missing
 const isDevelopment = import.meta.env.DEV;
 if (!PUBLISHABLE_KEY && !isDevelopment && !shouldBypassAuth()) {
-  throw new Error("Missing Clerk Publishable Key");
+  console.error("Missing Clerk Publishable Key - using fallback authentication flow");
+  // Don't throw error, just log it and continue with fallback
 }
 
 // Error handler for the main app

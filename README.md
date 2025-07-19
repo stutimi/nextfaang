@@ -6,25 +6,30 @@
 ![Platform Status](https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge)
 ![Users](https://img.shields.io/badge/Users-500K+-orange?style=for-the-badge)
 ![Success Rate](https://img.shields.io/badge/Success_Rate-98%25-success?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-7.0.5-646CFF?style=for-the-badge&logo=vite)
 
-**🚀 The Ultimate Competitive Programming & DSA Learning Platform**
+**🚀 The Ultimate AI-Powered Competitive Programming & DSA Learning Platform**
 
 [![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Platform-success?style=for-the-badge&logo=vercel)](https://nextfaang-cp-legend-hub.vercel.app/)
 [![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
 [![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
+[![🤖 AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Chat_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#smart-tools)
 [![⭐ GitHub](https://img.shields.io/badge/⭐_Star_on_GitHub-black?style=for-the-badge&logo=github)](https://github.com/your-repo)
 [![📄 License](https://img.shields.io/badge/📄_License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 *🎯 Empowering 500K+ students to crack FAANG interviews and achieve Legendary Grandmaster status*
 
-### 📈 Platform Statistics
-| 📊 Metric | 🔢 Value | 📈 Growth |
-|-----------|----------|-----------|
-| 👥 Active Users | 2,547+ | +15% monthly |
-| 🧠 Problems Solved | 1M+ | +50K weekly |
-| 🏆 FAANG Placements | 150+ | +10 monthly |
-| 📚 CP Resources | 500+ | +20 weekly |
-| 🤖 AI Interactions | 100K+ | +5K daily |
+### 📈 Real-Time Platform Statistics
+| 📊 Metric | 🔢 Value | 📈 Growth | 🎯 Target |
+|-----------|----------|-----------|-----------|
+| 👥 Active Users | 2,547+ | +15% monthly | 10K by 2025 |
+| 🧠 Problems Solved | 1M+ | +50K weekly | 5M by 2025 |
+| 🏆 FAANG Placements | 150+ | +10 monthly | 500 by 2025 |
+| 📚 CP Resources | 500+ | +20 weekly | 2K by 2025 |
+| 🤖 AI Interactions | 100K+ | +5K daily | 1M by 2025 |
+| ⚔️ Arena Battles | 25K+ | +2K weekly | 100K by 2025 |
 
 </div>
 

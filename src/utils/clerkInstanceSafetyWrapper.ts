@@ -1,4 +1,5 @@
 // Safety wrapper specifically for Clerk instance creation issues
+import React from 'react';
 
 export class ClerkInstanceSafetyWrapper {
   private static instance: ClerkInstanceSafetyWrapper;
@@ -111,7 +112,5 @@ export class ClerkInstanceSafetyWrapper {
     return Array.from(this.failedAttempts.entries());
   }
 }
-
-import React from 'react';
 
 export const clerkInstanceSafetyWrapper = ClerkInstanceSafetyWrapper.getInstance();
