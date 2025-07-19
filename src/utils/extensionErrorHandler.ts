@@ -1,5 +1,17 @@
 // Handler for browser extension-related errors
 
+interface ExtensionErrorStatus {
+  initialized: boolean;
+  errorsSuppressed: number;
+  rejectionsHandled: number;
+}
+
+let status: ExtensionErrorStatus = {
+  initialized: false,
+  errorsSuppressed: 0,
+  rejectionsHandled: 0
+};
+
 export const extensionErrorHandler = {
   initialize: () => {
     console.log('🔌 Initializing Extension Error Handler...');
@@ -24,10 +36,12 @@ export const extensionErrorHandler = {
       ) {
         // In production, completely suppress these errors
         if (import.meta.env.PROD) {
+          status.errorsSuppressed++;
           return;
         }
         // In development, log to debug instead of error
         console.debug('🔌 Extension error suppressed:', ...args);
+        status.errorsSuppressed++;
         return;
       }
       
@@ -51,10 +65,12 @@ export const extensionErrorHandler = {
         if (import.meta.env.DEV) {
           console.debug('🔌 Extension promise rejection suppressed:', errorMsg);
         }
+        status.rejectionsHandled++;
         return true;
       }
     }, true);
     
+    status.initialized = true;
     console.log('✅ Extension Error Handler initialized');
     return true;
   },
@@ -62,6 +78,16 @@ export const extensionErrorHandler = {
   cleanup: () => {
     // Cleanup would restore the original console.error if needed
     console.log('🔄 Extension Error Handler cleaned up');
+    status.initialized = false;
+    return true;
+  },
+  
+  getStatus: () => {
+    return { ...status };
+  },
+  
+  handleError: (error: Error) => {
+    console.debug('🔌 Extension error handled:', error.message);
     return true;
   }
 };

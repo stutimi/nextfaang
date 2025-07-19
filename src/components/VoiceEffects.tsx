@@ -1,47 +1,60 @@
-import { motion } from 'framer-motion';
-import { Volume2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { createContext, useContext, useState } from 'react';
 
-interface VoiceEffectsProps {
-  enabled?: boolean;
-  onToggle?: (enabled: boolean) => void;
+// Create a context for voice effects
+interface VoiceEffectsContextType {
+  speak: (text: string) => void;
+  speakPreset: (preset: 'success' | 'error' | 'warning' | 'matchStart' | 'matchWin' | 'matchLose' | 'welcome' | 'tournamentStart') => void;
 }
 
-// Simplified component that just shows a UI placeholder without actual voice functionality
-export const VoiceEffects = ({ enabled = true, onToggle }: VoiceEffectsProps) => {
-  const toggleVoice = () => {
-    onToggle?.(!enabled);
+const VoiceEffectsContext = createContext<VoiceEffectsContextType>({
+  speak: () => {},
+  speakPreset: () => {},
+});
+
+// Hook to use voice effects
+export const useVoiceEffects = () => useContext(VoiceEffectsContext);
+
+// Voice effects provider component
+export const VoiceEffectsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Function to speak text
+  const speak = (text: string) => {
+    // Check if browser supports speech synthesis
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  // Function to speak preset messages
+  const speakPreset = (preset: 'success' | 'error' | 'warning' | 'matchStart' | 'matchWin' | 'matchLose' | 'welcome' | 'tournamentStart') => {
+    const presetMessages: Record<string, string> = {
+      success: "Operation completed successfully!",
+      error: "An error occurred. Please try again.",
+      warning: "Warning! Please check your input.",
+      matchStart: "Match starting! Prepare for battle!",
+      matchWin: "Victory! You have won the match!",
+      matchLose: "Defeat. Better luck next time!",
+      welcome: "Welcome to NextFang CP Arena! Let me guide you through this platform.",
+      tournamentStart: "The tournament begins! May the best coder win!"
+    };
+    
+    speak(presetMessages[preset]);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="fixed bottom-4 right-4 z-50"
-    >
-      <Card className="cp-card">
-        <CardContent className="p-3">
-          <div className="flex items-center gap-2">
-            <Volume2 className="h-4 w-4" />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleVoice}
-              className="text-xs futuristic-button"
-            >
-              Voice Feature Disabled
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <VoiceEffectsContext.Provider value={{ speak, speakPreset }}>
+      {children}
+    </VoiceEffectsContext.Provider>
   );
 };
 
-// Stub implementation that does nothing
-export const useVoiceEffects = () => {
-  const speak = () => {};
-  const speakPreset = () => {};
-  return { speak, speakPreset };
+// Component to render in the app
+export const VoiceEffects: React.FC = () => {
+  // This component doesn't render anything visible
+  // It's just a placeholder for the voice effects functionality
+  return null;
 };
+
+export default VoiceEffects;

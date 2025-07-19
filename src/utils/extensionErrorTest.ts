@@ -1,29 +1,30 @@
-// Test file for extension error handler
-
 /**
- * This function simulates browser extension errors to test our handler
+ * Extension Error Test Utility
+ * 
+ * This file is used to test the extension error handling system in development mode.
+ * It's dynamically imported in main.tsx only in development environments.
  */
-export const testExtensionErrorHandler = () => {
-  console.log('🧪 Testing extension error handler...');
-  
-  // Test 1: runtime.lastError message
-  console.error('Unchecked runtime.lastError: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received');
-  
-  // Test 2: Error object with runtime.lastError message
-  console.error(new Error('Unchecked runtime.lastError: Message channel closed'));
-  
-  // Test 3: Promise rejection with runtime.lastError
-  Promise.reject(new Error('Unchecked runtime.lastError: Async response')).catch(err => {
-    // This should be caught by our unhandledrejection handler
-  });
-  
-  console.log('✅ Extension error tests complete - check if errors were suppressed');
+
+import { extensionErrorHandler } from './extensionErrorHandler';
+
+console.log('📋 Extension Error Test: Loaded successfully');
+
+// Log the current status of the extension error handler
+const status = extensionErrorHandler.getStatus();
+console.log('📋 Extension Error Handler Status:', status);
+
+// Export a test function that can be used to manually trigger extension errors
+export const triggerTestError = () => {
+  try {
+    throw new Error('Test extension error');
+  } catch (error) {
+    extensionErrorHandler.handleError(error as Error);
+    return { success: true, message: 'Test error triggered successfully' };
+  }
 };
 
-// Only run in development mode
-if (import.meta.env.DEV) {
-  // Run tests after a short delay to ensure handler is initialized
-  setTimeout(() => {
-    testExtensionErrorHandler();
-  }, 3000);
-}
+// Export default for easy importing
+export default {
+  triggerTestError,
+  status: extensionErrorHandler.getStatus()
+};

@@ -22,8 +22,7 @@ import CPTricksAndTips from "./pages/CPTricksAndTips";
 import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
 import { ProfilePage } from "./components/ProfilePage";
-import VoiceDemoPage from "./pages/VoiceDemoPage";
-import ClerkTest from "./components/ClerkTest";
+
 
 const App = () => {
   // Use reconciler recovery hook to handle React internal errors
@@ -112,16 +111,7 @@ const App = () => {
                 <ProfilePage />
               </ErrorBoundary>
             } />
-            <Route path="/voice-demo" element={
-              <ErrorBoundary>
-                <VoiceDemoPage />
-              </ErrorBoundary>
-            } />
-            <Route path="/auth-test" element={
-              <ErrorBoundary>
-                <ClerkTest />
-              </ErrorBoundary>
-            } />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
