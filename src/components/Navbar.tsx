@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Users } from "lucide-react";
+import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Users, Sword } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserProfile } from "@/components/UserProfile";
 import { Link } from "react-router-dom";
@@ -43,6 +43,7 @@ export const Navbar = () => {
   ];
 
   const toolsItems = [
+    { label: "CP Arena", href: "/cp-arena", icon: <Sword className="h-4 w-4" />, description: "Compete in coding battles", badge: "New" },
     { label: "Contest Analyzer", href: "/contest-analyzer", icon: <Sparkles className="h-4 w-4" />, description: "Analyze your contest performance" },
     { label: "CP Dictionary", href: "/cp-dictionary", icon: <Book className="h-4 w-4" />, description: "Learn competitive programming terms" },
     { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: <Rocket className="h-4 w-4" />, description: "Master advanced techniques" },
@@ -130,8 +131,16 @@ export const Navbar = () => {
                           {tool.icon}
                         </div>
                         <div className="flex-1">
-                          <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200">
+                          <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200 flex items-center gap-2">
                             {tool.label}
+                            {tool.badge && (
+                              <Badge
+                                variant="secondary"
+                                className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 border-green-500/30"
+                              >
+                                {tool.badge}
+                              </Badge>
+                            )}
                           </div>
                           <div className="text-xs text-muted-foreground mt-0.5">
                             {tool.description}
@@ -241,7 +250,17 @@ export const Navbar = () => {
                               {tool.icon}
                             </div>
                             <div className="flex-1">
-                              <div className="font-medium">{tool.label}</div>
+                              <div className="font-medium flex items-center gap-2">
+                                {tool.label}
+                                {tool.badge && (
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs px-1.5 py-0.5 bg-green-500/20 text-green-400 border-green-500/30"
+                                  >
+                                    {tool.badge}
+                                  </Badge>
+                                )}
+                              </div>
                               <div className="text-xs text-muted-foreground">{tool.description}</div>
                             </div>
                           </Link>
