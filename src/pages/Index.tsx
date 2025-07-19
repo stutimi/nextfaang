@@ -18,6 +18,9 @@ import { ContactSection } from "@/components/ContactSection";
 import { CodingArena } from "@/components/CodingArena";
 import { Chatbot } from "@/components/Chatbot";
 import { VoiceAITour } from "@/components/VoiceAITour";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { InteractiveBackground } from "@/components/InteractiveBackground";
 
 const Index = () => {
   const [showChatbot, setShowChatbot] = useState(false);
@@ -72,7 +75,8 @@ const Index = () => {
 
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative">
+      <InteractiveBackground />
       <Navbar />
       <main className="space-y-20 md:space-y-32">
         <div id="hero">
@@ -110,6 +114,10 @@ const Index = () => {
           <ContactSection />
         </div>
       </main>
+      
+      {/* Enhanced UI Components */}
+      <ScrollProgress />
+      <FloatingActionButton />
       <Chatbot />
       {showTour && <VoiceAITour onClose={() => setShowTour(false)} />}
     </div>
