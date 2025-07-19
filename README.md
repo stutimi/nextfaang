@@ -637,7 +637,7 @@ graph TB
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/your-username/nextfaang-cp-legend-hub.git
+git clone https://github.com/stutimi/nextfaang.git
 cd nextfaang-cp-legend-hub
 
 # 2️⃣ Install dependencies
