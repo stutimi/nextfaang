@@ -1,4 +1,12 @@
-  # 🧠 NEXTFAANG: India's First LGM Platform
+# 🧠 NEXTFAANG: India's First LGM Platform
+
+---
+
+## 🔗 Important Links
+
+- **Live Platform:** [https://nextfaang.vercel.app/](https://nextfaang.vercel.app/)
+- **Forked Repo:** [https://github.com/Xenonesis/nextfaang](https://github.com/Xenonesis/nextfaang)
+- **Origin Repo:** [https://github.com/stutimi/nextfaang](https://github.com/stutimi/nextfaang)
 
 <div align="center">
 
