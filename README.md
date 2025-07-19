@@ -9,7 +9,7 @@
 
 **🚀 The Ultimate Competitive Programming & DSA Learning Platform**
 
-[![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Platform-success?style=for-the-badge&logo=vercel)](https://nextfang-cp-legend-hub-21.lovable.app/)
+[![🌐 Live Demo](https://nextfaanglive.netlify.app/)
 [![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
 [![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
 [![⭐ GitHub](https://img.shields.io/badge/⭐_Star_on_GitHub-black?style=for-the-badge&logo=github)](https://github.com/your-repo)
