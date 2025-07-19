@@ -22,7 +22,7 @@ export const EnhancedLoadingScreen = () => {
           className="mb-8"
         >
           <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30">
-            <Code className="h-12 w-12 text-white" />
+            <Code className="h-12 w-12 text-primary-foreground" />
           </div>
         </motion.div>
         

@@ -15,10 +15,8 @@ import { OpenSourceSection } from "@/components/OpenSourceSection";
 import { CommunitySection } from "@/components/CommunitySection";
 import { FutureScope } from "@/components/FutureScope";
 import { ContactSection } from "@/components/ContactSection";
-import { CodingArena } from "@/components/CodingArena";
 import { Chatbot } from "@/components/Chatbot";
 import { VoiceAITour } from "@/components/VoiceAITour";
-import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { InteractiveBackground } from "@/components/InteractiveBackground";
 
@@ -92,9 +90,6 @@ const Index = () => {
           <div id="cp-section">
             <CPSection />
           </div>
-          <div id="coding-arena">
-            <CodingArena />
-          </div>
           <SystemDesignSection />
         </section>
 
@@ -117,7 +112,6 @@ const Index = () => {
       
       {/* Enhanced UI Components */}
       <ScrollProgress />
-      <FloatingActionButton />
       <Chatbot />
       {showTour && <VoiceAITour onClose={() => setShowTour(false)} />}
     </div>

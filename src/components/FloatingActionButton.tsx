@@ -67,7 +67,7 @@ export const FloatingActionButton = () => {
                     
                     {/* Button */}
                     <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-200`}>
-                      <action.icon className="h-6 w-6 text-white" />
+                      <action.icon className="h-6 w-6 text-primary-foreground" />
                     </div>
                   </motion.div>
                 </Link>
@@ -90,9 +90,9 @@ export const FloatingActionButton = () => {
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? (
-            <X className="h-6 w-6 text-white" />
+            <X className="h-6 w-6 text-primary-foreground" />
           ) : (
-            <Plus className="h-6 w-6 text-white" />
+            <Plus className="h-6 w-6 text-primary-foreground" />
           )}
         </Button>
       </motion.div>

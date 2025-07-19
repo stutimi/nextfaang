@@ -8,32 +8,32 @@
   :root {
     /* Light Theme - Enhanced Visibility */
     --background: 0 0% 98%;       /* Slightly off-white for better contrast */
-    --foreground: 222 84% 8%;     /* Darker text for better readability */
+    --foreground: 222 84% 4%;     /* Much darker text for better readability */
 
     --card: 0 0% 100%;            /* Pure white cards */
-    --card-foreground: 222 84% 8%;
+    --card-foreground: 222 84% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 8%;
+    --popover-foreground: 222 84% 4%;
 
-    --primary: 221 83% 45%;       /* Darker blue for better contrast */
+    --primary: 221 83% 35%;       /* Much darker blue for better contrast */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 92%;     /* Slightly darker gray */
-    --secondary-foreground: 222 47% 15%;
+    --secondary: 210 40% 88%;     /* Darker gray */
+    --secondary-foreground: 222 47% 8%;
 
-    --muted: 210 40% 90%;         /* More visible muted background */
-    --muted-foreground: 215 16% 35%; /* Darker muted text */
+    --muted: 210 40% 85%;         /* More visible muted background */
+    --muted-foreground: 215 16% 25%; /* Much darker muted text */
 
-    --accent: 210 40% 88%;        /* More visible accent */
-    --accent-foreground: 222 47% 15%;
+    --accent: 210 40% 82%;        /* More visible accent */
+    --accent-foreground: 222 47% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 85%;        /* More visible borders */
-    --input: 214 32% 88%;         /* More visible input backgrounds */
-    --ring: 221 83% 45%;
+    --border: 214 32% 75%;        /* Much more visible borders */
+    --input: 214 32% 80%;         /* More visible input backgrounds */
+    --ring: 221 83% 35%;
 
     --radius: 1rem;
 

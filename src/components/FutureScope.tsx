@@ -283,30 +283,30 @@ export const FutureScope = () => {
           
           <CardContent className="p-12 text-center relative z-10">
             <div className="flex justify-center mb-8">
-              <Rocket className="h-16 w-16 text-white" />
+              <Rocket className="h-16 w-16 text-primary-foreground" />
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground">
               Our Vision for the Future
             </h2>
             
-            <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
               We're building the world's most advanced platform for competitive programming and 
               technical education, powered by AI and designed for students by students.
             </p>
             
             <div className="grid md:grid-cols-3 gap-8 mb-10">
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">1M+</div>
-                <div className="text-white/80 text-sm font-medium">Students Worldwide</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">1M+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Students Worldwide</div>
               </div>
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">100+</div>
-                <div className="text-white/80 text-sm font-medium">Industry Partners</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">100+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Industry Partners</div>
               </div>
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">50+</div>
-                <div className="text-white/80 text-sm font-medium">Smart AI Tools</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">50+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Smart AI Tools</div>
               </div>
             </div>
             
