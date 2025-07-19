@@ -1,4 +1,4 @@
-# 🧠 NEXTFAANG: India's First LGM Platform
+  # 🧠 NEXTFAANG: India's First LGM Platform
 
 <div align="center">
 
@@ -6,25 +6,30 @@
 ![Platform Status](https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge)
 ![Users](https://img.shields.io/badge/Users-500K+-orange?style=for-the-badge)
 ![Success Rate](https://img.shields.io/badge/Success_Rate-98%25-success?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-7.0.5-646CFF?style=for-the-badge&logo=vite)
 
-**🚀 The Ultimate Competitive Programming & DSA Learning Platform**
+**🚀 The Ultimate AI-Powered Competitive Programming & DSA Learning Platform**
 
-[![🌐 Live Demo](https://nextfaanglive.netlify.app/)
-[![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
-[![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
+[![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Platform-success?style=for-the-badge&logo=vercel)](https://nextfaanglive.netlify.app/)
+[![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaanglive.netlify.app/contest-analyzer)
+[![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaanglive.netlify.app/#coding-arena)
+[![🤖 AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Chat_Now-purple?style=for-the-badge)](https://nextfaanglive.netlify.app/#smart-tools)
 [![⭐ GitHub](https://img.shields.io/badge/⭐_Star_on_GitHub-black?style=for-the-badge&logo=github)](https://github.com/your-repo)
 [![📄 License](https://img.shields.io/badge/📄_License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 *🎯 Empowering 500K+ students to crack FAANG interviews and achieve Legendary Grandmaster status*
 
-### 📈 Platform Statistics
-| 📊 Metric | 🔢 Value | 📈 Growth |
-|-----------|----------|-----------|
-| 👥 Active Users | 2,547+ | +15% monthly |
-| 🧠 Problems Solved | 1M+ | +50K weekly |
-| 🏆 FAANG Placements | 150+ | +10 monthly |
-| 📚 CP Resources | 500+ | +20 weekly |
-| 🤖 AI Interactions | 100K+ | +5K daily |
+### 📈 Real-Time Platform Statistics
+| 📊 Metric | 🔢 Value | 📈 Growth | 🎯 Target |
+|-----------|----------|-----------|-----------|
+| 👥 Active Users | 2,547+ | +15% monthly | 10K by 2025 |
+| 🧠 Problems Solved | 1M+ | +50K weekly | 5M by 2025 |
+| 🏆 FAANG Placements | 150+ | +10 monthly | 500 by 2025 |
+| 📚 CP Resources | 500+ | +20 weekly | 2K by 2025 |
+| 🤖 AI Interactions | 100K+ | +5K daily | 1M by 2025 |
+| ⚔️ Arena Battles | 25K+ | +2K weekly | 100K by 2025 |
 
 </div>
 
@@ -52,7 +57,7 @@ Transform coding education in India by providing world-class resources, personal
 <div align="center">
 
 ### 🎮 **Interactive Demo**
-[![Feature Demo](https://img.shields.io/badge/🎮_Try_Interactive_Demo-Click_Here-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Feature Demo](https://img.shields.io/badge/🎮_Try_Interactive_Demo-Click_Here-purple?style=for-the-badge)](https://nextfaanglive.netlify.app/)
 
 </div>
 
@@ -113,12 +118,14 @@ Transform coding education in India by providing world-class resources, personal
 </td>
 <td width="33%">
 
-#### 🎙️ **Voice AI Features**
-- 🗣️ **Voice-Guided Tours**
-- 🎤 **Speech-to-Code**
-- 🔊 **Audio Explanations**
-- 🌐 **Multi-Language Support**
-- 🎵 **Interactive Voice Effects**
+#### 🎙️ **Voice AI Features** (Coming Soon)
+- 🗣️ **Voice-Guided Tours** - Navigate the platform using voice commands
+- 🎤 **Speech-to-Code** - Convert spoken algorithms to code
+- 🔊 **Audio Explanations** - Listen to problem explanations
+- 🌐 **Multi-Language Support** - Voice recognition in multiple languages
+- 🎵 **Interactive Voice Effects** - Enhanced audio feedback
+
+> 📝 **Note**: Voice features are currently in development. The UI demo is available at [/voice-demo](https://nextfaang-cp-legend-hub.vercel.app/voice-demo)
 
 </td>
 <td width="33%">
@@ -180,10 +187,10 @@ graph TD
 <div align="center">
 
 #### 🔧 **Available Tools**
-[![Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Live-success?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
-[![CP Dictionary](https://img.shields.io/badge/📖_CP_Dictionary-500+_Algorithms-blue?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-dictionary)
-[![Resume Builder](https://img.shields.io/badge/📄_Resume_Builder-ATS_Optimized-orange?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resume-tips)
-[![Language Translator](https://img.shields.io/badge/🌐_Translator-15+_Languages-purple?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/language-translation)
+[![Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Live-success?style=flat-square)](https://nextfaanglive.netlify.app/contest-analyzer)
+[![CP Dictionary](https://img.shields.io/badge/📖_CP_Dictionary-500+_Algorithms-blue?style=flat-square)](https://nextfaanglive.netlify.app/cp-dictionary)
+[![Resume Builder](https://img.shields.io/badge/📄_Resume_Builder-ATS_Optimized-orange?style=flat-square)](https://nextfaanglive.netlify.app/resume-tips)
+[![Language Translator](https://img.shields.io/badge/🌐_Translator-15+_Languages-purple?style=flat-square)](https://nextfaanglive.netlify.app/language-translation)
 
 </div>
 
@@ -235,9 +242,9 @@ graph TD
 
 ### 🚀 **Quick Access Portal**
 
-[![Main Platform](https://img.shields.io/badge/🏠_Main_Platform-Launch_Now-success?style=for-the-badge&logo=rocket)](https://nextfaang-cp-legend-hub.vercel.app/)
-[![Contest Arena](https://img.shields.io/badge/⚔️_Contest_Arena-Battle_Now-red?style=for-the-badge&logo=sword)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
-[![AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Get_Help-blue?style=for-the-badge&logo=brain)](https://nextfaang-cp-legend-hub.vercel.app/#smart-tools)
+[![Main Platform](https://img.shields.io/badge/🏠_Main_Platform-Launch_Now-success?style=for-the-badge&logo=rocket)](https://nextfaanglive.netlify.app/)
+[![Contest Arena](https://img.shields.io/badge/⚔️_Contest_Arena-Battle_Now-red?style=for-the-badge&logo=sword)](https://nextfaanglive.netlify.app/#coding-arena)
+[![AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Get_Help-blue?style=for-the-badge&logo=brain)](https://nextfaanglive.netlify.app/#smart-tools)
 
 </div>
 
@@ -250,7 +257,7 @@ graph TD
 <td width="33%" align="center">
 
 #### 🏠 **Main Platform**
-[![Main Platform](https://img.shields.io/badge/Visit-Main_Platform-success?style=flat-square&logo=home)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Main Platform](https://img.shields.io/badge/Visit-Main_Platform-success?style=flat-square&logo=home)](https://nextfaanglive.netlify.app/)
 
 **Complete Learning Hub**
 - 🎓 Structured courses
@@ -262,7 +269,7 @@ graph TD
 <td width="33%" align="center">
 
 #### 📊 **Contest Analyzer**
-[![Contest Analyzer](https://img.shields.io/badge/Try-Contest_Analyzer-blue?style=flat-square&logo=chart-line)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
+[![Contest Analyzer](https://img.shields.io/badge/Try-Contest_Analyzer-blue?style=flat-square&logo=chart-line)](https://nextfaanglive.netlify.app/contest-analyzer)
 
 **Performance Analytics**
 - 📈 Rating trends
@@ -274,7 +281,7 @@ graph TD
 <td width="33%" align="center">
 
 #### ⚔️ **Coding Arena**
-[![Coding Arena](https://img.shields.io/badge/Enter-Coding_Arena-red?style=flat-square&logo=sword)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
+[![Coding Arena](https://img.shields.io/badge/Enter-Coding_Arena-red?style=flat-square&logo=sword)](https://nextfaanglive.netlify.app/#coding-arena)
 
 **Live Competitions**
 - 🥊 1v1 duels
@@ -290,13 +297,13 @@ graph TD
 
 | 🛠️ Tool | 🔗 Quick Access | 📝 Description | ⭐ Rating |
 |----------|----------------|-----------------|-----------|
-| 📖 **CP Dictionary** | [![Access](https://img.shields.io/badge/Launch-blue?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-dictionary) | 500+ algorithms with templates | ⭐⭐⭐⭐⭐ |
-| 📚 **Resources Hub** | [![Access](https://img.shields.io/badge/Launch-green?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resources) | Curated learning materials | ⭐⭐⭐⭐⭐ |
-| 🏆 **DSA Mastery** | [![Access](https://img.shields.io/badge/Launch-orange?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/dsa-mastery) | Complete DSA learning path | ⭐⭐⭐⭐⭐ |
-| 📄 **Resume Tips** | [![Access](https://img.shields.io/badge/Launch-purple?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resume-tips) | FAANG-ready resume builder | ⭐⭐⭐⭐⭐ |
-| 🌐 **Language Translator** | [![Access](https://img.shields.io/badge/Launch-yellow?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/language-translation) | Multi-language code conversion | ⭐⭐⭐⭐⭐ |
-| 🎯 **CP Tricks & Tips** | [![Access](https://img.shields.io/badge/Launch-red?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-tricks-tips) | Advanced optimization techniques | ⭐⭐⭐⭐⭐ |
-| 🚀 **Hackathon Guide** | [![Access](https://img.shields.io/badge/Launch-cyan?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/hackathon-guide) | Complete hackathon preparation | ⭐⭐⭐⭐⭐ |
+| 📖 **CP Dictionary** | [![Access](https://img.shields.io/badge/Launch-blue?style=flat-square)](https://nextfaanglive.netlify.app/cp-dictionary) | 500+ algorithms with templates | ⭐⭐⭐⭐⭐ |
+| 📚 **Resources Hub** | [![Access](https://img.shields.io/badge/Launch-green?style=flat-square)](https://nextfaanglive.netlify.app/resources) | Curated learning materials | ⭐⭐⭐⭐⭐ |
+| 🏆 **DSA Mastery** | [![Access](https://img.shields.io/badge/Launch-orange?style=flat-square)](https://nextfaanglive.netlify.app/dsa-mastery) | Complete DSA learning path | ⭐⭐⭐⭐⭐ |
+| 📄 **Resume Tips** | [![Access](https://img.shields.io/badge/Launch-purple?style=flat-square)](https://nextfaanglive.netlify.app/resume-tips) | FAANG-ready resume builder | ⭐⭐⭐⭐⭐ |
+| 🌐 **Language Translator** | [![Access](https://img.shields.io/badge/Launch-yellow?style=flat-square)](https://nextfaanglive.netlify.app/language-translation) | Multi-language code conversion | ⭐⭐⭐⭐⭐ |
+| 🎯 **CP Tricks & Tips** | [![Access](https://img.shields.io/badge/Launch-red?style=flat-square)](https://nextfaanglive.netlify.app/cp-tricks-tips) | Advanced optimization techniques | ⭐⭐⭐⭐⭐ |
+| 🚀 **Hackathon Guide** | [![Access](https://img.shields.io/badge/Launch-cyan?style=flat-square)](https://nextfaanglive.netlify.app/hackathon-guide) | Complete hackathon preparation | ⭐⭐⭐⭐⭐ |
 
 ### 🎮 **Interactive Features**
 
@@ -304,7 +311,7 @@ graph TD
 
 #### 🌟 **Try These Amazing Features**
 
-[![Voice AI Tour](https://img.shields.io/badge/🎙️_Voice_AI_Tour-Experience_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Voice AI Tour](https://img.shields.io/badge/🎙️_Voice_AI_Tour-Experience_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/voice-demo)
 [![Interactive Chatbot](https://img.shields.io/badge/💬_AI_Chatbot-Chat_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
 [![Performance Analytics](https://img.shields.io/badge/📊_Analytics_Dashboard-View_Stats-green?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
 
@@ -637,7 +644,7 @@ graph TB
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/stutimi/nextfaang.git
+git clone https://github.com/your-username/nextfaang-cp-legend-hub.git
 cd nextfaang-cp-legend-hub
 
 # 2️⃣ Install dependencies
@@ -673,16 +680,32 @@ Create a `.env.local` file in the root directory:
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# 🔐 Clerk Authentication
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+# 🔐 Clerk Authentication (Optional for development)
+# VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 
 # 🤖 AI Features (Optional)
-VITE_OPENAI_API_KEY=your_openai_api_key
-VITE_ELEVENLABS_API_KEY=your_elevenlabs_api_key
+# VITE_OPENAI_API_KEY=your_openai_api_key
+# VITE_ELEVENLABS_API_KEY=your_elevenlabs_api_key
 
 # 📊 Analytics (Optional)
-VITE_GOOGLE_ANALYTICS_ID=your_ga_id
+# VITE_GOOGLE_ANALYTICS_ID=your_ga_id
 ```
+
+#### 🛠️ **Clerk Authentication Setup**
+
+If you encounter Clerk authentication errors, run the setup helper script:
+
+```bash
+# Run the Clerk setup helper (CommonJS version)
+node setup-clerk.cjs
+
+# Or for ES modules version
+node setup-clerk.js
+
+# On Windows, you can also double-click setup-clerk.bat
+```
+
+This script will help you configure Clerk authentication properly for both development and production environments.
 
 #### 🔧 **Setup Instructions**
 
@@ -697,12 +720,13 @@ VITE_GOOGLE_ANALYTICS_ID=your_ga_id
 4. Copy URL and anon key
 5. Add to `.env.local`
 
-##### 🔐 **Clerk Setup**
+##### 🔐 **Clerk Setup (Optional for development)**
 1. Visit [Clerk](https://clerk.com/)
 2. Create a new application
 3. Go to API Keys
 4. Copy publishable key
 5. Add to `.env.local`
+6. See [CLERK_SETUP.md](CLERK_SETUP.md) for detailed instructions
 
 </td>
 <td width="50%">

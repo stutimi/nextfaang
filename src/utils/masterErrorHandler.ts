@@ -8,6 +8,7 @@ import { clerkInstanceSafetyWrapper } from './clerkInstanceSafetyWrapper';
 import { reactReconcilerHandler } from './reactReconcilerHandler';
 import { reactFiberHandler } from './reactFiberHandler';
 import { reactWorkLoopHandler } from './reactWorkLoopHandler';
+import { extensionErrorHandler } from './extensionErrorHandler';
 
 export class MasterErrorHandler {
   private static instance: MasterErrorHandler;
@@ -30,7 +31,8 @@ export class MasterErrorHandler {
       { name: 'InstanceCreationHandler', handler: instanceCreationHandler, initialized: false },
       { name: 'ReactReconcilerHandler', handler: reactReconcilerHandler, initialized: false },
       { name: 'ReactFiberHandler', handler: reactFiberHandler, initialized: false },
-      { name: 'ReactWorkLoopHandler', handler: reactWorkLoopHandler, initialized: false }
+      { name: 'ReactWorkLoopHandler', handler: reactWorkLoopHandler, initialized: false },
+      { name: 'ExtensionErrorHandler', handler: extensionErrorHandler, initialized: false }
     ];
   }
 

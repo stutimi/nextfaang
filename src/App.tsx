@@ -23,6 +23,7 @@ import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
 import { ProfilePage } from "./components/ProfilePage";
 
+
 const App = () => {
   // Use reconciler recovery hook to handle React internal errors
   const { recoveryCount } = useReconcilerRecovery();
@@ -110,6 +111,7 @@ const App = () => {
                 <ProfilePage />
               </ErrorBoundary>
             } />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

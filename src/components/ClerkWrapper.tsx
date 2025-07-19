@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { User } from 'lucide-react';
 import { safeCreateElement } from '@/utils/safeCreateElement';
 import { clerkInstanceSafetyWrapper } from '@/utils/clerkInstanceSafetyWrapper';
+import { shouldBypassAuth } from '@/utils/devMode';
 
 // Dynamic import function for Clerk components
 const loadClerkComponent = async (componentName: string) => {
@@ -22,7 +23,7 @@ export const SafeSignedIn = ({ children }: { children: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       loadClerkComponent('SignedIn').then((component) => {
         setClerkSignedIn(() => component);
         setIsLoaded(true);
@@ -44,7 +45,7 @@ export const SafeSignedOut = ({ children }: { children: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       loadClerkComponent('SignedOut').then((component) => {
         setClerkSignedOut(() => component);
         setIsLoaded(true);
@@ -92,7 +93,7 @@ export const SafeSignInButton = ({ children }: { children: React.ReactNode }) =>
   const [isLoaded, setIsLoaded] = React.useState(false);
   
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       loadClerkComponent('SignInButton').then((component) => {
         setClerkSignInButton(() => component);
         setIsLoaded(true);
@@ -126,7 +127,7 @@ export const SafeSignUpButton = ({ children }: { children: React.ReactNode }) =>
   const [isLoaded, setIsLoaded] = React.useState(false);
   
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       loadClerkComponent('SignUpButton').then((component) => {
         setClerkSignUpButton(() => component);
         setIsLoaded(true);
@@ -160,7 +161,7 @@ export const SafeUserButton = (props?: any) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       loadClerkComponent('UserButton').then((component) => {
         setClerkUserButton(() => component);
         setIsLoaded(true);
@@ -196,7 +197,7 @@ export const useClerkUser = () => {
   const [isSignedIn, setIsSignedIn] = React.useState(false);
 
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       import('@clerk/clerk-react')
         .then((clerkModule) => {
           // Use the useUser hook from Clerk
@@ -230,7 +231,7 @@ export const ClerkUserProvider = ({ children }: { children: (userData: any) => R
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       import('@clerk/clerk-react')
         .then((clerkModule) => {
           setClerkUseUser(() => clerkModule.useUser);

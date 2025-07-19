@@ -1,4 +1,6 @@
 // Handler for createInstance errors and component instantiation issues
+// Import React at the top to ensure proper initialization
+import React from 'react';
 
 export class InstanceCreationHandler {
   private static instance: InstanceCreationHandler;
@@ -94,6 +96,11 @@ export class InstanceCreationHandler {
     window.setTimeout = (callback: Function, delay?: number, ...args: any[]) => {
       const safeCallback = (...callbackArgs: any[]) => {
         try {
+          // Check if callback is a class constructor and handle appropriately
+          if (typeof callback === 'function' && /^\s*class\s+/.test(callback.toString())) {
+            console.warn('Attempted to call a class constructor as a function in setTimeout');
+            return undefined;
+          }
           return callback.apply(this, callbackArgs);
         } catch (error) {
           console.error('setTimeout callback error:', error);
@@ -113,6 +120,11 @@ export class InstanceCreationHandler {
     window.setInterval = (callback: Function, delay?: number, ...args: any[]) => {
       const safeCallback = (...callbackArgs: any[]) => {
         try {
+          // Check if callback is a class constructor and handle appropriately
+          if (typeof callback === 'function' && /^\s*class\s+/.test(callback.toString())) {
+            console.warn('Attempted to call a class constructor as a function in setInterval');
+            return undefined;
+          }
           return callback.apply(this, callbackArgs);
         } catch (error) {
           console.error('setInterval callback error:', error);
@@ -181,8 +193,5 @@ export class InstanceCreationHandler {
     this.isActive = false;
   }
 }
-
-// Import React at the top level to avoid issues
-import React from 'react';
 
 export const instanceCreationHandler = InstanceCreationHandler.getInstance();

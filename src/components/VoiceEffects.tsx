@@ -1,164 +1,60 @@
-import { useState, useEffect } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
-import { motion } from 'framer-motion';
-import { Volume2, VolumeX, Mic } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React, { createContext, useContext, useState } from 'react';
 
-interface VoiceEffectsProps {
-  enabled?: boolean;
-  onToggle?: (enabled: boolean) => void;
+// Create a context for voice effects
+interface VoiceEffectsContextType {
+  speak: (text: string) => void;
+  speakPreset: (preset: 'success' | 'error' | 'warning' | 'matchStart' | 'matchWin' | 'matchLose' | 'welcome' | 'tournamentStart') => void;
 }
 
-export const VoiceEffects = ({ enabled = true, onToggle }: VoiceEffectsProps) => {
-  const { speak, cancel, speaking, voices } = useSpeechSynthesis();
-  const [isEnabled, setIsEnabled] = useState(enabled);
-  const [currentVoice, setCurrentVoice] = useState<SpeechSynthesisVoice | null>(null);
+const VoiceEffectsContext = createContext<VoiceEffectsContextType>({
+  speak: () => {},
+  speakPreset: () => {},
+});
 
-  useEffect(() => {
-    // Select a futuristic-sounding voice if available
-    const availableVoices = voices.filter(v => v.lang.startsWith('en'));
-    const preferredVoice = availableVoices.find(v => 
-      v.name.toLowerCase().includes('karen') || 
-      v.name.toLowerCase().includes('samantha') ||
-      v.name.toLowerCase().includes('daniel')
-    ) || availableVoices[0];
-    
-    setCurrentVoice(preferredVoice);
-  }, [voices]);
+// Hook to use voice effects
+export const useVoiceEffects = () => useContext(VoiceEffectsContext);
 
-  const speakMessage = (message: string, priority: 'low' | 'high' = 'low') => {
-    if (!isEnabled) return;
-    
-    if (priority === 'high' && speaking) {
-      cancel();
-    }
-    
-    const voiceConfig = {
-      voice: currentVoice,
-      rate: 0.9,
-      pitch: 1.1,
-      volume: 0.8,
-    };
-    
-    speak({ text: message, ...voiceConfig });
-  };
-
-  const toggleVoice = () => {
-    const newState = !isEnabled;
-    setIsEnabled(newState);
-    onToggle?.(newState);
-    
-    if (newState) {
-      speakMessage("Voice effects enabled. Welcome to the NextFang CP Arena.", 'high');
-    } else {
-      cancel();
+// Voice effects provider component
+export const VoiceEffectsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Function to speak text
+  const speak = (text: string) => {
+    // Check if browser supports speech synthesis
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
     }
   };
 
-  // Pre-defined voice messages for different scenarios
-  const voiceMessages = {
-    matchStart: "Match started. Begin coding, warrior.",
-    matchWin: "You win! Victory is yours.",
-    matchLose: "You lose! Better luck next time.",
-    botThinking: "AI is thinking... Analyzing the problem.",
-    problemSolved: "Excellent solution! Moving to the next challenge.",
-    buttonHover: "Click to engage.",
-    duelRequest: "A challenger approaches. Will you accept?",
-    timeWarning: "Time grows short. Code swiftly.",
-    welcome: "Welcome to the NextFang Competitive Programming Arena.",
-    tournamentStart: "The tournament begins. May the best mind prevail.",
-    error: "System anomaly detected. Recalibrating...",
-    success: "Operation successful. Proceeding to next phase.",
-  };
-
-  // Expose voice methods for external use
-  useEffect(() => {
-    (window as any).voiceEffects = {
-      speak: speakMessage,
-      messages: voiceMessages,
-      isEnabled,
-      speaking,
+  // Function to speak preset messages
+  const speakPreset = (preset: 'success' | 'error' | 'warning' | 'matchStart' | 'matchWin' | 'matchLose' | 'welcome' | 'tournamentStart') => {
+    const presetMessages: Record<string, string> = {
+      success: "Operation completed successfully!",
+      error: "An error occurred. Please try again.",
+      warning: "Warning! Please check your input.",
+      matchStart: "Match starting! Prepare for battle!",
+      matchWin: "Victory! You have won the match!",
+      matchLose: "Defeat. Better luck next time!",
+      welcome: "Welcome to NextFang CP Arena! Let me guide you through this platform.",
+      tournamentStart: "The tournament begins! May the best coder win!"
     };
-  }, [isEnabled, speaking]);
+    
+    speak(presetMessages[preset]);
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="fixed bottom-4 right-4 z-50"
-    >
-      <Card className="cp-card">
-        <CardContent className="p-3">
-          <div className="flex items-center gap-2">
-            <motion.div
-              animate={speaking ? { scale: [1, 1.2, 1] } : {}}
-              transition={{ repeat: speaking ? Infinity : 0, duration: 0.8 }}
-              className={`voice-indicator w-8 h-8 flex items-center justify-center ${
-                speaking ? 'animate-pulse' : ''
-              }`}
-            >
-              {speaking ? (
-                <Mic className="h-4 w-4 text-white" />
-              ) : isEnabled ? (
-                <Volume2 className="h-4 w-4 text-white" />
-              ) : (
-                <VolumeX className="h-4 w-4 text-white" />
-              )}
-            </motion.div>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleVoice}
-              className="text-xs futuristic-button"
-            >
-              {isEnabled ? 'Voice ON' : 'Voice OFF'}
-            </Button>
-            
-            {speaking && (
-              <Badge variant="secondary" className="text-xs animate-pulse">
-                Speaking...
-              </Badge>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <VoiceEffectsContext.Provider value={{ speak, speakPreset }}>
+      {children}
+    </VoiceEffectsContext.Provider>
   );
 };
 
-// Hook for using voice effects in other components
-export const useVoiceEffects = () => {
-  const speak = (message: string, priority: 'low' | 'high' = 'low') => {
-    const voiceSystem = (window as any).voiceEffects;
-    if (voiceSystem?.isEnabled) {
-      voiceSystem.speak(message, priority);
-    }
-  };
-
-  const speakPreset = (preset: keyof typeof voiceMessages) => {
-    const voiceSystem = (window as any).voiceEffects;
-    if (voiceSystem?.isEnabled && voiceSystem.messages[preset]) {
-      voiceSystem.speak(voiceSystem.messages[preset], 'high');
-    }
-  };
-
-  return { speak, speakPreset };
+// Component to render in the app
+export const VoiceEffects: React.FC = () => {
+  // This component doesn't render anything visible
+  // It's just a placeholder for the voice effects functionality
+  return null;
 };
 
-const voiceMessages = {
-  matchStart: "Match started. Begin coding, warrior.",
-  matchWin: "You win! Victory is yours.",
-  matchLose: "You lose! Better luck next time.",
-  botThinking: "AI is thinking... Analyzing the problem.",
-  problemSolved: "Excellent solution! Moving to the next challenge.",
-  buttonHover: "Click to engage.",
-  duelRequest: "A challenger approaches. Will you accept?",
-  timeWarning: "Time grows short. Code swiftly.",
-  welcome: "Welcome to the NextFang Competitive Programming Arena.",
-  tournamentStart: "The tournament begins. May the best mind prevail.",
-  error: "System anomaly detected. Recalibrating...",
-  success: "Operation successful. Proceeding to next phase.",
-};
+export default VoiceEffects;
