@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
+import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserProfile } from "@/components/UserProfile";
 import { Link } from "react-router-dom";
@@ -46,7 +46,8 @@ export const Navbar = () => {
     { label: "Contest Analyzer", href: "/contest-analyzer", icon: <Sparkles className="h-4 w-4" />, description: "Analyze your contest performance" },
     { label: "CP Dictionary", href: "/cp-dictionary", icon: <Book className="h-4 w-4" />, description: "Learn competitive programming terms" },
     { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: <Rocket className="h-4 w-4" />, description: "Master advanced techniques" },
-    { label: "DSA Mastery", href: "/dsa-mastery", icon: <Star className="h-4 w-4" />, description: "Complete data structures guide" }
+    { label: "DSA Mastery", href: "/dsa-mastery", icon: <Star className="h-4 w-4" />, description: "Complete data structures guide" },
+    { label: "Auth Test", href: "/auth-test", icon: <Users className="h-4 w-4" />, description: "Test Clerk authentication" }
   ];
 
   return (

@@ -112,6 +112,8 @@ export const logClerkDevelopmentStatus = () => {
   const isSecure = window.isSecureContext;
   const hasSubtle = !!window.crypto?.subtle;
   const protocol = window.location.protocol;
+  const hasClerkKey = !!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+  const isDev = import.meta.env.DEV;
 
   console.log(`
 🔧 CLERK DEVELOPMENT STATUS 🔧
@@ -120,9 +122,16 @@ export const logClerkDevelopmentStatus = () => {
 🔒 Secure Context: ${isSecure ? '✅ Yes' : '❌ No (HTTP)'}
 🔐 Crypto.subtle: ${hasSubtle ? '✅ Available' : '❌ Not Available'}
 🌐 Protocol: ${protocol}
+${isDev ? `🔑 Clerk Key: ${hasClerkKey ? '✅ Provided' : '❌ Not Provided (using fallback auth)'}` : ''}
 
-${!isSecure ? `
-⚠️  DEVELOPMENT NOTICE:
+${!hasClerkKey && isDev ? `
+⚠️ DEVELOPMENT NOTICE:
+- No Clerk publishable key provided in .env.local
+- Using fallback authentication flow
+- This is normal for development without Clerk setup
+- Add a valid key to .env.local to enable Clerk authentication
+` : !isSecure ? `
+⚠️ DEVELOPMENT NOTICE:
 - You're using HTTP (not HTTPS) for development
 - This causes Clerk cookie/digest issues
 - These issues will NOT occur in production with HTTPS

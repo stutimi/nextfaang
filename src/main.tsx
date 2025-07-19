@@ -57,7 +57,9 @@ if (!PUBLISHABLE_KEY) {
     // Still continue with fallback to prevent app from breaking completely
   } else if (isDevelopment) {
     // In development, use a more informative message
-    console.error("Missing Clerk Publishable Key - using fallback authentication flow");
+    console.log("ℹ️ No Clerk Publishable Key found - using fallback authentication flow");
+    console.log("ℹ️ This is normal for development without Clerk setup");
+    console.log("ℹ️ Add a valid key to .env.local to enable Clerk authentication");
   }
 }
 
@@ -74,13 +76,19 @@ const AppWithClerk = () => {
   
   React.useEffect(() => {
     if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
+      console.log('🔑 Initializing Clerk with key:', PUBLISHABLE_KEY.substring(0, 8) + '...');
       import('@clerk/clerk-react')
         .then((clerkModule) => {
-          setClerkProvider(() => clerkModule.ClerkProvider);
+          if (clerkModule && clerkModule.ClerkProvider) {
+            console.log('✅ Clerk module loaded successfully');
+            setClerkProvider(() => clerkModule.ClerkProvider);
+          } else {
+            console.error('❌ Clerk module loaded but ClerkProvider is missing');
+          }
           setIsLoaded(true);
         })
         .catch((error) => {
-          console.warn('Failed to load Clerk:', error);
+          console.error('❌ Failed to load Clerk:', error);
           setIsLoaded(true);
         });
     } else {

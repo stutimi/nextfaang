@@ -1,4 +1,4 @@
-# 🧠 NEXTFAANG: India's First LGM Platform
+  # 🧠 NEXTFAANG: India's First LGM Platform
 
 <div align="center">
 
@@ -680,15 +680,15 @@ Create a `.env.local` file in the root directory:
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# 🔐 Clerk Authentication
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+# 🔐 Clerk Authentication (Optional for development)
+# VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 
 # 🤖 AI Features (Optional)
-VITE_OPENAI_API_KEY=your_openai_api_key
-VITE_ELEVENLABS_API_KEY=your_elevenlabs_api_key
+# VITE_OPENAI_API_KEY=your_openai_api_key
+# VITE_ELEVENLABS_API_KEY=your_elevenlabs_api_key
 
 # 📊 Analytics (Optional)
-VITE_GOOGLE_ANALYTICS_ID=your_ga_id
+# VITE_GOOGLE_ANALYTICS_ID=your_ga_id
 ```
 
 #### 🔧 **Setup Instructions**
@@ -704,12 +704,13 @@ VITE_GOOGLE_ANALYTICS_ID=your_ga_id
 4. Copy URL and anon key
 5. Add to `.env.local`
 
-##### 🔐 **Clerk Setup**
+##### 🔐 **Clerk Setup (Optional for development)**
 1. Visit [Clerk](https://clerk.com/)
 2. Create a new application
 3. Go to API Keys
 4. Copy publishable key
 5. Add to `.env.local`
+6. See [CLERK_SETUP.md](CLERK_SETUP.md) for detailed instructions
 
 </td>
 <td width="50%">
