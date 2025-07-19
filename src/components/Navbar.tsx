@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Sword, BookOpen } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserProfile } from "@/components/UserProfile";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import NextfaangLogo from '@/assets/nextfaang-logo.svg?react';
@@ -14,6 +14,8 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -27,16 +29,36 @@ export const Navbar = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // If we're not on the home page, navigate there first
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.querySelector(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    } else {
+      // We're already on the home page, just scroll
+      const element = document.querySelector(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
     setIsOpen(false);
   };
 
   const navItems = [
-    { label: "Home", icon: <Home className="h-4 w-4" />, action: () => scrollToSection('#hero'), badge: null, type: 'scroll' },
-    { label: "DSA", icon: <Book className="h-4 w-4" />, action: () => scrollToSection('#dsa-section'), badge: "New", type: 'scroll' },
+    { 
+      label: "Home", 
+      icon: <Home className="h-4 w-4" />, 
+      action: location.pathname === '/' ? () => scrollToSection('#hero') : () => navigate('/'),
+      href: location.pathname === '/' ? undefined : "/",
+      badge: null, 
+      type: location.pathname === '/' ? 'scroll' : 'link'
+    },
+    { label: "DSA", icon: <Book className="h-4 w-4" />, href: "/dsa", badge: "New", type: 'link' },
     { label: "Competitive Programming", icon: <Code className="h-4 w-4" />, href: "/competitive-programming", badge: "Hot", type: 'link' },
     { label: "Resources", icon: <BookOpen className="h-4 w-4" />, href: "/resources", badge: null, type: 'link' },
     { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community'), badge: null, type: 'scroll' },
@@ -48,7 +70,7 @@ export const Navbar = () => {
     { label: "Contest Analyzer", href: "/contest-analyzer", icon: <Sparkles className="h-4 w-4" />, description: "Analyze your contest performance" },
     { label: "CP Dictionary", href: "/cp-dictionary", icon: <Book className="h-4 w-4" />, description: "Learn competitive programming terms" },
     { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: <Rocket className="h-4 w-4" />, description: "Master advanced techniques" },
-    { label: "DSA Mastery", href: "/dsa-mastery", icon: <Star className="h-4 w-4" />, description: "Complete data structures guide" }
+    { label: "DSA Mastery", href: "/dsa", icon: <Star className="h-4 w-4" />, description: "Complete data structures guide" }
   ];
 
   return (

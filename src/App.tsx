@@ -78,6 +78,11 @@ const App = () => {
                 <ResumeTips />
               </ErrorBoundary>
             } />
+            <Route path="/dsa" element={
+              <ErrorBoundary>
+                <DSAMastery />
+              </ErrorBoundary>
+            } />
             <Route path="/dsa-mastery" element={
               <ErrorBoundary>
                 <DSAMastery />

@@ -7,7 +7,7 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
-import { DSASection } from "@/components/DSASection";
+
 import { CPSection } from "@/components/CPSection";
 import { SystemDesignSection } from "@/components/SystemDesignSection";
 import { SmartToolsSection } from "@/components/SmartToolsSection";
@@ -84,9 +84,7 @@ const Index = () => {
         <StatsSection />
         
         <section id="learning-sections" className="space-y-20 md:space-y-32">
-          <div id="dsa-section">
-            <DSASection />
-          </div>
+
           <div id="cp-section">
             <CPSection />
           </div>
