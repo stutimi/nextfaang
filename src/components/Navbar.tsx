@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Code, Users, Zap, ChevronDown, LogOut, User, Trophy, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
+import { Menu, X, Code, ChevronDown, User, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Link } from "react-router-dom";
 import {
@@ -9,16 +9,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/clerk-react";
+  SafeSignedIn as SignedIn,
+  SafeSignedOut as SignedOut,
+  SafeSignInButton as SignInButton,
+  SafeUserButton as UserButton,
+} from "@/components/ClerkWrapper";
+import NextfaangLogo from '@/assets/nextfaang-logo.svg?react';
+
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,21 +70,7 @@ export const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-3"
             >
-              <div className="relative p-3 bg-gradient-to-br from-primary via-accent to-primary rounded-2xl shadow-lg group-hover:shadow-primary/50 transition-all duration-300">
-                <Zap className="h-6 w-6 text-white relative z-10" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              </div>
-              <div className="relative">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-pulse">
-                  NEXTFAANG
-                </h1>
-                <div className="flex items-center gap-2">
-                  <p className="text-xs text-muted-foreground font-medium">India's First LGM Platform</p>
-                  <Badge variant="secondary" className="text-xs px-2 py-0.5 bg-primary/10 text-primary border-primary/20">
-                    Pro
-                  </Badge>
-                </div>
-              </div>
+              <NextfaangLogo className="h-10 w-auto" />
             </motion.div>
           </Link>
 
