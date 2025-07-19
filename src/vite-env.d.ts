@@ -1,5 +1,23 @@
 /// <reference types="vite/client" />
 
+// SVG module declarations
+declare module "*.svg" {
+  import React from "react";
+  const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { className?: string }>;
+  export default ReactComponent;
+}
+
+declare module "*.svg?react" {
+  import React from "react";
+  const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { className?: string }>;
+  export default ReactComponent;
+}
+
+declare module "*.svg?url" {
+  const content: string;
+  export default content;
+}
+
 // Extend the Window interface to include SpeechRecognition
 declare global {
   interface Window {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mic, MicOff, Volume2, VolumeX, X, Play, Pause } from 'lucide-react';
@@ -8,6 +8,12 @@ interface VoiceAITourProps {
   onClose: () => void;
 }
 
+interface TourStep {
+  title: string;
+  text: string;
+  section: string;
+}
+
 export const VoiceAITour = ({ onClose }: VoiceAITourProps) => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -15,10 +21,10 @@ export const VoiceAITour = ({ onClose }: VoiceAITourProps) => {
   const [transcript, setTranscript] = useState('');
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(true);
   
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  const tourSteps = [
+  const tourSteps: TourStep[] = [
     {
       title: "Welcome to Coding Arena",
       text: "Welcome to Coding Arena! I'm your AI tour guide. I'll show you around our amazing platform for competitive programming and coding duels.",
@@ -51,15 +57,91 @@ export const VoiceAITour = ({ onClose }: VoiceAITourProps) => {
     }
   ];
 
+  const speakText = useCallback((text: string) => {
+    if (!isVoiceEnabled) return;
+    
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 0.8;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    
+    speechRef.current = utterance;
+    speechSynthesis.speak(utterance);
+  }, [isVoiceEnabled]);
+
+  const scrollToSection = useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, []);
+
+  const handleNextStep = useCallback(() => {
+    if (currentTourStep < tourSteps.length - 1) {
+      const nextStep = currentTourStep + 1;
+      setCurrentTourStep(nextStep);
+      speakText(tourSteps[nextStep].text);
+      scrollToSection(tourSteps[nextStep].section);
+    }
+  }, [currentTourStep, tourSteps, speakText, scrollToSection]);
+
+  const handlePreviousStep = useCallback(() => {
+    if (currentTourStep > 0) {
+      const prevStep = currentTourStep - 1;
+      setCurrentTourStep(prevStep);
+      speakText(tourSteps[prevStep].text);
+      scrollToSection(tourSteps[prevStep].section);
+    }
+  }, [currentTourStep, tourSteps, speakText, scrollToSection]);
+
+  const toggleListening = useCallback(() => {
+    if (!recognitionRef.current) return;
+    
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current.start();
+      setIsListening(true);
+    }
+  }, [isListening]);
+
+  const toggleVoice = useCallback(() => {
+    setIsVoiceEnabled(!isVoiceEnabled);
+    if (isSpeaking) {
+      speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, [isSpeaking, isVoiceEnabled]);
+
+  const toggleSpeaking = useCallback(() => {
+    if (isSpeaking) {
+      speechSynthesis.pause();
+    } else {
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+      } else {
+        speakText(tourSteps[currentTourStep].text);
+      }
+    }
+  }, [isSpeaking, currentTourStep, tourSteps, speakText]);
+
   useEffect(() => {
     // Initialize speech recognition
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
       
-      recognitionRef.current.onresult = (event) => {
+      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = Array.from(event.results)
           .map(result => result[0])
           .map(result => result.transcript)
@@ -95,80 +177,7 @@ export const VoiceAITour = ({ onClose }: VoiceAITourProps) => {
         speechSynthesis.cancel();
       }
     };
-  }, []);
-
-  const speakText = (text: string) => {
-    if (!isVoiceEnabled) return;
-    
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.volume = 0.8;
-    
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    
-    speechRef.current = utterance;
-    speechSynthesis.speak(utterance);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
-  const handleNextStep = () => {
-    if (currentTourStep < tourSteps.length - 1) {
-      const nextStep = currentTourStep + 1;
-      setCurrentTourStep(nextStep);
-      speakText(tourSteps[nextStep].text);
-      scrollToSection(tourSteps[nextStep].section);
-    }
-  };
-
-  const handlePreviousStep = () => {
-    if (currentTourStep > 0) {
-      const prevStep = currentTourStep - 1;
-      setCurrentTourStep(prevStep);
-      speakText(tourSteps[prevStep].text);
-      scrollToSection(tourSteps[prevStep].section);
-    }
-  };
-
-  const toggleListening = () => {
-    if (!recognitionRef.current) return;
-    
-    if (isListening) {
-      recognitionRef.current.stop();
-      setIsListening(false);
-    } else {
-      recognitionRef.current.start();
-      setIsListening(true);
-    }
-  };
-
-  const toggleVoice = () => {
-    setIsVoiceEnabled(!isVoiceEnabled);
-    if (isSpeaking) {
-      speechSynthesis.cancel();
-      setIsSpeaking(false);
-    }
-  };
-
-  const toggleSpeaking = () => {
-    if (isSpeaking) {
-      speechSynthesis.pause();
-    } else {
-      if (speechSynthesis.paused) {
-        speechSynthesis.resume();
-      } else {
-        speakText(tourSteps[currentTourStep].text);
-      }
-    }
-  };
+  }, [handleNextStep, handlePreviousStep, onClose, scrollToSection, speakText, tourSteps, currentTourStep]);
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

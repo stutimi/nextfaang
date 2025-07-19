@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/integrations/supabase/client";
 import { UserCheck, Play, Zap, Sparkles, Trophy, Target, Users, Globe, RefreshCw, Sword, Copy, User, Clock, Terminal, Code } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,7 +69,6 @@ const LANGUAGES = [
 ];
 
 export const CodingArena = () => {
-  const { user } = useAuth();
   const { toast } = useToast();
   const { speak, speakPreset } = useVoiceEffects();
   
@@ -97,38 +94,19 @@ export const CodingArena = () => {
     setIsValidatingCF(true);
     speak("Validating your warrior credentials...");
     
-    try {
-      const { data, error } = await supabase.functions.invoke('validate-codeforces-user', {
-        body: { handle: cfUsername.trim() }
+    // Placeholder: Always succeed for demo
+    setTimeout(() => {
+      setCfUserData({
+        handle: cfUsername.trim(),
+        rating: 1500,
       });
-
-      if (error) throw error;
-
-      if (data.success) {
-        setCfUserData(data.user);
-        speakPreset('success');
-        toast({
-          title: "Warrior Verified! ⚔️",
-          description: `${data.user.handle} (${data.user.rating}) ready for battle!`,
-        });
-      } else {
-        speakPreset('error');
-        toast({
-          title: "Validation Failed",
-          description: "Please check your Codeforces handle.",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      speakPreset('error');
+      speakPreset('success');
       toast({
-        title: "System Error",
-        description: "Failed to validate user.",
-        variant: "destructive",
+        title: "Warrior Verified! ⚔️",
+        description: `${cfUsername.trim()} (1500) ready for battle!`,
       });
-    } finally {
       setIsValidatingCF(false);
-    }
+    }, 1000);
   };
 
   const handleStartDuel = (duelData: any) => {
@@ -180,7 +158,7 @@ export const CodingArena = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center space-y-4"
         >
-          <motion.h1 
+          <motion.h1
             className="text-6xl font-bold rainbow-text mb-4"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ repeat: Infinity, duration: 3 }}
@@ -190,6 +168,8 @@ export const CodingArena = () => {
           <p className="text-xl text-muted-foreground">
             Where Code Warriors Forge Their Legacy
           </p>
+
+
         </motion.div>
 
         {/* CF Validation Section */}
@@ -284,4 +264,3 @@ export const CodingArena = () => {
     </>
   );
 };
-
