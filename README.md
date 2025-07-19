@@ -12,10 +12,10 @@
 
 **🚀 The Ultimate AI-Powered Competitive Programming & DSA Learning Platform**
 
-[![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Platform-success?style=for-the-badge&logo=vercel)](https://nextfaang-cp-legend-hub.vercel.app/)
-[![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
-[![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
-[![🤖 AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Chat_Now-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/#smart-tools)
+[![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Platform-success?style=for-the-badge&logo=vercel)](https://nextfaanglive.netlify.app/)
+[![📊 Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Try_Now-blue?style=for-the-badge)](https://nextfaanglive.netlify.app/contest-analyzer)
+[![🏆 Coding Arena](https://img.shields.io/badge/🏆_Coding_Arena-Battle_Now-red?style=for-the-badge)](https://nextfaanglive.netlify.app/#coding-arena)
+[![🤖 AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Chat_Now-purple?style=for-the-badge)](https://nextfaanglive.netlify.app/#smart-tools)
 [![⭐ GitHub](https://img.shields.io/badge/⭐_Star_on_GitHub-black?style=for-the-badge&logo=github)](https://github.com/your-repo)
 [![📄 License](https://img.shields.io/badge/📄_License-MIT-yellow?style=for-the-badge)](LICENSE)
 
@@ -57,7 +57,7 @@ Transform coding education in India by providing world-class resources, personal
 <div align="center">
 
 ### 🎮 **Interactive Demo**
-[![Feature Demo](https://img.shields.io/badge/🎮_Try_Interactive_Demo-Click_Here-purple?style=for-the-badge)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Feature Demo](https://img.shields.io/badge/🎮_Try_Interactive_Demo-Click_Here-purple?style=for-the-badge)](https://nextfaanglive.netlify.app/)
 
 </div>
 
@@ -187,10 +187,10 @@ graph TD
 <div align="center">
 
 #### 🔧 **Available Tools**
-[![Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Live-success?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
-[![CP Dictionary](https://img.shields.io/badge/📖_CP_Dictionary-500+_Algorithms-blue?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-dictionary)
-[![Resume Builder](https://img.shields.io/badge/📄_Resume_Builder-ATS_Optimized-orange?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resume-tips)
-[![Language Translator](https://img.shields.io/badge/🌐_Translator-15+_Languages-purple?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/language-translation)
+[![Contest Analyzer](https://img.shields.io/badge/📊_Contest_Analyzer-Live-success?style=flat-square)](https://nextfaanglive.netlify.app/contest-analyzer)
+[![CP Dictionary](https://img.shields.io/badge/📖_CP_Dictionary-500+_Algorithms-blue?style=flat-square)](https://nextfaanglive.netlify.app/cp-dictionary)
+[![Resume Builder](https://img.shields.io/badge/📄_Resume_Builder-ATS_Optimized-orange?style=flat-square)](https://nextfaanglive.netlify.app/resume-tips)
+[![Language Translator](https://img.shields.io/badge/🌐_Translator-15+_Languages-purple?style=flat-square)](https://nextfaanglive.netlify.app/language-translation)
 
 </div>
 
@@ -242,9 +242,9 @@ graph TD
 
 ### 🚀 **Quick Access Portal**
 
-[![Main Platform](https://img.shields.io/badge/🏠_Main_Platform-Launch_Now-success?style=for-the-badge&logo=rocket)](https://nextfaang-cp-legend-hub.vercel.app/)
-[![Contest Arena](https://img.shields.io/badge/⚔️_Contest_Arena-Battle_Now-red?style=for-the-badge&logo=sword)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
-[![AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Get_Help-blue?style=for-the-badge&logo=brain)](https://nextfaang-cp-legend-hub.vercel.app/#smart-tools)
+[![Main Platform](https://img.shields.io/badge/🏠_Main_Platform-Launch_Now-success?style=for-the-badge&logo=rocket)](https://nextfaanglive.netlify.app/)
+[![Contest Arena](https://img.shields.io/badge/⚔️_Contest_Arena-Battle_Now-red?style=for-the-badge&logo=sword)](https://nextfaanglive.netlify.app/#coding-arena)
+[![AI Mentor](https://img.shields.io/badge/🤖_AI_Mentor-Get_Help-blue?style=for-the-badge&logo=brain)](https://nextfaanglive.netlify.app/#smart-tools)
 
 </div>
 
@@ -257,7 +257,7 @@ graph TD
 <td width="33%" align="center">
 
 #### 🏠 **Main Platform**
-[![Main Platform](https://img.shields.io/badge/Visit-Main_Platform-success?style=flat-square&logo=home)](https://nextfaang-cp-legend-hub.vercel.app/)
+[![Main Platform](https://img.shields.io/badge/Visit-Main_Platform-success?style=flat-square&logo=home)](https://nextfaanglive.netlify.app/)
 
 **Complete Learning Hub**
 - 🎓 Structured courses
@@ -269,7 +269,7 @@ graph TD
 <td width="33%" align="center">
 
 #### 📊 **Contest Analyzer**
-[![Contest Analyzer](https://img.shields.io/badge/Try-Contest_Analyzer-blue?style=flat-square&logo=chart-line)](https://nextfaang-cp-legend-hub.vercel.app/contest-analyzer)
+[![Contest Analyzer](https://img.shields.io/badge/Try-Contest_Analyzer-blue?style=flat-square&logo=chart-line)](https://nextfaanglive.netlify.app/contest-analyzer)
 
 **Performance Analytics**
 - 📈 Rating trends
@@ -281,7 +281,7 @@ graph TD
 <td width="33%" align="center">
 
 #### ⚔️ **Coding Arena**
-[![Coding Arena](https://img.shields.io/badge/Enter-Coding_Arena-red?style=flat-square&logo=sword)](https://nextfaang-cp-legend-hub.vercel.app/#coding-arena)
+[![Coding Arena](https://img.shields.io/badge/Enter-Coding_Arena-red?style=flat-square&logo=sword)](https://nextfaanglive.netlify.app/#coding-arena)
 
 **Live Competitions**
 - 🥊 1v1 duels
@@ -297,13 +297,13 @@ graph TD
 
 | 🛠️ Tool | 🔗 Quick Access | 📝 Description | ⭐ Rating |
 |----------|----------------|-----------------|-----------|
-| 📖 **CP Dictionary** | [![Access](https://img.shields.io/badge/Launch-blue?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-dictionary) | 500+ algorithms with templates | ⭐⭐⭐⭐⭐ |
-| 📚 **Resources Hub** | [![Access](https://img.shields.io/badge/Launch-green?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resources) | Curated learning materials | ⭐⭐⭐⭐⭐ |
-| 🏆 **DSA Mastery** | [![Access](https://img.shields.io/badge/Launch-orange?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/dsa-mastery) | Complete DSA learning path | ⭐⭐⭐⭐⭐ |
-| 📄 **Resume Tips** | [![Access](https://img.shields.io/badge/Launch-purple?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/resume-tips) | FAANG-ready resume builder | ⭐⭐⭐⭐⭐ |
-| 🌐 **Language Translator** | [![Access](https://img.shields.io/badge/Launch-yellow?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/language-translation) | Multi-language code conversion | ⭐⭐⭐⭐⭐ |
-| 🎯 **CP Tricks & Tips** | [![Access](https://img.shields.io/badge/Launch-red?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/cp-tricks-tips) | Advanced optimization techniques | ⭐⭐⭐⭐⭐ |
-| 🚀 **Hackathon Guide** | [![Access](https://img.shields.io/badge/Launch-cyan?style=flat-square)](https://nextfaang-cp-legend-hub.vercel.app/hackathon-guide) | Complete hackathon preparation | ⭐⭐⭐⭐⭐ |
+| 📖 **CP Dictionary** | [![Access](https://img.shields.io/badge/Launch-blue?style=flat-square)](https://nextfaanglive.netlify.app/cp-dictionary) | 500+ algorithms with templates | ⭐⭐⭐⭐⭐ |
+| 📚 **Resources Hub** | [![Access](https://img.shields.io/badge/Launch-green?style=flat-square)](https://nextfaanglive.netlify.app/resources) | Curated learning materials | ⭐⭐⭐⭐⭐ |
+| 🏆 **DSA Mastery** | [![Access](https://img.shields.io/badge/Launch-orange?style=flat-square)](https://nextfaanglive.netlify.app/dsa-mastery) | Complete DSA learning path | ⭐⭐⭐⭐⭐ |
+| 📄 **Resume Tips** | [![Access](https://img.shields.io/badge/Launch-purple?style=flat-square)](https://nextfaanglive.netlify.app/resume-tips) | FAANG-ready resume builder | ⭐⭐⭐⭐⭐ |
+| 🌐 **Language Translator** | [![Access](https://img.shields.io/badge/Launch-yellow?style=flat-square)](https://nextfaanglive.netlify.app/language-translation) | Multi-language code conversion | ⭐⭐⭐⭐⭐ |
+| 🎯 **CP Tricks & Tips** | [![Access](https://img.shields.io/badge/Launch-red?style=flat-square)](https://nextfaanglive.netlify.app/cp-tricks-tips) | Advanced optimization techniques | ⭐⭐⭐⭐⭐ |
+| 🚀 **Hackathon Guide** | [![Access](https://img.shields.io/badge/Launch-cyan?style=flat-square)](https://nextfaanglive.netlify.app/hackathon-guide) | Complete hackathon preparation | ⭐⭐⭐⭐⭐ |
 
 ### 🎮 **Interactive Features**
 

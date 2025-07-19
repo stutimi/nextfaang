@@ -46,11 +46,19 @@ setTimeout(() => {
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
-// Fallback for development if Clerk key is missing
+// Check for Clerk key availability
 const isDevelopment = import.meta.env.DEV;
-if (!PUBLISHABLE_KEY && !isDevelopment && !shouldBypassAuth()) {
-  console.error("Missing Clerk Publishable Key - using fallback authentication flow");
-  // Don't throw error, just log it and continue with fallback
+const isProduction = import.meta.env.PROD;
+
+if (!PUBLISHABLE_KEY) {
+  if (isProduction) {
+    // In production, log a more severe warning for missing Clerk key
+    console.error("CRITICAL: Missing Clerk Publishable Key in production environment");
+    // Still continue with fallback to prevent app from breaking completely
+  } else if (isDevelopment) {
+    // In development, use a more informative message
+    console.error("Missing Clerk Publishable Key - using fallback authentication flow");
+  }
 }
 
 // Error handler for the main app
