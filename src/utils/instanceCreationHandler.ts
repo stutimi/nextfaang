@@ -1,4 +1,5 @@
 // Handler for createInstance errors and component instantiation issues
+import React from 'react';
 
 export class InstanceCreationHandler {
   private static instance: InstanceCreationHandler;
@@ -181,8 +182,5 @@ export class InstanceCreationHandler {
     this.isActive = false;
   }
 }
-
-// Import React at the top level to avoid issues
-import React from 'react';
 
 export const instanceCreationHandler = InstanceCreationHandler.getInstance();

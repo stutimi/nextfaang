@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 4.0.2 (2025-07-19)
+
+### HOTFIX: Instance Creation Handler Fix
+
+#### Critical Fixes
+
+- Fixed "Class constructors cannot be invoked without 'new'" error in instanceCreationHandler
+- Moved React import to the top of the file to ensure proper initialization
+- Resolved console error spam from setTimeout callbacks
+- Improved error handling in instance creation process
+
+## Version 4.0.1 (2025-07-19)
+
+### HOTFIX: Clerk Authentication Fix
+
+#### Critical Fixes
+
+- Fixed "Missing Clerk Publishable Key" error in authentication system
+- Added environment variable validation for Clerk integration
+- Implemented fallback authentication flow for development environments
+- Enhanced error reporting for authentication configuration issues
+
 ## Version 4.0.0 (2025-07-19)
 
 ### MAJOR RELEASE: Next-Gen Platform Upgrade
