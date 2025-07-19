@@ -17,6 +17,7 @@ import { masterErrorHandler } from '@/utils/masterErrorHandler';
 import { checkErrorHandlingStatus, logCurrentProtectionStatus } from '@/utils/errorHandlingStatus';
 import { clerkCookieHandler } from '@/utils/clerkCookieHandler';
 import { applyClerkDevelopmentFixes, logClerkDevelopmentStatus } from '@/utils/clerkDevelopmentFixes';
+import { shouldBypassAuth } from '@/utils/devMode';
 
 // Apply Clerk development fixes first (before any Clerk initialization)
 applyClerkDevelopmentFixes();
@@ -38,7 +39,7 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 // Fallback for development if Clerk key is missing
 const isDevelopment = import.meta.env.DEV;
-if (!PUBLISHABLE_KEY && !isDevelopment) {
+if (!PUBLISHABLE_KEY && !isDevelopment && !shouldBypassAuth()) {
   throw new Error("Missing Clerk Publishable Key");
 }
 
@@ -54,7 +55,7 @@ const AppWithClerk = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   
   React.useEffect(() => {
-    if (PUBLISHABLE_KEY) {
+    if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
       import('@clerk/clerk-react')
         .then((clerkModule) => {
           setClerkProvider(() => clerkModule.ClerkProvider);
@@ -65,6 +66,8 @@ const AppWithClerk = () => {
           setIsLoaded(true);
         });
     } else {
+      // Skip Clerk in development mode when bypassing auth
+      console.log(shouldBypassAuth() ? '🔧 Development mode: Bypassing Clerk authentication' : '⚠️ No Clerk key found');
       setIsLoaded(true);
     }
   }, []);
@@ -77,7 +80,7 @@ const AppWithClerk = () => {
     );
   }
   
-  if (PUBLISHABLE_KEY && ClerkProvider) {
+  if (PUBLISHABLE_KEY && ClerkProvider && !shouldBypassAuth()) {
     const clerkElement = clerkInstanceSafetyWrapper.createClerkComponent(
       'ClerkProvider',
       ClerkProvider,

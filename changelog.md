@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 4.0.3 (2025-07-19)
+
+### HOTFIX: Clerk Authentication Environment Fix
+
+#### Critical Fixes
+
+- Fixed "Missing Clerk Publishable Key" error in production environment
+- Added fallback authentication flow when environment variables are missing
+- Implemented proper error handling for Clerk initialization failures
+- Resolved runtime.lastError messages in message channel
+- Enhanced environment variable validation for authentication services
+
 ## Version 4.0.2 (2025-07-19)
 
 ### HOTFIX: Instance Creation Handler Fix
