@@ -21,13 +21,10 @@ import {
   CheckCircle,
   Edit3
 } from 'lucide-react';
-import {
-  SafeSignedIn as SignedIn,
-  SafeSignedOut as SignedOut,
-  ClerkUserProvider,
-} from '@/components/ClerkWrapper';
+import { useAuthContext } from '@/components/AuthProvider';
+import { AuthModal } from '@/components/auth/AuthModal';
 
-// Helper function to get user data from Clerk user object
+// Helper function to get user data from Supabase user object
 const getUserData = (user: any) => {
   if (!user) {
     return {
@@ -63,23 +60,21 @@ const getUserData = (user: any) => {
     };
   }
 
-  const firstName = user.firstName || '';
-  const lastName = user.lastName || '';
-  const fullName = `${firstName} ${lastName}`.trim() || user.username || 'User';
-  const email = user.primaryEmailAddress?.emailAddress || user.emailAddresses?.[0]?.emailAddress || '';
-  const avatar = user.imageUrl || user.profileImageUrl || '';
+  const fullName = user.user_metadata?.full_name || user.user_metadata?.name || 'User';
+  const email = user.email || '';
+  const avatar = user.user_metadata?.avatar_url || user.user_metadata?.picture || '';
 
-  // Generate initials from name
+  // Generate initials from name or email
   const initials = fullName
     .split(' ')
     .map((n: string) => n[0])
     .join('')
     .toUpperCase()
-    .slice(0, 2) || 'U';
+    .slice(0, 2) || email.slice(0, 2).toUpperCase();
 
   // Format join date
-  const joinDate = user.createdAt
-    ? new Date(user.createdAt).toLocaleDateString('en-US', {
+  const joinDate = user.created_at
+    ? new Date(user.created_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long'
       })
@@ -95,10 +90,10 @@ const getUserData = (user: any) => {
     streak: 15, // This would come from your backend
     problemsSolved: 127, // This would come from your backend
     joinDate,
-    bio: user.publicMetadata?.bio || 'Passionate software engineer with a love for competitive programming and system design.',
-    location: user.publicMetadata?.location || 'San Francisco, CA',
-    company: user.publicMetadata?.company || 'Tech Innovators Inc.',
-    skills: user.publicMetadata?.skills || ['JavaScript', 'Python', 'React', 'Node.js', 'System Design'],
+    bio: user.user_metadata?.bio || 'Passionate software engineer with a love for competitive programming and system design.',
+    location: user.user_metadata?.location || 'San Francisco, CA',
+    company: user.user_metadata?.company || 'Tech Innovators Inc.',
+    skills: user.user_metadata?.skills || ['JavaScript', 'Python', 'React', 'Node.js', 'System Design'],
     achievements: [
       { name: 'First Problem Solved', icon: '🎯', date: 'Jan 15, 2024' },
       { name: '10 Day Streak', icon: '🔥', date: 'Feb 1, 2024' },
@@ -152,19 +147,10 @@ const mockUserData = {
 };
 
 export const ProfilePage = () => {
-  return (
-    <ClerkUserProvider>
-      {({ user, isLoaded, isSignedIn }) => (
-        <ProfilePageContent user={user} isLoaded={isLoaded} isSignedIn={isSignedIn} />
-      )}
-    </ClerkUserProvider>
-  );
-};
-
-const ProfilePageContent = ({ user, isLoaded, isSignedIn }: { user: any, isLoaded: boolean, isSignedIn: boolean }) => {
+  const { user, loading } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
 
-  if (!isLoaded) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
         <div className="text-center">
@@ -179,7 +165,7 @@ const ProfilePageContent = ({ user, isLoaded, isSignedIn }: { user: any, isLoade
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      {!isSignedIn && (
+      {!user && (
         <div className="flex items-center justify-center min-h-screen">
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
@@ -188,11 +174,16 @@ const ProfilePageContent = ({ user, isLoaded, isSignedIn }: { user: any, isLoade
                 Please sign in to view your profile
               </CardDescription>
             </CardHeader>
+            <CardContent className="text-center">
+              <AuthModal>
+                <Button>Sign In</Button>
+              </AuthModal>
+            </CardContent>
           </Card>
         </div>
       )}
 
-      {isSignedIn && (
+      {user && (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Profile Header */}
           <motion.div

@@ -4,7 +4,7 @@ import { globalErrorHandler } from './globalErrorHandler';
 import { reactErrorSuppressor } from './reactErrorSuppressor';
 import { chunkErrorHandler } from './chunkErrorHandler';
 import { instanceCreationHandler } from './instanceCreationHandler';
-import { clerkInstanceSafetyWrapper } from './clerkInstanceSafetyWrapper';
+
 import { reactReconcilerHandler } from './reactReconcilerHandler';
 import { reactFiberHandler } from './reactFiberHandler';
 import { reactWorkLoopHandler } from './reactWorkLoopHandler';
@@ -104,13 +104,7 @@ export class MasterErrorHandler {
   private handleMasterRejection = (event: PromiseRejectionEvent) => {
     const reason = event.reason?.toString() || '';
     
-    // Check if this is a Clerk class constructor error
-    if (reason.includes('Class constructors cannot be invoked without') && 
-        reason.includes('clerk')) {
-      console.debug('🔧 Clerk class constructor error handled by master handler');
-      event.preventDefault(); // Prevent the error from propagating
-      return;
-    }
+
     
     // Check if this is an extension-related error
     if (reason.includes('universal-blocker') ||

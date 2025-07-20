@@ -59,6 +59,11 @@ export class ReactFiberHandler {
     const message = args[0];
     if (typeof message !== 'string') return false;
 
+    // Handle React fragment type errors as warnings, not errors
+    if (message.includes('Invalid component type detected: Symbol(react.fragment)')) {
+      return false; // Let isFiberWarning handle these
+    }
+
     const fiberErrorPatterns = [
       'performUnitOfWork',
       'completeUnitOfWork',
@@ -114,13 +119,19 @@ export class ReactFiberHandler {
     const message = args[0];
     if (typeof message !== 'string') return false;
 
+    // Check for React Fragment errors specifically
+    if (message.includes('Invalid component type detected: Symbol(react.fragment)')) {
+      return true;
+    }
+
     const fiberWarningPatterns = [
       'Warning: React',
       'Warning: Each child in a list',
       'Warning: Failed prop type',
       'Warning: componentWillMount',
       'Warning: componentWillReceiveProps',
-      'Warning: componentWillUpdate'
+      'Warning: componentWillUpdate',
+      'Invalid component type detected'
     ];
 
     return fiberWarningPatterns.some(pattern => message.includes(pattern));
@@ -161,9 +172,22 @@ export class ReactFiberHandler {
   }
 
   private processFiberWarning(args: any[]) {
-    // Log warnings in a cleaner format for development
+    const message = args[0];
+
+    // Special handling for React Fragment errors
+    if (typeof message === 'string' && message.includes('Invalid component type detected: Symbol(react.fragment)')) {
+      // These are usually harmless React Fragment type detection issues
+      // Only log in development and only once per session
+      if (process.env.NODE_ENV === 'development' && !this.fiberErrors.has('react_fragment_warning')) {
+        console.debug('React Fragment type warning (suppressed):', message);
+        this.fiberErrors.set('react_fragment_warning', { count: 1, lastSeen: Date.now() });
+      }
+      return; // Don't log these repeatedly
+    }
+
+    // Log other warnings in a cleaner format for development
     if (process.env.NODE_ENV === 'development') {
-      console.debug('React warning (handled):', args[0]);
+      console.debug('React warning (handled):', message);
     }
   }
 

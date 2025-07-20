@@ -3,12 +3,31 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, Code, ChevronDown, Home, Book, Phone, Users as CommunityIcon, Sparkles, Rocket, Star, Sword, BookOpen, Languages } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuthContext } from "@/components/AuthProvider";
+import { AuthModal } from "@/components/auth/AuthModal";
 import { UserProfile } from "@/components/UserProfile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import NextfaangLogo from '@/assets/nextfaang-logo.svg?react';
 
+
+// Auth section component
+const AuthSection = () => {
+  const { user } = useAuthContext();
+
+  if (user) {
+    return <UserProfile />;
+  }
+
+  return (
+    <AuthModal>
+      <Button variant="default" size="sm">
+        Sign In
+      </Button>
+    </AuthModal>
+  );
+};
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -244,7 +263,7 @@ export const Navbar = () => {
           {/* Enhanced Auth Section */}
           <div className="hidden lg:flex items-center gap-4">
             <ThemeToggle />
-            <UserProfile />
+            <AuthSection />
           </div>
 
           {/* Enhanced Mobile Menu Button */}
@@ -397,7 +416,7 @@ export const Navbar = () => {
                       transition={{ delay: 0.5 }}
                       className="flex items-center justify-center"
                     >
-                      <UserProfile />
+                      <AuthSection />
                     </motion.div>
                   </div>
                 </div>
