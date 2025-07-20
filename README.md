@@ -23,8 +23,6 @@
 
 **Designed by [Xenonesis](https://github.com/Xenonesis) 🚀**
 
-**Created by [@Xenonesis](https://github.com/Xenonesis)**
-
 </div>
 
 ---
@@ -113,7 +111,48 @@
 
 ---
 
-## 🆕 **Latest Features (v17.0.0)**
+## 🆕 **Latest Features (v18.0.0)**
+
+### 🏘️ **Community Platform Enhancement**
+
+<table>
+<tr>
+<td width="50%">
+
+#### 🌐 **Dedicated Community Page**
+- ✅ **Standalone Route** - New `/community` page with comprehensive social platform integration
+- ✅ **Enhanced Navigation** - Direct navbar link for easy community access
+- ✅ **Social Platform Grid** - Discord, Telegram, Twitter/X, WhatsApp, and LinkedIn integration
+- ✅ **GitHub Integration** - Dual repository links (Origin & Fork) for better project visibility
+- ✅ **Responsive Design** - Optimized layout for desktop, tablet, and mobile devices
+
+</td>
+<td width="50%">
+
+#### 🔧 **Component Architecture Refactoring**
+- ✅ **Modular Components** - Broke down monolithic CommunitySection into focused components
+- ✅ **Reusable Design** - Created SocialPlatformCard for consistent styling across platforms
+- ✅ **TypeScript Safety** - Comprehensive interfaces and type safety for all components
+- ✅ **Clean Code** - Removed duplication and improved maintainability
+- ✅ **Future-Proof** - Easy to add new social platforms or modify existing ones
+
+</td>
+</tr>
+</table>
+
+### 📊 **Enhanced Social Integration**
+
+| 🌐 Platform | 👥 Community Size | 🎯 Primary Use | 🔗 Access |
+|-------------|-------------------|----------------|-----------|
+| **Discord** | 850+ Members | Real-time chat, voice rooms, study groups | [Join Now](https://discord.gg/EvJRUDZG) |
+| **Telegram** | 650+ Members | Quick updates, contest alerts, resources | [Join Group](https://t.me/+ESH0q0W9-1A2Nzdl) |
+| **Twitter/X** | 2.5K+ Followers | Latest updates, CP tips, community highlights | [Follow](https://x.com/Stutimishra9451) |
+| **WhatsApp** | 200+ Members | Personal support, quick doubt resolution | [Join Chat](https://chat.whatsapp.com/E9ijb3svQ9PC75ugH03dGN) |
+| **LinkedIn** | Professional Network | Career updates, professional networking | [Connect](https://www.linkedin.com/in/next-fang-7b514a376/) |
+
+---
+
+## 🔄 **Previous Features (v17.0.0)**
 
 ### 📝 **Enhanced Profile Management System**
 
