@@ -13,7 +13,6 @@ import { SystemDesignSection } from "@/components/SystemDesignSection";
 import { SmartToolsSection } from "@/components/SmartToolsSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
 import { FutureScope } from "@/components/FutureScope";
-import { ContactSection } from "@/components/ContactSection";
 import { Chatbot } from "@/components/Chatbot";
 import { VoiceAITour } from "@/components/VoiceAITour";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -98,10 +97,6 @@ const Index = () => {
         <OpenSourceSection />
         
         <FutureScope />
-        
-        <div id="contact">
-          <ContactSection />
-        </div>
       </main>
       
       {/* Enhanced UI Components */}
