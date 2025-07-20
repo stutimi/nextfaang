@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Navbar } from "@/components/Navbar";
 import { EnhancedSearch } from "@/components/EnhancedSearch";
+import { ToolsDropdown } from "@/components/ToolsDropdown";
 
 export default function Resources() {
   return (
@@ -305,6 +306,9 @@ export default function Resources() {
             </Card>
           </div>
         </section>
+
+        {/* AI-Powered Developer Tools Section */}
+        <ToolsDropdown />
 
         {/* Hackathons Section */}
         <section className="mb-16">

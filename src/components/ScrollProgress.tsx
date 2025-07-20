@@ -1,20 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 
 export const ScrollProgress = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollPx = document.documentElement.scrollTop;
-      const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = scrollPx / winHeightPx;
-      setScrollProgress(scrolled);
-    };
-
-    window.addEventListener("scroll", updateScrollProgress);
-    return () => window.removeEventListener("scroll", updateScrollProgress);
+  // Throttled scroll handler for better performance
+  const updateScrollProgress = useCallback(() => {
+    const scrollPx = document.documentElement.scrollTop;
+    const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = Math.min(Math.max(scrollPx / winHeightPx, 0), 1); // Clamp between 0 and 1
+    setScrollProgress(scrolled);
   }, []);
+
+  // Throttle function
+  const throttle = useCallback((func: () => void, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    let lastExecTime = 0;
+    
+    return () => {
+      const currentTime = Date.now();
+      
+      if (currentTime - lastExecTime > delay) {
+        func();
+        lastExecTime = currentTime;
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func();
+          lastExecTime = Date.now();
+        }, delay - (currentTime - lastExecTime));
+      }
+    };
+  }, []);
+
+  // Memoized throttled handler
+  const throttledScrollHandler = useMemo(
+    () => throttle(updateScrollProgress, 16), // ~60fps
+    [updateScrollProgress, throttle]
+  );
+
+  useEffect(() => {
+    // Initial calculation
+    updateScrollProgress();
+    
+    // Add throttled scroll listener with passive flag for better performance
+    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
+    
+    return () => window.removeEventListener("scroll", throttledScrollHandler);
+  }, [throttledScrollHandler, updateScrollProgress]);
+
+  // Memoized percentage calculation
+  const percentage = useMemo(() => Math.round(scrollProgress * 100), [scrollProgress]);
 
   return (
     <>
@@ -65,7 +101,7 @@ export const ScrollProgress = () => {
             {/* Center percentage */}
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-xs font-bold text-primary">
-                {Math.round(scrollProgress * 100)}%
+                {percentage}%
               </span>
             </div>
           </div>

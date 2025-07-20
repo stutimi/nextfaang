@@ -8,7 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 import { ErrorCatcher } from "@/components/ErrorCatcher";
 import { ReactLifecycleSafetyWrapper } from "@/components/ReactLifecycleSafetyWrapper";
-import { useReconcilerRecovery } from "@/hooks/useReconcilerRecovery";
+// Removed problematic hook import
 import Index from "./pages/Index";
 
 import NotFound from "./pages/NotFound";
@@ -27,11 +27,8 @@ import { ProfilePage } from "./components/ProfilePage";
 
 
 const App = () => {
-  // Use reconciler recovery hook to handle React internal errors
-  const { recoveryCount } = useReconcilerRecovery();
-  
   return (
-    <ErrorCatcher key={`app-${recoveryCount}`}>
+    <ErrorCatcher>
       <ReactLifecycleSafetyWrapper>
         <ThemeProvider
           attribute="class"

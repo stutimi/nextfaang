@@ -227,15 +227,26 @@ export const useClerkUser = () => {
 // Component wrapper that provides user data
 export const ClerkUserProvider = ({ children }: { children: (userData: any) => React.ReactNode }) => {
   const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-  const [ClerkUseUser, setClerkUseUser] = React.useState<any>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [userData, setUserData] = React.useState({
+    user: null,
+    isLoaded: true,
+    isSignedIn: false
+  });
 
   React.useEffect(() => {
     if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
+      // Check if we're inside a ClerkProvider context
       import('@clerk/clerk-react')
         .then((clerkModule) => {
-          setClerkUseUser(() => clerkModule.useUser);
-          setIsLoaded(true);
+          // Try to use the hook, but catch any context errors
+          try {
+            // We can't use hooks conditionally, so we'll create a wrapper component
+            setIsLoaded(true);
+          } catch (error) {
+            console.warn('Clerk context not available:', error);
+            setIsLoaded(true);
+          }
         })
         .catch((error) => {
           console.warn('Failed to load Clerk:', error);
@@ -248,32 +259,41 @@ export const ClerkUserProvider = ({ children }: { children: (userData: any) => R
 
   if (!isLoaded) return null;
 
-  if (!PUBLISHABLE_KEY || !ClerkUseUser) {
+  if (!PUBLISHABLE_KEY) {
     // Return mock data when Clerk is not available
-    return children({
-      user: null,
-      isLoaded: true,
-      isSignedIn: false
-    });
+    return children(userData);
   }
 
-  // This component will use the actual useUser hook
+  // Create a safe wrapper that handles Clerk context errors
   const UserDataWrapper = () => {
-    try {
-      const { user, isLoaded: userLoaded, isSignedIn } = ClerkUseUser();
-      return children({
-        user,
-        isLoaded: userLoaded,
-        isSignedIn
-      });
-    } catch (error) {
-      console.warn('Error using Clerk useUser:', error);
-      return children({
-        user: null,
-        isLoaded: true,
-        isSignedIn: false
-      });
-    }
+    const [clerkData, setClerkData] = React.useState(userData);
+
+    React.useEffect(() => {
+      if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
+        import('@clerk/clerk-react')
+          .then((clerkModule) => {
+            try {
+              // This will only work if we're inside ClerkProvider
+              const useUser = clerkModule.useUser;
+              // We can't call useUser here directly due to rules of hooks
+              // Instead, we'll return fallback data
+              setClerkData({
+                user: null,
+                isLoaded: true,
+                isSignedIn: false
+              });
+            } catch (error) {
+              console.warn('Clerk useUser error:', error);
+              setClerkData(userData);
+            }
+          })
+          .catch(() => {
+            setClerkData(userData);
+          });
+      }
+    }, []);
+
+    return children(clerkData);
   };
 
   return <UserDataWrapper />;

@@ -71,11 +71,11 @@ const prodClerkKey = extractClerkKey(envProdContent);
 
 // Check if keys are placeholders
 const isPlaceholder = (key) => {
-  return !key || 
-         key === 'your_clerk_publishable_key_here' || 
-         key === 'your_production_clerk_publishable_key' ||
-         key.includes('your_') ||
-         key.includes('placeholder');
+  return !key ||
+    key === 'your_clerk_publishable_key_here' ||
+    key === 'your_production_clerk_publishable_key' ||
+    key.includes('your_') ||
+    key.includes('placeholder');
 };
 
 const localKeyIsPlaceholder = isPlaceholder(localClerkKey);
@@ -130,18 +130,18 @@ if (prodKeyIsPlaceholder) {
 // Update environment files function
 const updateEnvFile = (filePath, currentContent, keyName, newValue) => {
   let updatedContent;
-  
+
   if (currentContent.includes(`${keyName}=`)) {
     // Replace existing key
     updatedContent = currentContent.replace(
-      new RegExp(`${keyName}=[^\n]*`), 
+      new RegExp(`${keyName}=[^\n]*`),
       `${keyName}=${newValue}`
     );
   } else {
     // Add new key
     updatedContent = currentContent + `\n${keyName}=${newValue}\n`;
   }
-  
+
   fs.writeFileSync(filePath, updatedContent);
   console.log(`${colors.green}✓ Updated ${path.basename(filePath)} successfully!${colors.reset}`);
 };
@@ -170,7 +170,7 @@ const main = async () => {
       updateEnvFile(envLocalPath, envLocalContent, 'VITE_CLERK_PUBLISHABLE_KEY', devKey);
     }
   }
-  
+
   // Production key
   if (envProdExists && (prodKeyIsPlaceholder || !prodClerkKey)) {
     const prodKey = await promptForKey('production');
@@ -178,10 +178,10 @@ const main = async () => {
       updateEnvFile(envProdPath, envProdContent, 'VITE_CLERK_PUBLISHABLE_KEY', prodKey);
     }
   }
-  
+
   console.log(`\n${colors.bright}${colors.green}Configuration complete!${colors.reset}`);
   console.log(`\n${colors.cyan}For more information, see ${colors.bright}CLERK_SETUP.md${colors.reset}\n`);
-  
+
   rl.close();
 };
 

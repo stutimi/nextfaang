@@ -14,11 +14,16 @@ import { reactReconcilerHandler } from '@/utils/reactReconcilerHandler';
 import { reactFiberHandler } from '@/utils/reactFiberHandler';
 import { reactWorkLoopHandler } from '@/utils/reactWorkLoopHandler';
 import { extensionErrorHandler } from '@/utils/extensionErrorHandler';
+import { extensionConflictHandler } from '@/utils/extensionConflictHandler';
 import { masterErrorHandler } from '@/utils/masterErrorHandler';
 import { checkErrorHandlingStatus, logCurrentProtectionStatus } from '@/utils/errorHandlingStatus';
 import { clerkCookieHandler } from '@/utils/clerkCookieHandler';
+import { clerkErrorHandler } from '@/utils/clerkErrorHandler';
 import { applyClerkDevelopmentFixes, logClerkDevelopmentStatus } from '@/utils/clerkDevelopmentFixes';
 import { shouldBypassAuth } from '@/utils/devMode';
+
+// Initialize extension conflict handler first (before anything else)
+extensionConflictHandler.initialize();
 
 // Apply Clerk development fixes first (before any Clerk initialization)
 applyClerkDevelopmentFixes();
@@ -28,6 +33,7 @@ masterErrorHandler.initialize();
 
 // Initialize Clerk-specific error handling
 clerkCookieHandler.initialize();
+clerkErrorHandler.initialize();
 
 // Initialize extension error handler separately for immediate effect
 extensionErrorHandler.initialize();
@@ -69,74 +75,86 @@ const handleAppError = (error: Error, errorInfo: React.ErrorInfo) => {
   // You can add error reporting service here (e.g., Sentry, LogRocket)
 };
 
-// Conditional rendering based on Clerk availability
-const AppWithClerk = () => {
+// App wrapper with proper Clerk setup
+const AppWithClerk: React.FC = () => {
+  // If no Clerk key is provided, render without ClerkProvider
+  if (!PUBLISHABLE_KEY || shouldBypassAuth()) {
+    return (
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+  }
+
+  // Dynamically import and use ClerkProvider only when needed
   const [ClerkProvider, setClerkProvider] = React.useState<any>(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
-  
+
   React.useEffect(() => {
     if (PUBLISHABLE_KEY && !shouldBypassAuth()) {
-      console.log('🔑 Initializing Clerk with key:', PUBLISHABLE_KEY.substring(0, 8) + '...');
-      import('@clerk/clerk-react')
-        .then((clerkModule) => {
-          if (clerkModule && clerkModule.ClerkProvider) {
-            console.log('✅ Clerk module loaded successfully');
-            setClerkProvider(() => clerkModule.ClerkProvider);
-          } else {
-            console.error('❌ Clerk module loaded but ClerkProvider is missing');
-          }
-          setIsLoaded(true);
-        })
-        .catch((error) => {
-          console.error('❌ Failed to load Clerk:', error);
-          setIsLoaded(true);
-        });
+      // Add a small delay to ensure all error handlers are initialized
+      setTimeout(() => {
+        import('@clerk/clerk-react')
+          .then((clerkModule) => {
+            try {
+              // Validate the ClerkProvider before setting it
+              if (clerkModule.ClerkProvider && typeof clerkModule.ClerkProvider === 'function') {
+                setClerkProvider(() => clerkModule.ClerkProvider);
+              } else {
+                console.warn('Invalid ClerkProvider received from module');
+              }
+            } catch (error) {
+              console.warn('Error setting ClerkProvider:', error);
+            } finally {
+              setIsLoaded(true);
+            }
+          })
+          .catch((error) => {
+            console.warn('Failed to load Clerk:', error);
+            setIsLoaded(true);
+          });
+      }, 100);
     } else {
-      // Skip Clerk in development mode when bypassing auth
-      console.log(shouldBypassAuth() ? '🔧 Development mode: Bypassing Clerk authentication' : '⚠️ No Clerk key found');
       setIsLoaded(true);
     }
   }, []);
-  
+
   if (!isLoaded) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <div>Loading...</div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
     );
   }
-  
-  if (PUBLISHABLE_KEY && ClerkProvider && !shouldBypassAuth()) {
-    const clerkElement = clerkInstanceSafetyWrapper.createClerkComponent(
-      'ClerkProvider',
-      ClerkProvider,
-      {
-        publishableKey: PUBLISHABLE_KEY,
-        afterSignOutUrl: "/",
-        appearance: {
-          baseTheme: undefined,
-          variables: {
-            colorPrimary: "hsl(var(--primary))",
-          },
-        },
-      },
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
-    
-    return clerkElement || (
+
+  if (!ClerkProvider) {
+    return (
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
   }
-  
-  // Fallback without Clerk for development
+
+  // Wrap ClerkProvider with error boundary
+  const SafeClerkProvider = ({ children }: { children: React.ReactNode }) => {
+    try {
+      return (
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+          {children}
+        </ClerkProvider>
+      );
+    } catch (error) {
+      console.warn('ClerkProvider failed, falling back to no-auth mode:', error);
+      return <>{children}</>;
+    }
+  };
+
   return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <SafeClerkProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SafeClerkProvider>
   );
 };
 

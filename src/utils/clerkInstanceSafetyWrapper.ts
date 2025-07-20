@@ -84,6 +84,16 @@ export class ClerkInstanceSafetyWrapper {
 
   private safeCreateClerkInstance(component: any, props?: any, children?: any) {
     try {
+      // Additional validation for class constructors
+      if (typeof component === 'function') {
+        // Check if it's a class constructor that needs 'new'
+        const componentStr = component.toString();
+        if (componentStr.includes('class ') || componentStr.includes('function ') && componentStr.includes('this.')) {
+          // This might be a class constructor, ensure it's called properly
+          console.warn('Detected potential class constructor in Clerk component, handling carefully');
+        }
+      }
+
       // Use React.createElement with additional safety
       if (children !== undefined) {
         return React.createElement(component, props, children);
@@ -91,6 +101,32 @@ export class ClerkInstanceSafetyWrapper {
         return React.createElement(component, props);
       }
     } catch (error) {
+      // Check if it's the specific class constructor error
+      if (error instanceof TypeError && error.message.includes('Class constructors cannot be invoked without')) {
+        console.error('Class constructor error detected in Clerk component:', error);
+        // Try to handle this specific case
+        try {
+          // Attempt to wrap the component in a functional component
+          const WrappedComponent = (wrapperProps: any) => {
+            try {
+              return React.createElement(component, wrapperProps);
+            } catch (innerError) {
+              console.error('Failed to create wrapped Clerk component:', innerError);
+              return null;
+            }
+          };
+          
+          if (children !== undefined) {
+            return React.createElement(WrappedComponent, props, children);
+          } else {
+            return React.createElement(WrappedComponent, props);
+          }
+        } catch (wrapperError) {
+          console.error('Failed to create wrapper for Clerk component:', wrapperError);
+          return null;
+        }
+      }
+      
       console.error('React.createElement failed for Clerk component:', error);
       throw error;
     }
