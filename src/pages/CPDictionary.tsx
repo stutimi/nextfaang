@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Search, BookOpen, Code, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const CPDictionary = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -171,6 +172,9 @@ const CPDictionary = () => {
           </div>
         )}
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

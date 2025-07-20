@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Send, X, MessageCircle, Minimize2, Mic, MicOff, Volume2, VolumeX, Loader2, Code } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ export const Chatbot = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isMobile = useIsMobile();
   const [messages, setMessages] = useState([
     {
       type: "bot",
@@ -258,16 +260,24 @@ What would you like assistance with?`;
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className={`fixed z-50 ${
+        isMobile
+          ? "bottom-4 right-4"
+          : "bottom-6 right-6"
+      }`}>
         <Button
           onClick={() => {
             setIsOpen(true);
             setIsMinimized(false);
           }}
           size="lg"
-          className="rounded-full h-16 w-16 shadow-2xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+          className={`rounded-full shadow-2xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 ${
+            isMobile
+              ? "h-14 w-14"
+              : "h-16 w-16"
+          }`}
         >
-          <MessageCircle className="h-8 w-8" />
+          <MessageCircle className={isMobile ? "h-6 w-6" : "h-8 w-8"} />
           <span className="sr-only">Open Chat</span>
         </Button>
       </div>
@@ -276,26 +286,32 @@ What would you like assistance with?`;
 
   if (isMinimized) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 w-72">
+      <div className={`fixed z-50 ${
+        isMobile
+          ? "bottom-4 right-4 left-4"
+          : "bottom-6 right-6 w-72"
+      }`}>
         <Card className="shadow-2xl border-2 border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-purple-500/5">
           <CardHeader className="pb-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-t-lg">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Bot className="h-5 w-5" />
-                <CardTitle className="text-lg font-bold">NEXTFANG AI</CardTitle>
+              <div className="flex items-center gap-2">
+                <Bot className={isMobile ? "h-4 w-4" : "h-5 w-5"} />
+                <CardTitle className={`font-bold ${isMobile ? "text-sm" : "text-lg"}`}>
+                  {isMobile ? "NEXTFANG AI" : "NEXTFANG AI"}
+                </CardTitle>
               </div>
               <div className="flex gap-1">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size={isMobile ? "sm" : "sm"}
                   className="text-white hover:bg-white/20"
                   onClick={() => setIsMinimized(false)}
                 >
                   <MessageCircle className="h-4 w-4" />
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size={isMobile ? "sm" : "sm"}
                   className="text-white hover:bg-white/20"
                   onClick={() => setIsOpen(false)}
                 >
@@ -310,29 +326,45 @@ What would you like assistance with?`;
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-96">
-      <Card className="h-[500px] flex flex-col shadow-2xl border-2 border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-purple-500/5">
-        <CardHeader className="pb-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-t-lg">
+    <div className={`fixed z-50 flex flex-col ${
+      isMobile
+        ? "bottom-0 left-0 right-0 top-0 w-full h-full"
+        : "bottom-6 right-6 w-96"
+    }`}>
+      <Card className={`flex flex-col shadow-2xl border-2 border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-purple-500/5 ${
+        isMobile
+          ? "h-full rounded-none"
+          : "h-[500px] rounded-lg"
+      }`}>
+        <CardHeader className={`bg-gradient-to-r from-pink-600 to-purple-600 text-white ${
+          isMobile ? "pb-2 pt-4 px-4" : "pb-3 rounded-t-lg"
+        }`}>
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Bot className="h-5 w-5" />
+            <div className="flex items-center gap-2">
+              <Bot className={isMobile ? "h-4 w-4" : "h-5 w-5"} />
               <div>
-                <CardTitle className="text-lg font-bold">NEXTFANG AI Assistant</CardTitle>
-                <div className="text-xs opacity-90">Female Voice • Always Ready to Help</div>
+                <CardTitle className={`font-bold ${isMobile ? "text-base" : "text-lg"}`}>
+                  NEXTFANG AI Assistant
+                </CardTitle>
+                <div className={`opacity-90 ${isMobile ? "text-xs" : "text-xs"}`}>
+                  Female Voice • Always Ready to Help
+                </div>
               </div>
             </div>
             <div className="flex gap-1">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-white hover:bg-white/20"
-                onClick={() => setIsMinimized(true)}
-              >
-                <Minimize2 className="h-4 w-4" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              {!isMobile && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:bg-white/20"
+                  onClick={() => setIsMinimized(true)}
+                >
+                  <Minimize2 className="h-4 w-4" />
+                </Button>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
                 className="text-white hover:bg-white/20"
                 onClick={() => setIsOpen(false)}
               >
@@ -340,25 +372,35 @@ What would you like assistance with?`;
               </Button>
             </div>
           </div>
-          <Badge className="w-fit text-xs bg-green-500/20 text-green-300 border-green-500/30">
+          <Badge className={`w-fit bg-green-500/20 text-green-300 border-green-500/30 ${
+            isMobile ? "text-xs mt-1" : "text-xs"
+          }`}>
             🟢 Online • Voice Ready
           </Badge>
         </CardHeader>
 
-        <CardContent className="flex-1 flex flex-col p-4 overflow-hidden">
-          <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
+        <CardContent className={`flex-1 flex flex-col overflow-hidden ${
+          isMobile ? "p-3" : "p-4"
+        }`}>
+          <div className={`flex-1 overflow-y-auto space-y-3 pr-2 ${
+            isMobile ? "mb-3" : "mb-4"
+          }`}>
             {messages.map((msg, index) => (
               <div
                 key={index}
                 className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div className="max-w-[80%]">
+                <div className={isMobile ? "max-w-[85%]" : "max-w-[80%]"}>
                   <div
-                    className={`p-3 rounded-2xl text-sm whitespace-pre-wrap ${
+                    className={`rounded-2xl whitespace-pre-wrap ${
+                      isMobile ? "p-2 text-sm" : "p-3 text-sm"
+                    } ${
                       msg.type === "user"
                         ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                        : msg.isCode 
-                          ? "bg-gray-800 text-green-400 font-mono text-xs p-2 overflow-x-auto"
+                        : msg.isCode
+                          ? `bg-gray-800 text-green-400 font-mono overflow-x-auto ${
+                              isMobile ? "text-xs p-2" : "text-xs p-2"
+                            }`
                           : "bg-gray-100 dark:bg-gray-800"
                     }`}
                   >
@@ -406,38 +448,56 @@ What would you like assistance with?`;
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="flex gap-2">
+          <div className={`flex gap-2 ${isMobile ? "pb-safe" : ""}`}>
             <div className="flex-1 relative">
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Ask me anything about CP..."
-                className="text-sm pr-12 bg-background border-pink-500/30 focus:border-pink-500"
+                placeholder={isMobile ? "Ask me anything..." : "Ask me anything about CP..."}
+                className={`bg-background border-pink-500/30 focus:border-pink-500 ${
+                  isMobile
+                    ? "text-base pr-12 h-12"
+                    : "text-sm pr-12"
+                }`}
                 onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               />
               <Button
-                size="sm"
+                size={isMobile ? "default" : "sm"}
                 variant="ghost"
-                className={`absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 ${
+                className={`absolute right-1 top-1/2 -translate-y-1/2 p-0 ${
+                  isMobile
+                    ? "h-10 w-10"
+                    : "h-8 w-8"
+                } ${
                   isListening ? 'text-pink-500' : 'hover:bg-pink-500/20'
                 }`}
                 onClick={isListening ? stopListening : startListening}
               >
-                {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                {isListening ? (
+                  <MicOff className={isMobile ? "h-5 w-5" : "h-4 w-4"} />
+                ) : (
+                  <Mic className={isMobile ? "h-5 w-5" : "h-4 w-4"} />
+                )}
               </Button>
             </div>
-            <Button 
-              size="sm" 
-              className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+            <Button
+              size={isMobile ? "default" : "sm"}
+              className={`bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 ${
+                isMobile ? "h-12 px-4" : ""
+              }`}
               onClick={handleSendMessage}
               disabled={!message.trim() || isLoading}
             >
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              {isLoading ? (
+                <Loader2 className={isMobile ? "h-5 w-5 animate-spin" : "h-4 w-4 animate-spin"} />
+              ) : (
+                <Send className={isMobile ? "h-5 w-5" : "h-4 w-4"} />
+              )}
             </Button>
           </div>
           
           {isListening && (
-            <div className="text-center mt-2">
+            <div className={`text-center ${isMobile ? "mt-2 mb-2" : "mt-2"}`}>
               <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/30">
                 🎤 Listening...
               </Badge>

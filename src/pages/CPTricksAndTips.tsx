@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lightbulb, Code, Clock, Target, ArrowLeft, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const CPTricksAndTips = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -285,6 +286,9 @@ reverse(vec.begin() + l, vec.begin() + r + 1);`,
           ))}
         </div>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Play, Star, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const resumeTutorials = [
   {
@@ -115,6 +116,9 @@ export default function ResumeTips() {
           </Card>
         </div>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 }

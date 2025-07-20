@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Globe, Code, ArrowLeft, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const LanguageTranslation = () => {
   const [fromLang, setFromLang] = useState("cpp");
@@ -793,7 +794,7 @@ def dijkstra(graph, start):
           <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-2 rounded-lg">
             <Code className="h-4 w-4" />
             <span className="text-sm font-medium">
-              {Object.keys(codeExamples).length} algorithms available ¥ {languages.length} languages supported ¥ {Object.keys(codeExamples).length * languages.length} total examples
+              {Object.keys(codeExamples).length} algorithms available ï¿½ {languages.length} languages supported ï¿½ {Object.keys(codeExamples).length * languages.length} total examples
             </span>
           </div>
         </div>
@@ -912,6 +913,9 @@ def dijkstra(graph, start):
           </CardContent>
         </Card>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

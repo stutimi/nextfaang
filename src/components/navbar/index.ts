@@ -3,3 +3,8 @@ export { NavAuthSection } from './NavAuthSection';
 export { NavItem } from './NavItem';
 export { ToolsDropdown } from './ToolsDropdown';
 export { MobileMenu } from './MobileMenu';
+export { BottomNav } from './BottomNav';
+export { ScrollProgress } from './ScrollProgress';
+export { CompactSearchBar } from './CompactSearchBar';
+export { QuickActionMenu } from './QuickActionMenu';
+export { MiniBreadcrumb } from './MiniBreadcrumb';

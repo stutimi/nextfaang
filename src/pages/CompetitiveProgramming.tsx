@@ -24,6 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const CompetitiveProgramming = () => {
     const [activeTab, setActiveTab] = useState("overview");
@@ -722,6 +723,9 @@ const CompetitiveProgramming = () => {
                     </Button>
                 </motion.div>
             </div>
+
+            {/* Enhanced UI Components */}
+            <FloatingActionButton />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { ContactSection } from "@/components/ContactSection";
 import { Navbar } from "@/components/Navbar";
 import { FutureScope } from "@/components/FutureScope";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { motion } from "framer-motion";
 
 const About = () => {
@@ -138,6 +139,9 @@ const About = () => {
         {/* Contact Section */}
         <ContactSection />
       </main>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

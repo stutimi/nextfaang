@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Navbar } from "@/components/Navbar";
 import { EnhancedSearch } from "@/components/EnhancedSearch";
 import { ToolsDropdown } from "@/components/ToolsDropdown";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 export default function Resources() {
   return (
@@ -1511,6 +1512,9 @@ export default function Resources() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 }

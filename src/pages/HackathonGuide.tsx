@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Trophy, Zap, Code } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const hackathonPlatforms = [
   {
@@ -180,6 +181,9 @@ export default function HackathonGuide() {
           </Card>
         </div>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 }

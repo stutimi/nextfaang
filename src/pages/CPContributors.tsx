@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Trophy, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const contributors = [
   {
@@ -166,6 +167,9 @@ export default function CPContributors() {
           </Card>
         </div>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 }
