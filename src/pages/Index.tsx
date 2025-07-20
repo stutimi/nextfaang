@@ -12,7 +12,6 @@ import { CPSection } from "@/components/CPSection";
 import { SystemDesignSection } from "@/components/SystemDesignSection";
 import { SmartToolsSection } from "@/components/SmartToolsSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
-import { CommunitySection } from "@/components/CommunitySection";
 import { FutureScope } from "@/components/FutureScope";
 import { ContactSection } from "@/components/ContactSection";
 import { Chatbot } from "@/components/Chatbot";
@@ -97,10 +96,6 @@ const Index = () => {
         </div>
         
         <OpenSourceSection />
-        
-        <div id="community">
-          <CommunitySection />
-        </div>
         
         <FutureScope />
         

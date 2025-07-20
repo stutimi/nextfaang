@@ -80,7 +80,7 @@ export const Navbar = () => {
     { label: "DSA", icon: <Book className="h-4 w-4" />, href: "/dsa", badge: "New", type: 'link' },
     { label: "Competitive Programming", icon: <Code className="h-4 w-4" />, href: "/competitive-programming", badge: "Hot", type: 'link' },
     { label: "Resources", icon: <BookOpen className="h-4 w-4" />, href: "/resources", badge: null, type: 'link' },
-    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, action: () => scrollToSection('#community'), badge: null, type: 'scroll' },
+    { label: "Community", icon: <CommunityIcon className="h-4 w-4" />, href: "/community", badge: null, type: 'link' },
     { label: "Contact", icon: <Phone className="h-4 w-4" />, action: () => scrollToSection('#contact'), badge: null, type: 'scroll' }
   ];
 
