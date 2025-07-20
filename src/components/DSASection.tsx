@@ -3,159 +3,120 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Database, BookOpen, Code, Target, ArrowRight, ExternalLink, Star, Trophy, Brain, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const DSASection = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="dsa">
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-30 dark:opacity-20">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-secondary/20 dark:bg-secondary/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
+    <section id="dsa" className="py-20 bg-gradient-to-br from-background via-muted/30 to-background">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="flex flex-col items-center justify-center gap-4 mb-8">
-            <Badge className="glass-card border-primary/30 text-primary px-6 py-3 text-lg mb-4">
-              <Database className="h-5 w-5 mr-2" />
-              Data Structures Mastery
-            </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              DSA Course That <span className="text-primary">Transforms</span> Careers
-            </h2>
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Database className="h-4 w-4" />
+            Data Structures & Algorithms
           </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Master <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">DSA</span> for Success
+          </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Master Data Structures and Algorithms with our battle-tested curriculum designed by industry experts and ICPC champions.
+            Complete your journey from DSA beginner to expert with our curated courses, practice problems, 
+            and structured roadmap designed for technical interview success.
           </p>
         </motion.div>
 
-        {/* Main Course Card */}
+        {/* Main Feature Card */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="grid lg:grid-cols-3 gap-8 mb-16"
+          className="mb-16"
         >
-          {/* Featured Course */}
-          <Card className="lg:col-span-2 group glass-card border-border hover:border-primary/30 transition-all duration-500">
-            <CardHeader>
-              <div className="flex items-start justify-between mb-6">
-                <div className="p-4 bg-gradient-to-br from-primary to-accent rounded-xl shadow-lg">
-                  <Zap className="h-8 w-8 text-primary-foreground" />
-                </div>
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-primary-foreground">
-                  MOST POPULAR
-                </Badge>
-              </div>
-              <CardTitle className="text-2xl md:text-3xl font-bold mb-4">
-                Striver's A2Z DSA Course
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                The ultimate DSA roadmap covering all concepts from beginner to advanced level with 180+ handpicked problems.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    180+ Problems
-                  </Badge>
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    Video Solutions
-                  </Badge>
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    Step by Step
-                  </Badge>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    Free Access
-                  </Badge>
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    Community Support
-                  </Badge>
-                  <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                    Interview Ready
-                  </Badge>
-                </div>
-              </div>
-              
-              <div className="bg-muted/30 rounded-xl p-4 space-y-3 border border-border">
-                <h4 className="font-semibold text-primary flex items-center gap-2">
-                  <Brain className="h-5 w-5" />
-                  Course Highlights:
-                </h4>
-                <div className="grid md:grid-cols-2 gap-2 text-muted-foreground">
-                  {[
-                    "Arrays & Hashing Fundamentals",
-                    "Binary Search Mastery",
-                    "Dynamic Programming",
-                    "Graph Algorithms",
-                    "Trees & Binary Trees",
-                    "Advanced Data Structures"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
-                      <span>{item}</span>
+          <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 dark:from-card/30 dark:to-muted/30 border border-border">
+            <CardContent className="p-8 md:p-12">
+              <div className="grid lg:grid-cols-2 gap-8 items-center">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-gradient-to-br from-primary to-blue-500 rounded-xl">
+                      <Database className="h-6 w-6 text-primary-foreground" />
                     </div>
-                  ))}
+                    <Badge className="bg-primary/10 text-primary hover:bg-primary/20">
+                      <Star className="h-3 w-3 mr-1" />
+                      Most Popular
+                    </Badge>
+                  </div>
+                  
+                  <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                    Complete DSA Mastery Program
+                  </h3>
+                  
+                  <p className="text-muted-foreground mb-6 text-lg">
+                    Transform your coding skills with our comprehensive DSA curriculum. 
+                    From basic arrays to advanced dynamic programming, master every concept 
+                    needed for top tech company interviews.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="text-center p-4 bg-background/50 rounded-lg">
+                      <div className="text-2xl font-bold text-primary">500K+</div>
+                      <div className="text-sm text-muted-foreground">Students</div>
+                    </div>
+                    <div className="text-center p-4 bg-background/50 rounded-lg">
+                      <div className="text-2xl font-bold text-primary">95%</div>
+                      <div className="text-sm text-muted-foreground">Success Rate</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link to="/dsa">
+                      <Button 
+                        size="lg"
+                        className="flex-1 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground"
+                      >
+                        <BookOpen className="mr-2 h-5 w-5" />
+                        Explore DSA Courses
+                      </Button>
+                    </Link>
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      className="border-border hover:bg-muted/30 hover:border-primary/50"
+                      onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
+                    >
+                      <ExternalLink className="mr-2 h-5 w-5" />
+                      Start Free Course
+                    </Button>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg"
-                  className="flex-1 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground"
-                  onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
-                >
-                  <ExternalLink className="mr-2 h-5 w-5" />
-                  Start Course Now
-                </Button>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="border-border hover:bg-muted/30 hover:border-primary/50"
-                >
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  View Roadmap
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Stats Card */}
-          <Card className="glass-card bg-gradient-to-br from-card/70 to-muted/70 dark:from-card/50 dark:to-muted/50 border-border">
-            <CardContent className="pt-8">
-              <h3 className="text-2xl font-bold mb-8 text-center text-primary">Course Impact</h3>
-              <div className="space-y-8">
-                {[
-                  { value: "500K+", label: "Students Enrolled", icon: <Database className="h-6 w-6 text-primary" /> },
-                  { value: "180+", label: "Curated Problems", icon: <Code className="h-6 w-6 text-blue-400" /> },
-                  { value: "95%", label: "Success Rate", icon: <Target className="h-6 w-6 text-green-400" /> },
-                  { value: "FREE", label: "Complete Access", icon: <Star className="h-6 w-6 text-yellow-400" /> }
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                  >
-                    <div className="flex justify-center mb-2">{stat.icon}</div>
-                    <div className="text-4xl font-bold mb-1">{stat.value}</div>
-                    <div className="text-muted-foreground">{stat.label}</div>
-                  </motion.div>
-                ))}
+                <div className="relative">
+                  <div className="aspect-square bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-2xl p-8 flex items-center justify-center">
+                    <div className="grid grid-cols-2 gap-4 w-full">
+                      <div className="bg-background/80 p-4 rounded-xl text-center">
+                        <Code className="h-8 w-8 text-primary mx-auto mb-2" />
+                        <div className="text-sm font-medium">Algorithms</div>
+                      </div>
+                      <div className="bg-background/80 p-4 rounded-xl text-center">
+                        <Database className="h-8 w-8 text-green-500 mx-auto mb-2" />
+                        <div className="text-sm font-medium">Data Structures</div>
+                      </div>
+                      <div className="bg-background/80 p-4 rounded-xl text-center">
+                        <Target className="h-8 w-8 text-purple-500 mx-auto mb-2" />
+                        <div className="text-sm font-medium">Problem Solving</div>
+                      </div>
+                      <div className="bg-background/80 p-4 rounded-xl text-center">
+                        <Trophy className="h-8 w-8 text-orange-500 mx-auto mb-2" />
+                        <div className="text-sm font-medium">Interview Prep</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -171,46 +132,54 @@ export const DSASection = () => {
         >
           {[
             {
-              title: "Problem Solving Approach",
-              description: "Learn systematic approach to solve any DSA problem",
-              icon: <Code className="h-6 w-6 text-blue-400" />,
-              items: ["Understand the problem", "Identify patterns", "Optimize solution"],
+              title: "Structured Learning Path",
+              description: "Follow a proven 24-week roadmap from basics to advanced",
+              icon: <Brain className="h-6 w-6 text-blue-400" />,
+              items: ["Foundation concepts", "Core algorithms", "Advanced topics"],
               color: "blue"
             },
             {
               title: "Interview Preparation",
-              description: "Get ready for top tech company interviews",
+              description: "Get ready for top tech company technical interviews",
               icon: <Target className="h-6 w-6 text-green-400" />,
               items: ["FAANG-level problems", "Mock interviews", "Time complexity focus"],
               color: "green"
             },
             {
-              title: "Track Progress",
-              description: "Monitor your learning journey and achievements",
-              icon: <Trophy className="h-6 w-6 text-purple-400" />,
-              items: ["Progress tracking", "Skill assessments", "Achievement badges"],
+              title: "Hands-on Practice",
+              description: "Solve problems on top coding platforms",
+              icon: <Zap className="h-6 w-6 text-purple-400" />,
+              items: ["LeetCode integration", "Real-time feedback", "Progress tracking"],
               color: "purple"
             }
           ].map((feature, index) => (
-            <Card key={index} className="glass-card border-border hover:border-primary/30 transition-all duration-300">
-              <CardHeader>
-                <div className={`p-3 bg-${feature.color}-500/10 rounded-lg w-fit mb-3`}>
-                  {feature.icon}
-                </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-                <CardDescription className="text-muted-foreground">{feature.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-muted-foreground">
-                  {feature.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className={`w-1.5 h-1.5 bg-${feature.color}-400 rounded-full`}></div>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 * index }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full glass-card bg-gradient-to-br from-card/50 to-muted/50 dark:from-card/30 dark:to-muted/30 border border-border hover:border-primary/30 transition-all duration-300">
+                <CardHeader>
+                  <div className={`p-3 bg-gradient-to-br from-${feature.color}-500/20 to-${feature.color}-600/20 rounded-xl w-fit`}>
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {feature.items.map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm">
+                        <div className={`h-1.5 w-1.5 bg-${feature.color}-500 rounded-full`} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -231,15 +200,26 @@ export const DSASection = () => {
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join our community of 500K+ students who have mastered DSA and landed their dream tech jobs.
               </p>
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground px-12"
-                onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
-              >
-                <Star className="mr-2 h-5 w-5" />
-                Start Learning Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/dsa">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-primary-foreground px-12"
+                  >
+                    <Star className="mr-2 h-5 w-5" />
+                    Start Learning Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={() => window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-5 w-5" />
+                  View Free Resources
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </motion.div>
