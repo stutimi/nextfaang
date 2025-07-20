@@ -67,8 +67,8 @@ export const ContestSearch = ({ handle, onAnalysisComplete }: ContestSearchProps
   }, [handle]);
 
   const makeCodeforcesRequest = async (endpoint: string) => {
-    // Using a CORS proxy to access Codeforces API
-    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    // Using a more reliable CORS proxy to access Codeforces API
+    const proxyUrl = 'https://corsproxy.io/?';
     const codeforcesUrl = `https://codeforces.com/api/${endpoint}`;
     const fullUrl = proxyUrl + encodeURIComponent(codeforcesUrl);
     
