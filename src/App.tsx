@@ -25,6 +25,7 @@ import CPArena from "./pages/CPArena";
 import CompetitiveProgramming from "./pages/CompetitiveProgramming";
 import Community from "./pages/Community";
 import About from "./pages/About";
+import SystemDesign from "./pages/SystemDesign";
 import { SimpleProfilePage } from "./components/SimpleProfilePage";
 import { TestDropdown } from "./components/TestDropdown";
 
@@ -131,6 +132,11 @@ const App = () => {
             <Route path="/about" element={
               <ErrorBoundary>
                 <About />
+              </ErrorBoundary>
+            } />
+            <Route path="/system-design" element={
+              <ErrorBoundary>
+                <SystemDesign />
               </ErrorBoundary>
             } />
             <Route path="/profile" element={

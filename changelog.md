@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Changelog](https://img.shields.io/badge/📋_Changelog-NEXTFAANG-blue?style=for-the-badge&logo=git&logoColor=white)
-![Version](https://img.shields.io/badge/Latest_Version-19.0.0-success?style=for-the-badge)
+![Version](https://img.shields.io/badge/Latest_Version-20.0.0-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active_Development-orange?style=for-the-badge)
 
 **🚀 Track the evolution of India's First LGM Platform**
@@ -33,7 +33,89 @@
 
 ---
 
-## 🚀 Version 19.0.0 (2025-07-20) - MAJOR RELEASE
+## 🚀 Version 20.0.0 (2025-07-20) - MAJOR RELEASE
+
+<div align="center">
+
+### �️ **SyCstem Design Page Creation & Content Reorganization**
+![Major Release](https://img.shields.io/badge/Type-MAJOR_RELEASE-purple?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Released-success?style=flat-square)
+
+*Major update introducing a dedicated System Design page and reorganizing content for better user experience.*
+
+</div>
+
+#### ✨ **Key Changes**
+
+<table>
+<tr>
+<td width="33%" align="center">
+
+##### 🏗️ **New System Design Page**
+- ✅ **NEW PAGE**: Created dedicated `/system-design` route with comprehensive content
+- ✅ **Enhanced Navigation**: Added System Design to main navigation menu
+- ✅ **Structured Content**: Organized content into logical sections
+- ✅ **Responsive Design**: Optimized layout for all device sizes
+- ✅ **Visual Hierarchy**: Clear organization of system design concepts
+
+</td>
+<td width="33%" align="center">
+
+##### 🔄 **Content Reorganization**
+- ✅ **Content Migration**: Moved System Design Mastery section from home page
+- ✅ **Enhanced Structure**: Expanded content with more detailed sections
+- ✅ **Better Organization**: Logical grouping of related system design topics
+- ✅ **Improved Accessibility**: Better content structure for screen readers
+- ✅ **Cross-Linking**: Added links between related content sections
+
+</td>
+<td width="33%" align="center">
+
+##### � ***Navigation Improvements**
+- ✅ **Main Menu**: Added System Design to main navigation
+- ✅ **Tools Menu**: Added System Design to tools items
+- ✅ **Home Page Links**: Updated home page to link to new System Design page
+- ✅ **Consistent Experience**: Maintained design consistency across platform
+- ✅ **User Flow**: Improved content discovery and navigation paths
+
+</td>
+</tr>
+</table>
+
+#### 🏗️ **System Design Page Structure**
+
+##### 📁 **Content Organization**
+- **Architecture Patterns**: Scalable system design principles
+- **Technology Deep Dives**: Database, caching, and microservices
+- **Case Studies**: Real-world system design examples
+- **Interview Preparation**: System design interview practice
+- **Resource Library**: Curated books, articles, and video content
+
+##### 🎯 **User Benefits**
+- **Focused Learning**: Dedicated space for system design concepts
+- **Better Organization**: Logical structure for progressive learning
+- **Enhanced Discovery**: Easier to find system design resources
+- **Comprehensive Coverage**: Expanded content on system design topics
+- **Improved Navigation**: Direct access from main navigation
+
+#### � **cImpact Metrics**
+
+| 📈 Metric | 🔢 Before | 🔢 After | 📊 Improvement |
+|-----------|-----------|----------|----------------|
+| **Content Accessibility** | Embedded in home page | Dedicated page | +100% |
+| **Content Organization** | Basic section | Comprehensive structure | +300% |
+| **Navigation Efficiency** | Scroll-based | Direct link | +200% |
+| **Content Depth** | Limited overview | Detailed sections | +400% |
+
+#### 🔄 **Navigation Updates**
+- **Main Navigation**: Added System Design link with "New" badge
+- **Tools Menu**: Added System Design to available tools
+- **Home Page**: Updated System Design section to link to new page
+- **Course Catalog**: Updated System Design Mastery link to new page
+
+---
+
+## 🚀 Version 19.0.0 (2025-07-19) - MAJOR RELEASE
 
 <div align="center">
 

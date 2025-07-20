@@ -27,6 +27,7 @@ export const getNavItems = (location: { pathname: string }, scrollToSection: (id
     type: location.pathname === '/' ? 'scroll' as const : 'link' as const
   },
   { label: "DSA", icon: "Book", href: "/dsa", badge: "New", type: 'link' as const },
+  { label: "System Design", icon: "Layout", href: "/system-design", badge: "New", type: 'link' as const },
   { label: "Competitive Programming", icon: "Code", href: "/competitive-programming", badge: "Hot", type: 'link' as const },
   { label: "Resources", icon: "BookOpen", href: "/resources", badge: null, type: 'link' as const },
   { label: "Community", icon: "Users", href: "/community", badge: null, type: 'link' as const },
@@ -39,5 +40,6 @@ export const toolsItems: ToolItem[] = [
   { label: "CP Dictionary", href: "/cp-dictionary", icon: "Book", description: "Learn competitive programming terms" },
   { label: "Language Translator", href: "/language-translation", icon: "Globe", description: "Translate code between programming languages", badge: "Live" },
   { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: "Rocket", description: "Master advanced techniques" },
-  { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" }
+  { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
+  { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
 ];
