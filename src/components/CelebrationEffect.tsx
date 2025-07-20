@@ -56,10 +56,10 @@ export const CelebrationEffect = ({ show, onComplete }: CelebrationEffectProps) 
       {/* Celebration text */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-6xl font-bold text-white mb-4 animate-bounce">
+          <h1 className="text-6xl font-bold text-primary-foreground mb-4 animate-bounce">
             🎉 Welcome to NextFang! 🎉
           </h1>
-          <p className="text-2xl text-white/80 animate-pulse">
+          <p className="text-2xl text-primary-foreground/80 animate-pulse">
             Your coding adventure starts now!
           </p>
         </div>

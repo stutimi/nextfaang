@@ -8,7 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 import { ErrorCatcher } from "@/components/ErrorCatcher";
 import { ReactLifecycleSafetyWrapper } from "@/components/ReactLifecycleSafetyWrapper";
-import { useReconcilerRecovery } from "@/hooks/useReconcilerRecovery";
+// Removed problematic hook import
 import Index from "./pages/Index";
 
 import NotFound from "./pages/NotFound";
@@ -22,15 +22,13 @@ import CPTricksAndTips from "./pages/CPTricksAndTips";
 import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
 import CPArena from "./pages/CPArena";
+import CompetitiveProgramming from "./pages/CompetitiveProgramming";
 import { ProfilePage } from "./components/ProfilePage";
 
 
 const App = () => {
-  // Use reconciler recovery hook to handle React internal errors
-  const { recoveryCount } = useReconcilerRecovery();
-  
   return (
-    <ErrorCatcher key={`app-${recoveryCount}`}>
+    <ErrorCatcher>
       <ReactLifecycleSafetyWrapper>
         <ThemeProvider
           attribute="class"
@@ -77,6 +75,11 @@ const App = () => {
                 <ResumeTips />
               </ErrorBoundary>
             } />
+            <Route path="/dsa" element={
+              <ErrorBoundary>
+                <DSAMastery />
+              </ErrorBoundary>
+            } />
             <Route path="/dsa-mastery" element={
               <ErrorBoundary>
                 <DSAMastery />
@@ -110,6 +113,11 @@ const App = () => {
             <Route path="/cp-arena" element={
               <ErrorBoundary>
                 <CPArena />
+              </ErrorBoundary>
+            } />
+            <Route path="/competitive-programming" element={
+              <ErrorBoundary>
+                <CompetitiveProgramming />
               </ErrorBoundary>
             } />
             <Route path="/profile" element={

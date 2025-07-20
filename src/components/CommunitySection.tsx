@@ -81,7 +81,7 @@ export const CommunitySection = () => {
             </div>
             <div className="text-2xl font-bold text-blue-400">2.5K+ Followers</div>
             <Button 
-              className="w-full bg-blue-400 hover:bg-blue-500 text-white"
+              className="w-full bg-blue-400 hover:bg-blue-500 text-primary-foreground"
               onClick={() => window.open('https://x.com/Stutimishra9451?t=639oGTHn8YLhLdsKorcNsA&s=09', '_blank')}
             >
               Follow on X

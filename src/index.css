@@ -6,54 +6,54 @@
 
 @layer base {
   :root {
-    /* Light Theme - Clean and Professional */
-    --background: 0 0% 100%;      /* Pure white background */
-    --foreground: 222 84% 5%;     /* Dark text */
+    /* Light Theme - Enhanced Visibility */
+    --background: 0 0% 98%;       /* Slightly off-white for better contrast */
+    --foreground: 222 84% 4%;     /* Much darker text for better readability */
 
-    --card: 0 0% 100%;            /* White cards */
-    --card-foreground: 222 84% 5%;
+    --card: 0 0% 100%;            /* Pure white cards */
+    --card-foreground: 222 84% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
+    --popover-foreground: 222 84% 4%;
 
-    --primary: 221 83% 53%;       /* Professional blue */
-    --primary-foreground: 210 40% 98%;
+    --primary: 221 83% 35%;       /* Much darker blue for better contrast */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;     /* Light gray secondary */
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 210 40% 88%;     /* Darker gray */
+    --secondary-foreground: 222 47% 8%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 210 40% 88%;         /* More visible muted background */
+    --muted-foreground: 215 16% 20%; /* Much darker muted text */
 
-    --accent: 210 40% 96%;        /* Light accent */
-    --accent-foreground: 222 47% 11%;
+    --accent: 210 40% 82%;        /* More visible accent */
+    --accent-foreground: 222 47% 8%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --border: 214 32% 75%;        /* Much more visible borders */
+    --input: 214 32% 80%;         /* More visible input backgrounds */
+    --ring: 221 83% 35%;
 
     --radius: 1rem;
 
     /* Light Theme Color Palette */
-    --light-bg: 0 0% 100%;        /* Pure white */
-    --purple: 271 50% 47%;        /* Professional purple */
-    --pink: 320 65% 52%;          /* Softer pink */
-    --neon-blue: 221 83% 53%;     /* Professional blue */
-    --light-blue: 195 100% 85%;   /* Light blue accent */
+    --light-bg: 0 0% 98%;         /* Slightly off-white */
+    --purple: 271 50% 40%;        /* Darker purple for better contrast */
+    --pink: 320 65% 45%;          /* Darker pink for better contrast */
+    --neon-blue: 221 83% 45%;     /* Darker blue for better contrast */
+    --light-blue: 195 100% 70%;   /* Darker light blue accent */
 
     /* Light Theme Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--light-blue)));
     --gradient-accent: linear-gradient(135deg, hsl(var(--purple)), hsl(var(--pink)));
     --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
-    --gradient-glow: linear-gradient(135deg, hsl(var(--pink) / 0.2), hsl(var(--neon-blue) / 0.2));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--pink) / 0.4), hsl(var(--neon-blue) / 0.4));
 
     /* Light Theme Glass Effects */
-    --glass-bg: hsla(var(--card) / 0.8);
-    --glass-border: hsla(var(--neon-blue) / 0.2);
-    --glass-glow: hsla(var(--pink) / 0.3);
+    --glass-bg: hsla(var(--card) / 0.9);
+    --glass-border: hsla(var(--neon-blue) / 0.4);
+    --glass-glow: hsla(var(--pink) / 0.5);
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222 84% 5%;
@@ -140,19 +140,23 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Light theme body background */
+  /* Enhanced light theme body background */
   body {
     background: 
-      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 20%, hsl(var(--card)) 80%, hsl(var(--background)) 100%);
-    background-size: 400% 400%;
+      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 20%, hsl(var(--card)) 80%, hsl(var(--background)) 100%),
+      radial-gradient(circle at 20% 20%, hsl(var(--primary) / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(var(--accent) / 0.05) 0%, transparent 50%);
+    background-size: 400% 400%, 100% 100%, 100% 100%;
     animation: lightShimmer 20s ease infinite;
   }
 
-  /* Dark theme body background */
+  /* Enhanced dark theme body background */
   .dark body {
     background: 
-      linear-gradient(135deg, hsl(217 38% 8%) 0%, hsl(var(--background)) 30%, hsl(var(--card)) 70%, hsl(217 38% 8%) 100%);
-    background-size: 400% 400%;
+      linear-gradient(135deg, hsl(217 38% 8%) 0%, hsl(var(--background)) 30%, hsl(var(--card)) 70%, hsl(217 38% 8%) 100%),
+      radial-gradient(circle at 30% 30%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, hsl(var(--accent) / 0.08) 0%, transparent 50%);
+    background-size: 400% 400%, 100% 100%, 100% 100%;
     animation: futuristicShimmer 20s ease infinite;
   }
 
@@ -1206,6 +1210,27 @@
       0 0 40px hsl(var(--neon-blue) / 0.8),
       0 0 80px hsl(var(--neon-blue) / 0.4),
       inset 0 0 40px hsl(var(--neon-blue) / 0.2);
+  }
+}
+
+@keyframes lightShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes futuristicShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes slideInFade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

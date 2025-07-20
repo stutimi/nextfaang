@@ -165,7 +165,7 @@ export const FutureScope = () => {
         <div className="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute inset-0 opacity-15 dark:opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -283,30 +283,30 @@ export const FutureScope = () => {
           
           <CardContent className="p-12 text-center relative z-10">
             <div className="flex justify-center mb-8">
-              <Rocket className="h-16 w-16 text-white" />
+              <Rocket className="h-16 w-16 text-primary-foreground" />
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground">
               Our Vision for the Future
             </h2>
             
-            <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
               We're building the world's most advanced platform for competitive programming and 
               technical education, powered by AI and designed for students by students.
             </p>
             
             <div className="grid md:grid-cols-3 gap-8 mb-10">
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">1M+</div>
-                <div className="text-white/80 text-sm font-medium">Students Worldwide</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">1M+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Students Worldwide</div>
               </div>
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">100+</div>
-                <div className="text-white/80 text-sm font-medium">Industry Partners</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">100+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Industry Partners</div>
               </div>
               <div className="group">
-                <div className="text-4xl font-bold mb-2 text-white group-hover:text-primary transition-colors">50+</div>
-                <div className="text-white/80 text-sm font-medium">Smart AI Tools</div>
+                <div className="text-4xl font-bold mb-2 text-primary-foreground group-hover:text-primary transition-colors">50+</div>
+                <div className="text-primary-foreground/80 text-sm font-medium">Smart AI Tools</div>
               </div>
             </div>
             

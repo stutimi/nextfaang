@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { useReconcilerSafeRender } from '@/hooks/useReconcilerRecovery';
 
 interface Props {
   children: ReactNode;
@@ -162,13 +161,5 @@ class ReactLifecycleSafetyWrapperClass extends Component<Props, State> {
   }
 }
 
-// Functional component wrapper that uses the reconciler recovery hook
-export const ReactLifecycleSafetyWrapper: React.FC<Props> = ({ children, ...props }) => {
-  const renderKey = useReconcilerSafeRender();
-  
-  return (
-    <ReactLifecycleSafetyWrapperClass key={`lifecycle-${renderKey}`} {...props}>
-      {children}
-    </ReactLifecycleSafetyWrapperClass>
-  );
-};
+// Export the class component directly to avoid hook issues
+export const ReactLifecycleSafetyWrapper = ReactLifecycleSafetyWrapperClass;

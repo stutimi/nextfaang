@@ -78,10 +78,10 @@ export const SmartToolsSection = () => {
   return (
     <section className="relative py-24 bg-gradient-to-br from-background to-muted overflow-hidden" id="tools">
       {/* Background elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30 dark:opacity-20">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-violet-500/20 dark:bg-violet-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/20 dark:bg-primary/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -212,7 +212,7 @@ export const SmartToolsSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="glass-card bg-gradient-to-br from-card/30 to-muted/30 border border-border">
+          <Card className="glass-card bg-gradient-to-br from-card/50 to-muted/50 dark:from-card/30 dark:to-muted/30 border border-border">
             <CardContent className="py-12">
               <div className="p-4 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full w-fit mx-auto mb-6">
                 <Zap className="h-8 w-8 text-primary-foreground" />
