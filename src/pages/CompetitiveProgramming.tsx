@@ -18,7 +18,8 @@ import {
     TrendingUp,
     Rocket,
     Sword,
-    ChevronRight
+    ChevronRight,
+    History
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -446,11 +447,107 @@ const CompetitiveProgramming = () => {
                     </TabsContent>
                 </Tabs>
 
-                {/* CP Legends Section */}
+                {/* Origins & Evolution of Competitive Programming */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
+                    className="mb-16"
+                >
+                    <div className="text-center mb-12">
+                        <div className="flex items-center justify-center gap-3 mb-6">
+                            <div className="p-3 bg-primary/10 rounded-2xl">
+                                <Clock className="h-8 w-8 text-primary" />
+                            </div>
+                            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                                Origins & Evolution of Competitive Programming
+                            </h2>
+                        </div>
+                        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                            From 1970s ACM ICPC to modern global CP platforms
+                        </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        {/* 1970s-1980s */}
+                        <Card className="card-3d border-2 border-primary/20">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                                        <Clock className="h-6 w-6 text-blue-500" />
+                                    </div>
+                                    <CardTitle>1970s-1980s</CardTitle>
+                                </div>
+                                <CardDescription>The Birth</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">
+                                    ACM ICPC (1970) started at Texas A&M, grew international by 1980s using Pascal, Fortran, and C.
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        {/* 1990s */}
+                        <Card className="card-3d border-2 border-primary/20">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                                        <Clock className="h-6 w-6 text-blue-500" />
+                                    </div>
+                                    <CardTitle>1990s</CardTitle>
+                                </div>
+                                <CardDescription>Academic Growth</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">
+                                    ICPC became prestigious, top universities started training teams, early online judges appeared (PKU, UVa).
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        {/* 2000s */}
+                        <Card className="card-3d border-2 border-primary/20">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                                        <Clock className="h-6 w-6 text-blue-500" />
+                                    </div>
+                                    <CardTitle>2000s</CardTitle>
+                                </div>
+                                <CardDescription>Online Revolution</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">
+                                    TopCoder (2001), Codeforces (2009), CodeChef (2009) revolutionized CP with online contests and rating systems.
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        {/* 2010s-2020s */}
+                        <Card className="card-3d border-2 border-primary/20">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                                        <Clock className="h-6 w-6 text-blue-500" />
+                                    </div>
+                                    <CardTitle>2010s-2020s</CardTitle>
+                                </div>
+                                <CardDescription>Globalization</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">
+                                    Google Code Jam, Facebook Hacker Cup, educational content, and global participation explosion.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </motion.div>
+
+                {/* CP Legends Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
                     className="mb-16"
                 >
                     <div className="text-center mb-12">

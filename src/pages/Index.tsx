@@ -84,9 +84,6 @@ const Index = () => {
         
         <section id="learning-sections" className="space-y-20 md:space-y-32">
 
-          <div id="cp-section">
-            <CPSection />
-          </div>
           <SystemDesignSection />
         </section>
 
@@ -96,7 +93,7 @@ const Index = () => {
         
         <OpenSourceSection />
         
-        <FutureScope />
+        
       </main>
       
       {/* Enhanced UI Components */}

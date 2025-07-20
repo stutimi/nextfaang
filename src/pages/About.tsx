@@ -1,5 +1,6 @@
 import { ContactSection } from "@/components/ContactSection";
 import { Navbar } from "@/components/Navbar";
+import { FutureScope } from "@/components/FutureScope";
 import { motion } from "framer-motion";
 
 const About = () => {
@@ -133,6 +134,7 @@ const About = () => {
           </div>
         </section>
 
+        <FutureScope />
         {/* Contact Section */}
         <ContactSection />
       </main>
