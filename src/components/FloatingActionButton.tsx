@@ -44,7 +44,7 @@ export const FloatingActionButton = () => {
       <AnimatePresence>
         {isOpen && (
           <div className="absolute bottom-16 right-0 space-y-3">
-            {actions.map((action, index) => (
+            {actions.map((action) => (
               <motion.div
                 key={action.label}
                 initial={{ opacity: 0, scale: 0, x: 20 }}

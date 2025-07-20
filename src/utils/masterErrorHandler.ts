@@ -102,6 +102,25 @@ export class MasterErrorHandler {
   };
 
   private handleMasterRejection = (event: PromiseRejectionEvent) => {
+    const reason = event.reason?.toString() || '';
+    
+    // Check if this is a Clerk class constructor error
+    if (reason.includes('Class constructors cannot be invoked without') && 
+        reason.includes('clerk')) {
+      console.debug('🔧 Clerk class constructor error handled by master handler');
+      event.preventDefault(); // Prevent the error from propagating
+      return;
+    }
+    
+    // Check if this is an extension-related error
+    if (reason.includes('universal-blocker') ||
+        reason.includes('feedback-manager') ||
+        reason.includes('content-blocker')) {
+      console.debug('🛡️ Extension error handled by master handler');
+      event.preventDefault();
+      return;
+    }
+    
     // This is the final catch-all for any promise rejections not handled by specific handlers
     console.log('🔍 Master error handler caught unhandled promise rejection:', event.reason);
     
