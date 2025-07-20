@@ -1,7 +1,7 @@
-project_id = "ksesqwvwppigjpmpjutx"
+project_id = "nmvxaplrijzknqbbpdck"
 
 [auth]
-site_url = "https://ksesqwvwppigjpmpjutx.supabase.co"
+site_url = "https://nmvxaplrijzknqbbpdck.supabase.co"
 additional_redirect_urls = ["https://localhost:3000"]
 
 [db]

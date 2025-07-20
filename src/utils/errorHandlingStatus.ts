@@ -45,7 +45,7 @@ The workLoopSync error you're seeing is being caught and handled by our comprehe
 - All element creation functions
 - All chunk loading operations
 - All theme hydration issues
-- All Clerk integration errors
+- All authentication errors
 
 🔄 AUTOMATIC RECOVERY ACTIVE:
 - Component remounting on errors

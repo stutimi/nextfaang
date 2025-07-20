@@ -12,7 +12,7 @@
     "setup": "node setup-dev.js"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.35.3",
+
     "@hookform/resolvers": "^3.9.0",
     "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-accordion": "^1.2.0",

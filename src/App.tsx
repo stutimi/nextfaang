@@ -23,7 +23,8 @@ import LanguageTranslation from "./pages/LanguageTranslation";
 import ContestAnalyzer from "./pages/ContestAnalyzer";
 import CPArena from "./pages/CPArena";
 import CompetitiveProgramming from "./pages/CompetitiveProgramming";
-import { ProfilePage } from "./components/ProfilePage";
+import { SimpleProfilePage } from "./components/SimpleProfilePage";
+import { TestDropdown } from "./components/TestDropdown";
 
 
 const App = () => {
@@ -122,7 +123,12 @@ const App = () => {
             } />
             <Route path="/profile" element={
               <ErrorBoundary>
-                <ProfilePage />
+                <SimpleProfilePage />
+              </ErrorBoundary>
+            } />
+            <Route path="/test-dropdown" element={
+              <ErrorBoundary>
+                <TestDropdown />
               </ErrorBoundary>
             } />
 
