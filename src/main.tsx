@@ -54,7 +54,6 @@ setTimeout(() => {
   // Import extension error test in development mode only
   if (import.meta.env.DEV) {
     import('./utils/extensionErrorTest');
-    import('./utils/errorFixTest');
   }
 }, 2000);
 
