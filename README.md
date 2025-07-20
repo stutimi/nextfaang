@@ -282,12 +282,8 @@
 </td>
 <td width="50%">
 
-#### 🚀 **System Design Mastery**
-- 🏗️ **Architecture Patterns** - Scalable system design principles
-- 🔧 **Technology Deep Dives** - Database, caching, and microservices
-- 📊 **Case Studies** - Real-world system design examples
-- 🎯 **Interview Preparation** - System design interview practice
-- 📚 **Resource Library** - Curated books, articles, and video content
+#### 🚀 **System Design**
+- 🏗️ **[Visit System Design Page](https://nextfaang.vercel.app/system-design)** - Comprehensive system design resources and learning materials
 
 #### 🎮 **Hackathon Success Hub**
 - 🏆 **Platform Integration** - Unstop, Hack2skill, Devfolio connections
@@ -394,7 +390,7 @@ graph TD
 | 📚 Course | 🎯 Level | ⏱️ Duration | 🏆 Completion Rate |
 |-----------|----------|-------------|-------------------|
 | **Striver's A2Z DSA** | Beginner-Advanced | 6 months | 94% |
-| **System Design Mastery** | Advanced | 3 months | 89% |
+| **[System Design Mastery](https://nextfaang.vercel.app/system-design)** | Advanced | 3 months | 89% |
 | **CP Contest Strategies** | Intermediate | 2 months | 92% |
 | **FAANG Interview Prep** | Advanced | 4 months | 96% |
 | **Open Source Contribution** | All Levels | Ongoing | 87% |
