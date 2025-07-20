@@ -84,7 +84,40 @@ export class ClerkInstanceSafetyWrapper {
 
   private safeCreateClerkInstance(component: any, props?: any, children?: any) {
     try {
-      // Use React.createElement with additional safety
+      // Handle class constructor issues with Clerk components
+      if (typeof component === 'function') {
+        // Check if it's a class component that needs 'new'
+        const componentString = component.toString();
+        if (componentString.includes('class ') || componentString.includes('_classCallCheck')) {
+          // For class components, ensure proper instantiation
+          try {
+            if (children !== undefined) {
+              return React.createElement(component, props, children);
+            } else {
+              return React.createElement(component, props);
+            }
+          } catch (classError) {
+            // If class instantiation fails, try with a wrapper
+            console.warn('Class component instantiation failed, trying wrapper approach:', classError);
+            const WrappedComponent = (wrapperProps: any) => {
+              try {
+                return new component(wrapperProps);
+              } catch (innerError) {
+                console.error('Wrapper approach also failed:', innerError);
+                return null;
+              }
+            };
+            
+            if (children !== undefined) {
+              return React.createElement(WrappedComponent, props, children);
+            } else {
+              return React.createElement(WrappedComponent, props);
+            }
+          }
+        }
+      }
+      
+      // Standard React.createElement for function components
       if (children !== undefined) {
         return React.createElement(component, props, children);
       } else {

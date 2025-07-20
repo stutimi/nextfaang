@@ -19,6 +19,7 @@ import { Chatbot } from "@/components/Chatbot";
 import { VoiceAITour } from "@/components/VoiceAITour";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { InteractiveBackground } from "@/components/InteractiveBackground";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const Index = () => {
   const [showChatbot, setShowChatbot] = useState(false);
@@ -111,6 +112,7 @@ const Index = () => {
       {/* Enhanced UI Components */}
       <ScrollProgress />
       <Chatbot />
+      <FloatingActionButton />
       {showTour && <VoiceAITour onClose={() => setShowTour(false)} />}
     </div>
   );

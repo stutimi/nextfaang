@@ -21,10 +21,9 @@ export const ScrollProgress = () => {
       {/* Top progress bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-border/20 z-50">
         <motion.div
-          className="h-full bg-gradient-to-r from-primary via-accent to-secondary"
+          className="h-full bg-gradient-to-r from-primary via-accent to-secondary origin-left"
           style={{ scaleX: scrollProgress }}
           initial={{ scaleX: 0 }}
-          transformOrigin="left"
         />
       </div>
       

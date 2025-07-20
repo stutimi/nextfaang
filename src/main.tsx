@@ -19,6 +19,13 @@ import { checkErrorHandlingStatus, logCurrentProtectionStatus } from '@/utils/er
 import { clerkCookieHandler } from '@/utils/clerkCookieHandler';
 import { applyClerkDevelopmentFixes, logClerkDevelopmentStatus } from '@/utils/clerkDevelopmentFixes';
 import { shouldBypassAuth } from '@/utils/devMode';
+import { extensionInterferenceHandler } from '@/utils/extensionInterferenceHandler';
+
+// Initialize extension interference handler first (before anything else)
+extensionInterferenceHandler.initialize();
+
+// Make extension handler available globally for testing
+(window as any).extensionInterferenceHandler = extensionInterferenceHandler;
 
 // Apply Clerk development fixes first (before any Clerk initialization)
 applyClerkDevelopmentFixes();
@@ -41,6 +48,7 @@ setTimeout(() => {
   // Import extension error test in development mode only
   if (import.meta.env.DEV) {
     import('./utils/extensionErrorTest');
+    import('./utils/errorFixTest');
   }
 }, 2000);
 
