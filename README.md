@@ -144,9 +144,9 @@
 
 | 🌐 Platform | 👥 Community Size | 🎯 Primary Use | 🔗 Access |
 |-------------|-------------------|----------------|-----------|
-| **Discord** | 850+ Members | Real-time chat, voice rooms, study groups | [Join Now](https://discord.gg/EvJRUDZG) |
-| **Telegram** | 650+ Members | Quick updates, contest alerts, resources | [Join Group](https://t.me/+ESH0q0W9-1A2Nzdl) |
-| **Twitter/X** | 2.5K+ Followers | Latest updates, CP tips, community highlights | [Follow](https://x.com/Stutimishra9451) |
+| **Discord** |  100+ Members | Real-time chat, voice rooms, study groups | [Join Now](https://discord.gg/EvJRUDZG) |
+| **Telegram** | 150+ Members | Quick updates, contest alerts, resources | [Join Group](https://t.me/+ESH0q0W9-1A2Nzdl) |
+| **Twitter/X** | 1K+ Followers | Latest updates, CP tips, community highlights | [Follow](https://x.com/Stutimishra9451) |
 | **WhatsApp** | 270+ Members | Personal support, quick doubt resolution | [Join Chat](https://chat.whatsapp.com/E9ijb3svQ9PC75ugH03dGN) |
 | **LinkedIn** | Professional Network | Career updates, professional networking | [Connect](https://www.linkedin.com/in/next-fang-7b514a376/) |
 
