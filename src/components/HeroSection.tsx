@@ -122,42 +122,49 @@ export const HeroSection = () => {
 
           {/* Enhanced Headline */}
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 leading-[0.9] tracking-tight"
           >
             <motion.span 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="block text-gray-800 dark:text-gray-100 mb-2 font-extrabold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="block text-foreground/90 mb-3 font-bold text-2xl md:text-3xl lg:text-4xl"
             >
               Welcome to
             </motion.span>
             <motion.span 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-              className="block bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent relative font-black"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.4, type: "spring", stiffness: 120, damping: 10 }}
+              className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent relative font-black"
             >
               NEXTFAANG
+              {/* Enhanced glow effect */}
               <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-indigo-500/30 dark:from-blue-400/20 dark:via-purple-400/20 dark:to-indigo-400/20 rounded-lg blur-xl"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              {/* Additional glow effect for better visibility */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent opacity-80"
+                className="absolute -inset-2 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-2xl blur-2xl"
                 animate={{ 
-                  textShadow: [
-                    "0 0 20px rgba(59, 130, 246, 0.5)",
-                    "0 0 40px rgba(147, 51, 234, 0.5)",
-                    "0 0 20px rgba(59, 130, 246, 0.5)"
+                  opacity: [0.3, 0.8, 0.3],
+                  scale: [0.95, 1.05, 0.95]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              />
+              {/* Text shadow for depth */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+                style={{
+                  filter: "drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))"
+                }}
+                animate={{ 
+                  filter: [
+                    "drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))",
+                    "drop-shadow(0 0 30px rgba(59, 130, 246, 0.5))",
+                    "drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))"
                   ]
                 }}
-                transition={{ duration: 3, repeat: Infinity }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
                 NEXTFAANG
               </motion.div>
@@ -168,64 +175,72 @@ export const HeroSection = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mb-12 space-y-4"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mb-16 space-y-6"
           >
             <motion.p 
-              className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed font-medium"
+              className="text-xl md:text-2xl lg:text-3xl text-foreground/80 mb-6 max-w-5xl mx-auto leading-relaxed font-semibold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
             >
-              Master competitive programming and data structures to crack top tech companies
+              Master competitive programming and data structures to crack{" "}
+              <span className="text-primary font-bold">top tech companies</span>
             </motion.p>
             <motion.p 
-              className="text-lg text-muted-foreground/80 max-w-3xl mx-auto"
+              className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
             >
-              Join thousands of students transforming their coding journey with India's most comprehensive platform
+              Join <span className="text-accent font-semibold">thousands of students</span> transforming their coding journey with India's most comprehensive platform
             </motion.p>
           </motion.div>
 
           {/* Enhanced CTA Buttons */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="flex flex-col sm:flex-row gap-8 justify-center items-center mb-24"
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <Button size="xl" variant="neon" className="px-12 gap-3 text-lg font-semibold">
+              <Button size="xl" variant="neon" className="px-16 gap-4 text-xl font-bold shadow-2xl">
                 <motion.div
                   animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
-                  <Rocket className="h-6 w-6" />
+                  <Rocket className="h-7 w-7" />
                 </motion.div>
                 Start Your Journey
+                <motion.div
+                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/20 to-blue-400/20"
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
               </Button>
             </motion.div>
             
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <Button 
                 variant="glass" 
                 size="xl" 
-                className="px-12 gap-3 text-lg font-semibold" 
+                className="px-16 gap-4 text-xl font-bold shadow-xl" 
                 onClick={scrollToFeatures}
               >
                 <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <ChevronDown className="h-6 w-6" />
+                  <ChevronDown className="h-7 w-7" />
                 </motion.div>
                 Explore Features
               </Button>

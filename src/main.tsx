@@ -21,6 +21,13 @@ import { clerkCookieHandler } from '@/utils/clerkCookieHandler';
 import { clerkErrorHandler } from '@/utils/clerkErrorHandler';
 import { applyClerkDevelopmentFixes, logClerkDevelopmentStatus } from '@/utils/clerkDevelopmentFixes';
 import { shouldBypassAuth } from '@/utils/devMode';
+import { extensionInterferenceHandler } from '@/utils/extensionInterferenceHandler';
+
+// Initialize extension interference handler first (before anything else)
+extensionInterferenceHandler.initialize();
+
+// Make extension handler available globally for testing
+(window as any).extensionInterferenceHandler = extensionInterferenceHandler;
 
 // Initialize extension conflict handler first (before anything else)
 extensionConflictHandler.initialize();
