@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
-import { MobileNavbar } from "@/components/MobileNavbar";
-import { MobileNavbarStatus } from "@/components/MobileNavbarStatus";
 import { BottomNav } from "@/components/navbar/BottomNav";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
@@ -202,16 +200,7 @@ export default function DSAMastery() {
 
   return (
     <div className="min-h-screen bg-background dsa-mobile-container">
-      {/* Conditional Navbar Rendering */}
-      {isMobile ? (
-        <MobileNavbar
-          showBackButton={true}
-          backTo="/"
-          title="DSA Mastery"
-        />
-      ) : (
-        <Navbar />
-      )}
+      <Navbar />
 
       <div className={`container mx-auto px-3 sm:px-4 lg:px-6 py-4 md:py-8 pb-24 sm:pb-20 md:pb-8 ${isMobile ? '' : 'mobile-nav-safe'}`}>
         {/* Header - Back button only on desktop */}
@@ -869,8 +858,7 @@ export default function DSAMastery() {
         </motion.div>
       </div>
 
-      {/* Mobile Navbar Status - Development only */}
-      <MobileNavbarStatus />
+
 
       {/* Bottom Navigation for Mobile */}
       <BottomNav onMenuClick={handleBottomNavMenu} />

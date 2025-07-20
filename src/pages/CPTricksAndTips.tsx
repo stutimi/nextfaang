@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lightbulb, Code, Clock, Target, ArrowLeft, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Navbar } from "@/components/Navbar";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const CPTricksAndTips = () => {
@@ -212,6 +213,7 @@ reverse(vec.begin() + l, vec.begin() + r + 1);`,
 
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <Link to="/">

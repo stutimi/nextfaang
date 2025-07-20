@@ -12,7 +12,6 @@ import { AIAssistant } from '@/components/AIAssistant';
 import { AIFloatingButton } from '@/components/AIFloatingButton';
 import { FloatingActionButton } from '@/components/FloatingActionButton';
 import { MobileNavigation } from '@/components/MobileNavigation';
-import { NextFaangHeader } from '@/components/NextFaangHeader';
 import {
   Database,
   Network,
@@ -42,7 +41,7 @@ const SystemDesign: React.FC = () => {
       </Helmet>
 
       <ScrollProgress />
-      <NextFaangHeader />
+      <Navbar />
       <InteractiveBackground />
 
       {/* AI Assistant */}
