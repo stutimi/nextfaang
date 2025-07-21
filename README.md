@@ -111,7 +111,7 @@
 
 ---
 
-## 🆕 **Latest Features (v18.0.0)**
+## 🆕 **Latest Features (v25.0.0)**
 
 ### 🏘️ **Community Platform Enhancement**
 

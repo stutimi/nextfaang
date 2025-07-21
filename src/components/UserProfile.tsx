@@ -27,7 +27,14 @@ export function UserProfile() {
     }
   };
 
-  const userName = user.user_metadata?.full_name || user.user_metadata?.name || 'User';
+  // Enhanced user name extraction with multiple fallbacks
+  const userName = user.user_metadata?.full_name || 
+                   user.user_metadata?.name || 
+                   user.user_metadata?.display_name ||
+                   user.user_metadata?.preferred_username ||
+                   (user.email ? user.email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : null) ||
+                   'User';
+  
   const userEmail = user.email || '';
   const userAvatar = user.user_metadata?.avatar_url || user.user_metadata?.picture || '';
   
@@ -45,7 +52,7 @@ export function UserProfile() {
         variant="ghost"
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 hover:bg-primary/10 rounded-xl p-2"
+        className="flex items-center gap-2 hover:bg-primary/10 rounded-xl p-2 max-w-64"
       >
         <Avatar className="h-8 w-8">
           <AvatarImage src={userAvatar} alt={userName} />
@@ -53,7 +60,10 @@ export function UserProfile() {
             {initials}
           </AvatarFallback>
         </Avatar>
-        <span className="hidden sm:block text-sm font-medium">{userName}</span>
+        <div className="hidden sm:flex flex-col items-start min-w-0">
+          <span className="text-sm font-medium truncate max-w-32">{userName}</span>
+          <span className="text-xs text-muted-foreground truncate max-w-32">{userEmail}</span>
+        </div>
       </Button>
 
       <AnimatePresence>
@@ -96,12 +106,12 @@ export function UserProfile() {
               {/* Menu Items */}
               <div className="p-2">
                 <Link
-                  to="/profile"
+                  to="/profile-settings"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-primary/10 transition-colors duration-200 group"
                 >
                   <User className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
-                  <span className="text-sm font-medium">Profile</span>
+                  <span className="text-sm font-medium">Profile Settings</span>
                 </Link>
 
                 <button

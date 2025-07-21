@@ -23,7 +23,22 @@ import {
   Info,
   Home
 } from "lucide-react";
-import { toolsItems } from "./navigationData";
+import { toolsItems, type ToolItem } from "./navigationData";
+
+// Hardcoded fallback data to bypass any import issues
+const HARDCODED_TOOLS = [
+  { label: "CP Arena", href: "/cp-arena", icon: "Sword", description: "Compete in coding battles", badge: "New" },
+  { label: "Contest Analyzer", href: "/contest-analyzer", icon: "Sparkles", description: "Analyze your contest performance" },
+  { label: "CP Dictionary", href: "/cp-dictionary", icon: "Book", description: "Learn competitive programming terms" },
+  { label: "Language Translator", href: "/language-translation", icon: "Globe", description: "Translate code between programming languages", badge: "Live" },
+  { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: "Rocket", description: "Master advanced techniques" },
+  { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
+  { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
+] as const;
+
+// Debug hardcoded data
+console.log('ToolsDropdown - HARDCODED_TOOLS defined:', HARDCODED_TOOLS);
+console.log('ToolsDropdown - hardcoded first item:', HARDCODED_TOOLS[0]);
 
 // Map icon strings to actual icon components
 const toolIconMap = {
@@ -46,7 +61,20 @@ export const ToolsDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  console.log('ToolsDropdown rendering, toolsItems:', toolsItems);
+  // Create tools data inline to avoid any import/reference issues
+  const safeToolsItems = [
+    { label: "CP Arena", href: "/cp-arena", icon: "Sword", description: "Compete in coding battles", badge: "New" },
+    { label: "Contest Analyzer", href: "/contest-analyzer", icon: "Sparkles", description: "Analyze your contest performance" },
+    { label: "CP Dictionary", href: "/cp-dictionary", icon: "Book", description: "Learn competitive programming terms" },
+    { label: "Language Translator", href: "/language-translation", icon: "Globe", description: "Translate code between programming languages", badge: "Live" },
+    { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: "Rocket", description: "Master advanced techniques" },
+    { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
+    { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
+  ];
+  
+  console.log('ToolsDropdown - Inline tools count:', safeToolsItems.length);
+  console.log('ToolsDropdown - First tool label:', safeToolsItems[0]?.label);
+  console.log('ToolsDropdown - All tool labels:', safeToolsItems.map(t => t.label));
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -84,11 +112,11 @@ export const ToolsDropdown = () => {
         >
           <div className="p-4">
             <div className="text-sm font-bold mb-3 text-primary">
-              Developer Tools ({toolsItems.length})
+              Developer Tools ({safeToolsItems.length})
             </div>
-            {toolsItems.length > 0 ? (
+            {safeToolsItems.length > 0 ? (
               <div className="space-y-1">
-                {toolsItems.map((tool) => (
+                {safeToolsItems.map((tool) => (
                   <Link
                     key={tool.label}
                     to={tool.href}

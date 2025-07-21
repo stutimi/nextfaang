@@ -43,3 +43,9 @@ export const toolsItems: ToolItem[] = [
   { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
   { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
 ];
+
+// Debug: Log the toolsItems at module level
+console.log('navigationData.ts - toolsItems at export:', toolsItems);
+console.log('navigationData.ts - first item:', toolsItems[0]);
+console.log('navigationData.ts - toolsItems length:', toolsItems.length);
+

@@ -27,6 +27,7 @@ import Community from "./pages/Community";
 import About from "./pages/About";
 import SystemDesign from "./pages/SystemDesign";
 import { SimpleProfilePage } from "./components/SimpleProfilePage";
+import { EnhancedProfileSettings } from "./components/EnhancedProfileSettings";
 import { TestDropdown } from "./components/TestDropdown";
 import { DropdownTest } from "./components/DropdownTest";
 
@@ -143,6 +144,11 @@ const App = () => {
             <Route path="/profile" element={
               <ErrorBoundary>
                 <SimpleProfilePage />
+              </ErrorBoundary>
+            } />
+            <Route path="/profile-settings" element={
+              <ErrorBoundary>
+                <EnhancedProfileSettings />
               </ErrorBoundary>
             } />
             <Route path="/test-dropdown" element={
