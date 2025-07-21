@@ -1,11 +1,46 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, Sparkles, Sword, Book, Rocket, Star, Globe } from "lucide-react";
-import { toolsItems } from "./navigationData";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  ChevronDown,
+  Sparkles,
+  Sword,
+  Book,
+  Rocket,
+  Star,
+  Globe,
+  Layout,
+  Code,
+  BookOpen,
+  Users,
+  Info,
+  Home
+} from "lucide-react";
+import { toolsItems, type ToolItem } from "./navigationData";
 
+// Hardcoded fallback data to bypass any import issues
+const HARDCODED_TOOLS = [
+  { label: "CP Arena", href: "/cp-arena", icon: "Sword", description: "Compete in coding battles", badge: "New" },
+  { label: "Contest Analyzer", href: "/contest-analyzer", icon: "Sparkles", description: "Analyze your contest performance" },
+  { label: "CP Dictionary", href: "/cp-dictionary", icon: "Book", description: "Learn competitive programming terms" },
+  { label: "Language Translator", href: "/language-translation", icon: "Globe", description: "Translate code between programming languages", badge: "Live" },
+  { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: "Rocket", description: "Master advanced techniques" },
+  { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
+  { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
+] as const;
+
+// Debug hardcoded data
+console.log('ToolsDropdown - HARDCODED_TOOLS defined:', HARDCODED_TOOLS);
+console.log('ToolsDropdown - hardcoded first item:', HARDCODED_TOOLS[0]);
+
+// Map icon strings to actual icon components
 const toolIconMap = {
   Sword: Sword,
   Sparkles: Sparkles,
@@ -13,109 +48,104 @@ const toolIconMap = {
   Globe: Globe,
   Rocket: Rocket,
   Star: Star,
+  Layout: Layout,
+  Code: Code,
+  BookOpen: BookOpen,
+  Users: Users,
+  Info: Info,
+  Home: Home
 };
 
+// Custom dropdown implementation as fallback
 export const ToolsDropdown = () => {
-  const [toolsOpen, setToolsOpen] = useState(false);
-  const toolsRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Create tools data inline to avoid any import/reference issues
+  const safeToolsItems = [
+    { label: "CP Arena", href: "/cp-arena", icon: "Sword", description: "Compete in coding battles", badge: "New" },
+    { label: "Contest Analyzer", href: "/contest-analyzer", icon: "Sparkles", description: "Analyze your contest performance" },
+    { label: "CP Dictionary", href: "/cp-dictionary", icon: "Book", description: "Learn competitive programming terms" },
+    { label: "Language Translator", href: "/language-translation", icon: "Globe", description: "Translate code between programming languages", badge: "Live" },
+    { label: "Tricks & Tips", href: "/cp-tricks-tips", icon: "Rocket", description: "Master advanced techniques" },
+    { label: "DSA Mastery", href: "/dsa", icon: "Star", description: "Complete data structures guide" },
+    { label: "System Design", href: "/system-design", icon: "Layout", description: "Master system design concepts", badge: "New" }
+  ];
+  
+  console.log('ToolsDropdown - Inline tools count:', safeToolsItems.length);
+  console.log('ToolsDropdown - First tool label:', safeToolsItems[0]?.label);
+  console.log('ToolsDropdown - All tool labels:', safeToolsItems.map(t => t.label));
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (toolsRef.current && !toolsRef.current.contains(event.target as Node)) {
-        setToolsOpen(false);
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
 
   return (
-    <div className="relative" ref={toolsRef}>
-      <motion.div
-        whileHover={{ scale: 1.05, y: -2 }}
-        whileTap={{ scale: 0.95 }}
+    <div className="relative" ref={dropdownRef}>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="flex items-center gap-2 text-foreground/90 hover:text-primary px-4 py-2.5 rounded-xl transition-all duration-300"
+        onClick={() => {
+          console.log('Tools button clicked, current state:', isOpen);
+          setIsOpen(!isOpen);
+        }}
       >
-        <Button
-          variant="ghost"
-          size="sm"
-          className="flex items-center gap-2 text-foreground/90 hover:text-primary hover:bg-gradient-to-r hover:from-primary/15 hover:to-accent/10 px-4 py-2.5 rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-primary/30"
-          onClick={() => setToolsOpen(!toolsOpen)}
-        >
-          <motion.div
-            animate={{ rotate: toolsOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Sparkles className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
-          </motion.div>
-          <span className="font-medium">Tools</span>
-          <motion.div
-            animate={{ rotate: toolsOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ChevronDown className="h-3 w-3" />
-          </motion.div>
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </Button>
-      </motion.div>
+        <Sparkles className="h-4 w-4" />
+        <span className="font-medium">Tools</span>
+        <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </Button>
 
-      <AnimatePresence>
-        {toolsOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute right-0 top-full mt-3 w-80 bg-popover/95 backdrop-blur-xl border-2 border-border/50 rounded-2xl shadow-2xl shadow-primary/10 z-[100] overflow-hidden"
-          >
-            <div className="p-4">
-              <div className="flex items-center gap-2 mb-4 px-2">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm font-bold text-primary">Developer Tools</span>
-              </div>
-              <div className="space-y-2">
-                {toolsItems.map((tool, index) => (
-                  <motion.div
+      {isOpen && (
+        <div
+          className="absolute right-0 top-full mt-2 w-80 bg-background border-2 border-red-500 rounded-lg shadow-lg z-[9999] max-h-96 overflow-y-auto"
+          style={{ position: 'absolute', zIndex: 9999 }}
+        >
+          <div className="p-4">
+            <div className="text-sm font-bold mb-3 text-primary">
+              Developer Tools ({safeToolsItems.length})
+            </div>
+            {safeToolsItems.length > 0 ? (
+              <div className="space-y-1">
+                {safeToolsItems.map((tool) => (
+                  <Link
                     key={tool.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    to={tool.href}
+                    className="block p-3 hover:bg-primary/10 rounded-lg transition-colors"
+                    onClick={() => setIsOpen(false)}
                   >
-                    <Link
-                      to={tool.href}
-                      className="w-full flex items-start gap-3 cursor-pointer hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/5 rounded-xl p-3 group transition-all duration-300 border border-transparent hover:border-primary/20"
-                      onClick={() => setToolsOpen(false)}
-                    >
-                      <div className="p-2 bg-gradient-to-br from-primary/10 to-accent/5 rounded-xl group-hover:from-primary/20 group-hover:to-accent/10 transition-all duration-300 border border-primary/10 group-hover:border-primary/20">
+                    <div className="flex items-center gap-3">
+                      <div className="p-1 bg-primary/10 rounded">
                         {(() => {
-                          const IconComponent = toolIconMap[tool.icon as keyof typeof toolIconMap];
+                          const IconComponent = toolIconMap[tool.icon as keyof typeof toolIconMap] || Sparkles;
                           return <IconComponent className="h-4 w-4" />;
                         })()}
                       </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300 flex items-center gap-2">
-                          {tool.label}
-                          {tool.badge && (
-                            <Badge
-                              variant="secondary"
-                              className="text-xs px-2 py-0.5 bg-gradient-to-r from-green-500/20 to-green-600/20 text-green-400 border-green-500/30 shadow-sm"
-                            >
-                              {tool.badge}
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                          {tool.description}
-                        </div>
+                      <div>
+                        <div className="font-medium text-foreground">{tool.label}</div>
+                        <div className="text-xs text-muted-foreground">{tool.description}</div>
                       </div>
-                    </Link>
-                  </motion.div>
+                    </div>
+                  </Link>
                 ))}
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ) : (
+              <div className="p-2 text-muted-foreground">No tools available</div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+

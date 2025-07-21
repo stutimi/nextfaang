@@ -7,6 +7,8 @@ import { useAuthContext } from '@/components/AuthProvider'
 import { toast } from 'sonner'
 
 export function SignUpForm() {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -15,6 +17,16 @@ export function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!firstName.trim()) {
+      toast.error('First name is required')
+      return
+    }
+
+    if (!lastName.trim()) {
+      toast.error('Last name is required')
+      return
+    }
     
     if (password !== confirmPassword) {
       toast.error('Passwords do not match')
@@ -29,7 +41,14 @@ export function SignUpForm() {
     setLoading(true)
 
     try {
-      const { error } = await signUp(email, password)
+      const fullName = `${firstName.trim()} ${lastName.trim()}`
+      const { error } = await signUp(email, password, {
+        data: {
+          full_name: fullName,
+          first_name: firstName.trim(),
+          last_name: lastName.trim()
+        }
+      })
       if (error) {
         toast.error(error.message)
       } else {
@@ -80,6 +99,32 @@ export function SignUpForm() {
       </CardHeader>
       <CardContent className="space-y-4">
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="firstName">First Name</Label>
+              <Input
+                id="firstName"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="John"
+                required
+                disabled={loading}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lastName">Last Name</Label>
+              <Input
+                id="lastName"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Doe"
+                required
+                disabled={loading}
+              />
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="signup-email">Email</Label>
             <Input
@@ -87,6 +132,7 @@ export function SignUpForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="john.doe@example.com"
               required
               disabled={loading}
             />

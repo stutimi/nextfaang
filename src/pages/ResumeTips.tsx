@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Play, Star, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Navbar } from "@/components/Navbar";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const resumeTutorials = [
   {
@@ -32,10 +34,7 @@ const resumeTutorials = [
 export default function ResumeTips() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Theme Toggle in top right */}
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -115,6 +114,9 @@ export default function ResumeTips() {
           </Card>
         </div>
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 }

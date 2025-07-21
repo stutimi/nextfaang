@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Search, BookOpen, Code, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Navbar } from "@/components/Navbar";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const CPDictionary = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -96,10 +98,7 @@ const CPDictionary = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Theme Toggle in top right */}
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <Link to="/">
@@ -171,6 +170,9 @@ const CPDictionary = () => {
           </div>
         )}
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

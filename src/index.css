@@ -1756,15 +1756,291 @@
 }
 
 @keyframes holographic-sweep {
-  0% { 
+  0% {
     transform: translateX(-100%) translateY(-100%) rotate(45deg);
     opacity: 0;
   }
-  50% { 
+  50% {
     opacity: 1;
   }
-  100% { 
+  100% {
     transform: translateX(100%) translateY(100%) rotate(45deg);
     opacity: 0;
+  }
+}
+
+/* Mobile-specific improvements */
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Touch-friendly button sizes */
+  @media (max-width: 768px) {
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Ensure chatbot doesn't interfere with mobile navigation */
+    .mobile-chatbot-overlay {
+      z-index: 9999;
+    }
+
+    /* Better mobile scrolling */
+    .mobile-scroll {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    /* Mobile-optimized text sizes */
+    .mobile-text-sm {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .mobile-text-base {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* DSA Page Mobile Optimizations */
+    .dsa-mobile-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .dsa-mobile-section {
+      margin-bottom: 2rem;
+    }
+
+    .dsa-mobile-card {
+      padding: 1rem;
+    }
+
+    .dsa-mobile-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .dsa-mobile-text {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .dsa-mobile-title {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+
+    /* Improve button spacing on mobile */
+    .dsa-mobile-button {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    /* Better image handling on mobile */
+    .dsa-mobile-image {
+      height: 10rem;
+      object-fit: cover;
+    }
+
+    /* Responsive badges */
+    .dsa-mobile-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    /* Additional mobile improvements */
+    .dsa-mobile-container {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* Prevent horizontal scroll */
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Better touch targets */
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    /* Improved mobile typography */
+    .dsa-mobile-heading {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 700;
+    }
+
+    /* Better mobile spacing */
+    .dsa-mobile-spacing {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Mobile-optimized cards */
+    .dsa-mobile-card {
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive images */
+    .dsa-mobile-image {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    /* Better mobile navigation */
+    .mobile-nav-safe {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+    }
+
+    /* Ensure navbar stays visible on mobile */
+    .mobile-navbar-fix {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 60 !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
+    /* Prevent navbar hiding on mobile scroll - Enhanced */
+    @media (max-width: 1024px) {
+      /* Force all nav elements to stay visible */
+      nav,
+      nav[class*="sticky"],
+      nav[style*="transform"],
+      nav[style*="opacity"],
+      nav.mobile-navbar-visible {
+        position: sticky !important;
+        top: 0 !important;
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        will-change: auto !important;
+        z-index: 60 !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* Override any framer motion styles and transforms */
+      nav > div[style*="transform"],
+      nav[style*="transform"] > div,
+      nav * {
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* Force navbar visibility on mobile - more specific */
+      .mobile-navbar-visible,
+      .mobile-navbar-visible *,
+      nav.mobile-navbar-visible,
+      nav.mobile-navbar-visible * {
+        position: sticky !important;
+        top: 0 !important;
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* Disable all motion and animations on mobile navbar */
+      nav[data-framer-component],
+      nav[data-framer-name],
+      nav[style*="transform"],
+      nav[style*="opacity"],
+      nav[style*="translateY"] {
+        animation: none !important;
+        transition: none !important;
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+      }
+
+      /* Additional mobile navbar fixes */
+      nav.mobile-navbar-visible {
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        transform: none !important;
+        translate: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 60 !important;
+      }
+
+      /* Prevent any CSS animations or transitions on mobile navbar */
+      @media (max-width: 1024px) {
+        nav, nav * {
+          animation-duration: 0s !important;
+          animation-delay: 0s !important;
+          transition-duration: 0s !important;
+          transition-delay: 0s !important;
+        }
+      }
+
+      /* Mobile Navbar - Force fixed positioning */
+      .mobile-navbar-fixed {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        transform: none !important;
+        translate: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 50 !important;
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .dsa-mobile-title {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+    }
+
+    .dsa-mobile-text {
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+    }
+
+    .dsa-mobile-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .dsa-mobile-button {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+    }
   }
 }

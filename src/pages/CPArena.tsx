@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import "./CPArena.css";
 import { Navbar } from "@/components/Navbar";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { CodingArena } from "@/components/CodingArena";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -917,6 +918,9 @@ const CPArena = () => {
       </div>
       
       <VoiceEffects />
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

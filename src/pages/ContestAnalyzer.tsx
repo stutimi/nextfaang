@@ -16,6 +16,7 @@ import { EnhancedPerformanceAnalyzer } from "@/components/EnhancedPerformanceAna
 import { QuestionSuggestions } from "@/components/QuestionSuggestions";
 import { HackathonPlatforms } from "@/components/HackathonPlatforms";
 import { Search, TrendingUp, Target, BookOpen, Github, Sword, Trophy } from "lucide-react";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 const ContestAnalyzer = () => {
   const [codeforcesHandle, setCodeforcesHandle] = useState("");
@@ -210,6 +211,9 @@ const ContestAnalyzer = () => {
           </div>
         )}
       </div>
+
+      {/* Enhanced UI Components */}
+      <FloatingActionButton />
     </div>
   );
 };

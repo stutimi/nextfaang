@@ -7,7 +7,7 @@ interface AuthContextType {
   session: Session | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<any>
-  signUp: (email: string, password: string) => Promise<any>
+  signUp: (email: string, password: string, options?: { data?: any }) => Promise<any>
   signOut: () => Promise<any>
   signInWithGoogle: () => Promise<any>
   signInWithGitHub: () => Promise<any>

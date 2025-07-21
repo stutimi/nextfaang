@@ -9,6 +9,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
 
 import { CPSection } from "@/components/CPSection";
+import { DSASection } from "@/components/DSASection";
 import { SystemDesignSection } from "@/components/SystemDesignSection";
 import { SmartToolsSection } from "@/components/SmartToolsSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
@@ -83,7 +84,7 @@ const Index = () => {
         <StatsSection />
         
         <section id="learning-sections" className="space-y-20 md:space-y-32">
-
+          <DSASection />
           <SystemDesignSection />
         </section>
 
