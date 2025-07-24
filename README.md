@@ -21,8 +21,6 @@
 
 *🎯 Empowering 500K+ students to crack FAANG interviews and achieve Legendary Grandmaster status*
 
-**Designed by [Xenonesis](https://github.com/Xenonesis) 🚀**
-
 </div>
 
 ---
